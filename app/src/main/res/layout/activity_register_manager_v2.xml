@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/bgActionBar"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Sign Up"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp20"
+                android:textStyle="bold" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:weightSum="4"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                android:id="@+id/edtCompanyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_edittext"
+                android:gravity="left|center_vertical"
+                android:hint="@string/companyName"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="16sp" />
+
+            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                android:id="@+id/edtFullNameManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/bg_edittext"
+                android:gravity="left|center_vertical"
+                android:hint="@string/full_name"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="16sp" />
+
+            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                android:id="@+id/edtEmailManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/bg_edittext"
+                android:gravity="left|center_vertical"
+                android:hint="@string/email"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="16sp" />
+
+            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                android:id="@+id/edtPhoneNumberManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/bg_edittext"
+                android:gravity="left|center_vertical"
+                android:hint="@string/phone_number"
+                android:imeOptions="actionNext"
+                android:inputType="text|phone"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="16sp" />
+
+            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                android:id="@+id/edtPasswordManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/bg_edittext"
+                android:gravity="left|center_vertical"
+                android:hint="@string/password"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="16sp" />
+
+
+            <Spinner
+                android:background="@drawable/bg_spiner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spIndustry" />
+            <Spinner
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_spiner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spCompanySize" />
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_btn_signup"
+                android:text="Sign Up"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp16" />
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical|center_horizontal|center"
+                android:text="By signing up, I have read and agree to JobNow.com"
+                android:textColor="#666666"
+                android:textSize="@dimen/sp12" />
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                android:id="@+id/txtCondition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Term of Service and Privacy Policy"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/sp12" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

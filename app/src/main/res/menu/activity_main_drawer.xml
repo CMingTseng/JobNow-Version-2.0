@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_appSettings"
+            android:title="App Settings"
+
+            />
+        <item android:id="@+id/nav_getJobCredit"
+            android:title="Get More Job Credit"
+            />
+        <item android:id="@+id/nav_feedback"
+            android:title="Feedback"
+            />
+        <item android:id="@+id/nav_needHelp"
+            android:title="Need Help"
+            />
+        <item android:id="@+id/nav_privacyPolicy"
+            android:title="Privacy Policy"
+            />
+        <item android:id="@+id/nav_termOfUse"
+            android:title="Term Of Use"
+            />
+        <item android:id="@+id/nav_logOut"
+            android:title="Log Out" />
+    </group>
+
+</menu>

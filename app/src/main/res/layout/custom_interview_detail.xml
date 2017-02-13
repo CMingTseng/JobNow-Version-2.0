@@ -1,0 +1,122 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <TableRow
+        android:id="@+id/tb_add_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_photo_company"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/default_avatar" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:background="@color/white"
+            android:paddingRight="10dp">
+
+            <com.newtech.jobnow.common.CustomTextViewLato
+                android:id="@+id/txt_name_employee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jessie Nencer"
+                android:textColor="@color/colorBgApplyJob"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_below="@+id/txt_name_employee"
+                android:id="@+id/tb_shortlist_detail"
+                android:layout_marginTop="5dp"
+                android:layout_height="25dp">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/ic_location_interview"
+                    android:layout_width="wrap_content" />
+
+                <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                    android:id="@+id/txt_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:text="Viet Nam"
+                    android:textColor="@color/black" />
+
+            </TableRow>
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                android:text="Datetime: 12-05-2017"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_datetime_interview"
+                android:layout_below="@+id/tb_shortlist_detail"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@mipmap/ic_datetime_shortlist3"
+                android:drawablePadding="5dp"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_start_time"
+                android:layout_below="@+id/txt_datetime_interview"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"
+                android:text="Start time: 8:30 am"
+                android:drawableLeft="@mipmap/ic_clock_interview"
+                android:drawablePadding="5dp"
+                android:textSize="@dimen/sp12"
+                android:textColor="@color/black"
+                />
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_end_time"
+                android:layout_below="@+id/txt_datetime_interview"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="5dp"
+                android:text="End time: 8:30 am"
+                android:drawableLeft="@mipmap/ic_clock_interview"
+                android:drawablePadding="5dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp12"
+                />
+
+        </RelativeLayout>
+
+    </TableRow>
+    <View
+        android:id="@+id/view3"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tb_add_category"
+        android:background="@color/colorTimer"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp" />
+</RelativeLayout>

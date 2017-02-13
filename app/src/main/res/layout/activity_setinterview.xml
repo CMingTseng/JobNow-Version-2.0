@@ -1,0 +1,312 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/bgActionBar"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Set Interview Time"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp20"
+                android:textStyle="bold" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <TableRow
+        android:id="@+id/tb_add_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_photo_company"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/default_avatar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:background="@color/white"
+            android:paddingRight="10dp">
+
+            <com.newtech.jobnow.common.CustomTextViewLato
+                android:id="@+id/txt_name_employee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jessie Nencer"
+                android:textColor="@color/colorBgApplyJob"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="12dp"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/ic_location_interview" />
+
+                <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                    android:id="@+id/txt_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:text="Viet Nam"
+                    android:textColor="@color/black" />
+            </TableRow>
+
+        </LinearLayout>
+    </TableRow>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/img_menu"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/colorLine" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:text="Datetime"
+                android:textColor="@color/black" />
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                android:id="@+id/editDatetimeInterview"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_edittext"
+                android:drawableRight="@mipmap/ic_datetime"
+                android:gravity="left|center_vertical"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="to"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/btn_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/textView11"
+                    android:drawableRight="@mipmap/ic_down"
+                    android:background="@drawable/bg_edit_interview"
+                    android:padding="10dp"
+                    android:text="@string/start_time"
+                    android:textColorHint="@color/colorText"
+
+                    />
+
+                <TextView
+                    android:id="@+id/btn_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@+id/textView11"
+                    android:background="@drawable/bg_edit_interview"
+                    android:drawableRight="@mipmap/ic_down"
+                    android:padding="10dp"
+                    android:text="@string/end_time"
+                    android:textColor="@color/colorText" />
+            </RelativeLayout>
+
+            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                android:id="@+id/txt_interviewer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Interviewer"
+                android:textColor="@color/black" />
+
+            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                android:id="@+id/editInterviewer"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_edittext"
+                android:gravity="left|center_vertical"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="16sp" />
+
+            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                android:id="@+id/txt_phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Phone Number"
+                android:textColor="@color/black" />
+
+            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                android:id="@+id/editPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_edittext"
+                android:gravity="left|center_vertical"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="16sp" />
+
+            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                android:id="@+id/txt_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Location"
+                android:textColor="@color/black" />
+
+            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                android:id="@+id/editLocation"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_edittext"
+                android:gravity="left|center_vertical"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="16sp" />
+
+            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                android:id="@+id/txt_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Subjects"
+                android:textColor="@color/black" />
+
+            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                android:id="@+id/editSubjects"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_edittext"
+                android:gravity="left|center_vertical"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="16sp" />
+
+            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                android:id="@+id/txt_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Message"
+                android:textColor="@color/black" />
+
+            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                android:id="@+id/editMessage"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:gravity="left"
+                android:inputType="textMultiLine"
+                android:background="@drawable/bg_edittext"
+                android:textSize="14sp" />
+
+
+            <Button
+                android:id="@+id/btnSendSetInterview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_btn_signup"
+                android:text="@string/send"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+

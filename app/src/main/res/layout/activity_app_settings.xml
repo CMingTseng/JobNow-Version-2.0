@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/bgActionBar"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/app_settings"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp20"
+                android:textStyle="bold" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="4"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBgShortlist"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="Details"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:textSize="@dimen/sp16"
+            />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <com.newtech.jobnow.common.CustomTextViewLato
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Name:"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="@dimen/sp14"
+                />
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                android:id="@+id/txt_name_setting"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:text="Team Redix"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+
+            <com.newtech.jobnow.common.CustomTextViewLato
+                android:id="@+id/txt_title_email_address"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Email Address:"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="@dimen/sp14"
+                />
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                android:id="@+id/txt_email_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:text="phamtungptit@gmail.com"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical" />
+        </TableRow>
+
+        <com.newtech.jobnow.common.CustomTextViewLato
+            android:id="@+id/txt_title_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Phone:"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp" />
+
+        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            android:id="@+id/edtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_edittext"
+            android:drawableRight="@mipmap/ic_pencil_inactive"
+            android:gravity="left|center_vertical"
+            android:hint="+84 163 567 2888"
+            android:imeOptions="actionDone"
+            android:inputType="phone"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            android:id="@+id/txt_changePass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBgShortlist"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="Change Password"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:textSize="@dimen/sp16"
+            />
+
+        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            android:id="@+id/edtOldPassword"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_edittext"
+            android:gravity="left|center_vertical"
+            android:hint="@string/old_password"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            android:id="@+id/edtNewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_edittext"
+            android:gravity="left|center_vertical"
+            android:hint="@string/new_password"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            android:id="@+id/edtReEnterPassword"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_edittext"
+            android:gravity="left|center_vertical"
+            android:hint="@string/re_password"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+
+        <Button
+            android:id="@+id/btnChangePass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_signup"
+            android:text="@string/change_pass"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

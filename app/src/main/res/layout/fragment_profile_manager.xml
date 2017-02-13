@@ -1,0 +1,121 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:layout_centerHorizontal="true"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@mipmap/ic_bg_profile_manager"
+        android:id="@+id/layout_profile_manager"
+        android:layout_height="180dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/default_avatar"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="81dp"
+            android:id="@+id/img_photo_company" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/ic_add_photo"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="81dp"
+
+            android:id="@+id/img_add" />
+
+        <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+            android:text="Profile Photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:layout_marginTop="11dp"
+            android:layout_below="@+id/img_photo_company"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black" />
+
+    </RelativeLayout>
+
+    <TableRow
+        android:id="@+id/tb_name_conpany"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_profile_manager"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:background="@color/colorBgNameCompany"
+        android:gravity="center">
+
+        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            android:text="Gandalf Company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_profile__name_company"
+            android:textStyle="bold"
+            android:textSize="@dimen/sp20"
+            android:textColor="@color/black" />
+    </TableRow>
+
+    <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+        android:text="Description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tb_name_conpany"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorTextProfile"
+        android:id="@+id/textView6"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp18"
+        android:inputType="textMultiLine" />
+
+    <com.newtech.jobnow.common.CustomEditextHelveticaneue
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editDescription"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:hint="Description of your business"
+        android:background="@drawable/bg_edittext"
+        android:textColorHint="@color/colorTextHint"
+        android:layout_above="@+id/btnSaveProfileManager"
+        android:layout_below="@+id/textView6"
+        android:layout_margin="10dp"
+        android:gravity="left"
+        android:inputType="textMultiLine"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btnSaveProfileManager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn_signup"
+        android:text="@string/save"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textAllCaps="false"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

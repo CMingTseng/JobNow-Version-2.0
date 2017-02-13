@@ -1,0 +1,177 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:background="@color/white"
+    android:orientation="vertical"
+
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <com.newtech.jobnow.common.CustomTextViewLato
+            android:text="ICT Executive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_title_job_item"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp20"
+            android:maxLines="1"
+            />
+
+        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView19"
+            android:background="@mipmap/bg_feature"
+            android:gravity="right"
+            android:text="FEATURED"
+            android:textSize="@dimen/sp12"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textColor="@color/black"
+            android:visibility="invisible"
+            />
+    </RelativeLayout>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp">
+
+        <ImageView
+            android:id="@+id/img_location_item"
+            android:src="@mipmap/ic_location"
+            android:layout_gravity="center"
+            android:layout_height="24dp"
+            android:layout_width="10dp" />
+
+        <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            android:id="@+id/txt_location_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="Viet Nam"
+            android:textSize="@dimen/sp14"
+            />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/img_price_item"
+            android:src="@mipmap/ic_price"
+            android:layout_marginLeft="8dp"
+            android:layout_gravity="center"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+
+        <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            android:id="@+id/txt_price_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:text="6.000-9.000(USD)"
+            android:textColor="@color/colorBgApplyJob"
+            android:textSize="@dimen/sp14"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tb_company"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"
+        android:layout_marginLeft="5dp"
+        android:padding="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_photo_company"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/default_avatar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:background="@color/white"
+            android:paddingRight="10dp">
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                android:id="@+id/txt_name_employee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jessie Nencer"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                    android:id="@+id/txt_time_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@mipmap/ic_timer"
+                    android:textColor="@color/colorTimer"
+                    android:drawablePadding="5dp"
+                    android:text="Posted: 9 minutes ago"
+                    android:layout_toLeftOf="@+id/btn_delete"
+                    android:layout_toStartOf="@+id/btn_delete" />
+
+                <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                    android:id="@+id/btn_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Delete"
+                    android:drawableLeft="@mipmap/ic_delete"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:drawablePadding="5dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </TableRow>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorTextHint"
+        android:layout_below="@+id/img_menu"
+        android:id="@+id/view2" />
+</LinearLayout>

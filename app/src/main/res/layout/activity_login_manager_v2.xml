@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="4"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_margin="10dp"
+        >
+        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            android:id="@+id/edtEmailManager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_edittext"
+            android:gravity="left|center_vertical"
+            android:hint="@string/email"
+            android:textColorHint="@color/colorTextHint"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp" />
+
+        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            android:id="@+id/edtPasswordManager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext"
+            android:gravity="left|center_vertical"
+            android:hint="@string/password"
+            android:textColorHint="@color/colorTextHint"
+            android:imeOptions="actionDone"
+            android:padding="10dp"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp" />
+
+        <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+            android:text="Fogot password?"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtForgot"
+            android:padding="10dp"
+            android:textSize="@dimen/sp16"
+            android:textColor="@color/black"
+            android:layout_marginLeft="-10dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/btnLoginManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_signup"
+                android:text="Login"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:layout_weight="1"
+                android:textSize="@dimen/sp16"
+                android:layout_marginRight="4dp" />
+            <Button
+                android:id="@+id/btnRegisterManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_signup"
+                android:text="@string/register"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:layout_weight="1"
+                android:textSize="@dimen/sp16"
+                android:layout_marginLeft="4dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/bgActionBar"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log In"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/toolbar_title"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:textSize="@dimen/sp20"
+                />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+</android.support.design.widget.CoordinatorLayout>
