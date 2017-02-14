@@ -7,7 +7,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="image_width">110dp</dimen>
-    <dimen name="icon_size">28dp</dimen>
+    <dimen name="icon_size">30dp</dimen>
     <dimen name="image_final_width">32dp</dimen>
     <dimen name="spacing_normal">16dp</dimen>
     <dimen name="dialog_success">250dp</dimen>

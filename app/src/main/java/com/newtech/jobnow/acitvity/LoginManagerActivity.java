@@ -129,6 +129,7 @@ public class LoginManagerActivity extends AppCompatActivity {
             try {
                 if(code!=null){
                     Intent intent= new Intent(LoginManagerActivity.this,MenuActivity.class);
+
                     startActivity(intent);
                     Gson gson= new Gson();
                     String profile=gson.toJson(code);

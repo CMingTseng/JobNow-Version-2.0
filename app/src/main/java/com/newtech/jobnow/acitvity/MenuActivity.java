@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
+import com.google.gson.Gson;
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.fragment.AppliedJobListFragment;
@@ -36,7 +37,9 @@ import com.newtech.jobnow.fragment.ProfileFragment;
 import com.newtech.jobnow.fragment.ProfileManagerFragment;
 import com.newtech.jobnow.fragment.SaveJobListFragment;
 import com.newtech.jobnow.fragment.ShorListCategoryFragment;
+import com.newtech.jobnow.models.UserModel;
 import com.newtech.jobnow.widget.TabEntity;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -56,10 +59,23 @@ public class MenuActivity extends AppCompatActivity {
     private ArrayList<Fragment> mFragments2 = new ArrayList<>();
     NavigationView navigationView;
     RelativeLayout header_layout;
+
+    ImageView img_avatar;
+    TextView txt_emailUser;
+    UserModel userModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        try{
+            SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
+            String profile=sharedPreferences.getString(Config.KEY_USER_PROFILE,"");
+            Gson gson= new Gson();
+            userModel=gson.fromJson(profile,UserModel.class);
+        }catch (Exception err){
+
+        }
 
         InitUI();
         bindData();
@@ -68,6 +84,7 @@ public class MenuActivity extends AppCompatActivity {
                 this, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
 
     }
 
@@ -102,7 +119,16 @@ public class MenuActivity extends AppCompatActivity {
         tools.setTitle(wordtoSpan1);
 
         View headerview = navigationView.getHeaderView(0);
+        img_avatar=(ImageView) headerview.findViewById(R.id.img_avatar);
+        txt_emailUser=(TextView) headerview.findViewById(R.id.txt_emailUser);
         header_layout = (RelativeLayout) headerview.findViewById(R.id.header_layout);
+
+        txt_emailUser.setText(userModel.email);
+        try {
+            Picasso.with(MenuActivity.this).load(userModel.avatar).placeholder(R.mipmap.default_avatar).error(R.mipmap.default_avatar).into(img_avatar);
+        }catch (Exception e){
+            Picasso.with(MenuActivity.this).load(R.mipmap.default_avatar).into(img_avatar);
+        }
     }
 
     public void InitEvent(){
