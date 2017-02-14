@@ -71,7 +71,7 @@ public class UserController {
                 if (result.code == 200) {
                     return "";
                 }else{
-                    return "Error";
+                    return result.message;
                 }
             } catch (Exception ex) {
                 String ss = ex.toString();

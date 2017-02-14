@@ -195,7 +195,7 @@ public class RegisterManagerActivity extends AppCompatActivity {
                     Toast.makeText(RegisterManagerActivity.this, getString(R.string.selectCompanySize), Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    RegisterManagerRequest registerManagerRequest= new RegisterManagerRequest(companyName,email,password,industryID,companySizeID,phoneNumber);
+                    RegisterManagerRequest registerManagerRequest= new RegisterManagerRequest(companyName,email,password,industryID,companySizeID,phoneNumber,fullname);
                     RegisterAsystask registerAsystask= new RegisterAsystask(RegisterManagerActivity.this,registerManagerRequest);
                     registerAsystask.execute();
                 }
@@ -240,6 +240,8 @@ public class RegisterManagerActivity extends AppCompatActivity {
                     /*SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt(Config.KEY_COMPANYID, code.getId()).commit();*/
+                }else {
+                    Toast.makeText(RegisterManagerActivity.this, error, Toast.LENGTH_SHORT).show();
                 }
             }catch (Exception e){
             }

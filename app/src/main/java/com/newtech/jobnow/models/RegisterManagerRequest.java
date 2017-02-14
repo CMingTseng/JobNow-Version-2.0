@@ -16,8 +16,9 @@ public class RegisterManagerRequest extends BaseRequest implements Serializable 
     private int IndustryID;
     private int CompanySizeID;
     private String ContactNumber;
+    private String ContactName;
 
-    public RegisterManagerRequest(String fullName, String email, String password, int industryID, int companySizeID,String contactNumber) {
+    public RegisterManagerRequest(String fullName, String email, String password, int industryID, int companySizeID,String contactNumber,String contactName) {
         super(PATH_URL);
         this.Name = fullName;
         this.Email = email;
@@ -25,5 +26,6 @@ public class RegisterManagerRequest extends BaseRequest implements Serializable 
         this.IndustryID = industryID;
         this.CompanySizeID = companySizeID;
         this.ContactNumber=contactNumber;
+        this.ContactName= contactName;
     }
 }
