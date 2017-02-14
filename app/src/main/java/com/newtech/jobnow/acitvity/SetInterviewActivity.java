@@ -292,7 +292,7 @@ public class SetInterviewActivity extends AppCompatActivity {
                         String location = editLocation.getText().toString();
                         String message = editMessage.getText().toString();
 
-                        SetInterviewRequest request = new SetInterviewRequest(0, shortlistDetailObject.UserID, profileModel.CompanyID, title, message, dateTimeInterview, interview, numberPhone, 1, startTime, endTime, location);
+                        SetInterviewRequest request = new SetInterviewRequest(0, shortlistDetailObject.JobSeekerID, profileModel.CompanyID, title, message, dateTimeInterview, interview, numberPhone, 1, startTime, endTime, location);
                         SetNewInterviewAsystask setNewInterviewAsystask = new SetNewInterviewAsystask(SetInterviewActivity.this, request,dialog);
                         setNewInterviewAsystask.execute();
                     }

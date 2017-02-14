@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.newtech.jobnow.models.ApplyJobRequest;
 import com.newtech.jobnow.models.BaseResponse;
+import com.newtech.jobnow.models.CategoryIndustryResponse;
 import com.newtech.jobnow.models.CategoryRequest;
 import com.newtech.jobnow.models.CategoryResponse;
 import com.newtech.jobnow.models.ChangePassRequest;
@@ -16,6 +17,7 @@ import com.newtech.jobnow.models.EmployeeResponse;
 import com.newtech.jobnow.models.ExperienceRequest;
 import com.newtech.jobnow.models.ExperienceResponse;
 import com.newtech.jobnow.models.FeedbackRequest;
+import com.newtech.jobnow.models.ForgotRequest;
 import com.newtech.jobnow.models.IndustryResponse;
 import com.newtech.jobnow.models.InterviewResponse;
 import com.newtech.jobnow.models.InviteRequest;
@@ -23,6 +25,7 @@ import com.newtech.jobnow.models.InviteResponse;
 import com.newtech.jobnow.models.JobListReponse;
 import com.newtech.jobnow.models.JobLocationResponse;
 import com.newtech.jobnow.models.JobRequest;
+import com.newtech.jobnow.models.LevelResponse;
 import com.newtech.jobnow.models.LoginRequest;
 import com.newtech.jobnow.models.LoginResponse;
 import com.newtech.jobnow.models.MapJobListReponse;
@@ -245,7 +248,7 @@ public class APICommon {
         Call<LoginResponse> loginUserV2(@Body LoginRequest request);
 
         @POST("users/postRegisterEmployee")
-        Call<RegisterResponse> registerForManager(@Body RegisterManagerRequest request);
+        Call<LoginResponse> registerForManager(@Body RegisterManagerRequest request);
 
         @GET("jobs/getListJob/{sign}/{app_id}/{device_type}/")
         Call<JobListReponse> getJobListByParamV2(@Path("sign") String sign,
@@ -355,5 +358,14 @@ public class APICommon {
 
         @POST("shortlist/addShortlist")
         Call<BaseResponse> addShortlist(@Body EmployeeAddRequest request);
+
+        @POST("users/postForgot")
+        Call<BaseResponse> forgotPass(@Body ForgotRequest request);
+
+        @GET()
+        Call<LevelResponse> getListLevel(@Url String url);
+
+        @GET()
+        Call<CategoryIndustryResponse> getListCategoryIndustry(@Url String url);
     }
 }

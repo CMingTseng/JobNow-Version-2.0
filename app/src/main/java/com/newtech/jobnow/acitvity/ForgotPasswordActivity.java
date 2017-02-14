@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +23,7 @@ import com.google.gson.Gson;
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.controller.UserController;
+import com.newtech.jobnow.models.ForgotRequest;
 import com.newtech.jobnow.models.LoginRequest;
 import com.newtech.jobnow.models.UserModel;
 
@@ -27,19 +31,18 @@ import com.newtech.jobnow.models.UserModel;
  * Created by Administrator on 07/02/2017.
  */
 
-public class LoginManagerActivity extends AppCompatActivity {
+public class ForgotPasswordActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
-    private EditText edtPasswordManager;
-    private EditText edtEmailManager;
-    private Button btnLoginManager,btnRegisterManager;
-    private TextView txtForgot;
+    private EditText edtEmail;
+    private Button btnForgot;
+    private TextView txt_des_forgot_pass,txt_status;
     private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_manager_v2);
+        setContentView(R.layout.activity_forgot_pass);
         InitUI();
         InitEvent();
     }
@@ -51,15 +54,15 @@ public class LoginManagerActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(getResources().getString(R.string.login));
+        actionBar.setTitle("Forgot Password");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setIcon(R.mipmap.ic_back);
 
-        edtEmailManager=(EditText) findViewById(R.id.edtEmailManager);
-        edtPasswordManager=(EditText) findViewById(R.id.edtPasswordManager);
-        btnLoginManager=(Button) findViewById(R.id.btnLoginManager);
-        btnRegisterManager=(Button) findViewById(R.id.btnRegisterManager);
-        txtForgot=(TextView) findViewById(R.id.txtForgot);
+        edtEmail=(EditText) findViewById(R.id.edtEmail);
+        btnForgot=(Button) findViewById(R.id.btnForgot);
+
+        txt_des_forgot_pass=(TextView) findViewById(R.id.txt_des_forgot_pass);
+        txt_status=(TextView) findViewById(R.id.txt_status);
     }
 
     public void InitEvent(){
@@ -72,45 +75,31 @@ public class LoginManagerActivity extends AppCompatActivity {
             }
         });
 
-        btnLoginManager.setOnClickListener(new View.OnClickListener() {
+        btnForgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginAsystask loginAsystask= new LoginAsystask(LoginManagerActivity.this, new LoginRequest(edtEmailManager.getText().toString(),edtPasswordManager.getText().toString(),1));
-                loginAsystask.execute();
+                ForgotAsystask forgotAsystask= new ForgotAsystask(ForgotPasswordActivity.this, new ForgotRequest(edtEmail.getText().toString()));
+                forgotAsystask.execute();
             }
         });
 
-        btnRegisterManager.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent= new Intent(LoginManagerActivity.this, RegisterManagerActivity.class);
-                startActivity(intent);
-            }
-        });
-        txtForgot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent= new Intent(LoginManagerActivity.this, ForgotPasswordActivity.class);
-                startActivity(intent);
-            }
-        });
     }
     // AsynTask
-    class LoginAsystask extends AsyncTask<LoginRequest,Void,UserModel> {
+    class ForgotAsystask extends AsyncTask<ForgotRequest,Void,String> {
         ProgressDialog dialog;
         String sessionId="";
-        LoginRequest loginRequest;
+        ForgotRequest request;
         Context ct;
-        public LoginAsystask(Context ct,LoginRequest loginRequest){
+        public ForgotAsystask(Context ct,ForgotRequest request){
             this.ct=ct;
-            this.loginRequest=loginRequest;
+            this.request=request;
         }
 
         @Override
-        protected UserModel doInBackground(LoginRequest... params) {
+        protected String doInBackground(ForgotRequest... params) {
             try {
                 UserController controller= new UserController();
-                return controller.CheckLogin(loginRequest);
+                return controller.ForgotPass(request);
             }catch (Exception ex){
                 return null;
             }
@@ -125,17 +114,17 @@ public class LoginManagerActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(UserModel code) {
+        protected void onPostExecute(String code) {
             try {
-                if(code!=null){
-                    Intent intent= new Intent(LoginManagerActivity.this,MenuActivity.class);
-                    startActivity(intent);
-                    Gson gson= new Gson();
-                    String profile=gson.toJson(code);
-                    SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt(Config.KEY_COMPANYID, code.getId()).commit();
-                    editor.putString(Config.KEY_USER_PROFILE, profile).commit();
+                Toast.makeText(ForgotPasswordActivity.this, code, Toast.LENGTH_SHORT).show();
+                if(code.equals("")) {
+                    txt_status.setVisibility(View.VISIBLE);
+                    txt_des_forgot_pass.setVisibility(View.VISIBLE);
+                    String textCondition= "A email has been send to "+edtEmail.getText().toString().trim()+", \nplease check email to reset password. Thank you!!!";
+                    Spannable wordtoSpan1 = new SpannableString(textCondition);
+                    int index=textCondition.indexOf(edtEmail.getText().toString().trim());
+                    wordtoSpan1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)), index, index+edtEmail.getText().toString().trim().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    txt_des_forgot_pass.setText(wordtoSpan1);
                 }
             }catch (Exception e){
             }

@@ -96,7 +96,7 @@ public class MenuActivity extends AppCompatActivity {
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         Menu menu = navigationView.getMenu();
-        MenuItem tools= menu.findItem(R.id.nav_appSettings);
+        MenuItem tools= menu.findItem(R.id.nav_postJobs);
         Spannable wordtoSpan1 = new SpannableString(tools.getTitle());
         wordtoSpan1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red)), 0, wordtoSpan1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         tools.setTitle(wordtoSpan1);
@@ -155,6 +155,9 @@ public class MenuActivity extends AppCompatActivity {
                     editor.putInt(Config.KEY_COMPANYID,0).commit();
                     editor.putString(Config.KEY_USER_PROFILE, "").commit();
                     editor.putString(Config.KEY_COMPANY_PROFILE, "").commit();
+                }else if (id == R.id.nav_postJobs) {
+                    Intent intent= new Intent(MenuActivity.this, PostAJobsActivity.class);
+                    startActivity(intent);
                 }
                 drawer.closeDrawer(GravityCompat.START);
                 return true;

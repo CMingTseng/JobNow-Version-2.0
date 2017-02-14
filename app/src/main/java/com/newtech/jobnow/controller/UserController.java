@@ -9,6 +9,7 @@ import com.newtech.jobnow.acitvity.MyApplication;
 import com.newtech.jobnow.common.APICommon;
 import com.newtech.jobnow.models.BaseResponse;
 import com.newtech.jobnow.models.ChangePassRequest;
+import com.newtech.jobnow.models.ForgotRequest;
 import com.newtech.jobnow.models.JobListRequest;
 import com.newtech.jobnow.models.LoginRequest;
 import com.newtech.jobnow.models.LoginResponse;
@@ -31,11 +32,12 @@ import retrofit2.Call;
 
 public class UserController {
     APICommon.JobNowService service;
-    public UserController(){
+
+    public UserController() {
         service = MyApplication.getInstance().getJobNowService();
     }
 
-    public UserModel CheckLogin(LoginRequest loginRequest){
+    public UserModel CheckLogin(LoginRequest loginRequest) {
         try {
             retrofit.Call<LoginResponse> loginResponseCall = service.loginUserV2(loginRequest);
 
@@ -52,41 +54,64 @@ public class UserController {
             } catch (Exception ex) {
                 String ss = ex.toString();
             }
-        }catch (Exception exx){
+        } catch (Exception exx) {
         }
         return null;
     }
-    public String RegisterManager(RegisterManagerRequest loginRequest){
+
+    public LoginResponse RegisterManager(RegisterManagerRequest loginRequest) {
         try {
-            retrofit.Call<RegisterResponse> loginResponseCall = service.registerForManager(loginRequest);
-            Gson gson= new Gson();
-            String json=gson.toJson(loginRequest).toString();
+            retrofit.Call<LoginResponse> loginResponseCall = service.registerForManager(loginRequest);
+            Gson gson = new Gson();
+            String json = gson.toJson(loginRequest).toString();
             try {
                 if (android.os.Build.VERSION.SDK_INT > 9) {
                     StrictMode.ThreadPolicy policy =
                             new StrictMode.ThreadPolicy.Builder().permitAll().build();
                     StrictMode.setThreadPolicy(policy);
                 }
-                RegisterResponse result = loginResponseCall.execute().body();
+                LoginResponse result = loginResponseCall.execute().body();
+                return result;
+
+            } catch (Exception ex) {
+                String ss = ex.toString();
+
+            }
+        } catch (Exception exx) {
+        }
+        return null;
+    }
+
+    public String ForgotPass(ForgotRequest loginRequest) {
+        try {
+            retrofit.Call<BaseResponse> loginResponseCall = service.forgotPass(loginRequest);
+            try {
+                if (android.os.Build.VERSION.SDK_INT > 9) {
+                    StrictMode.ThreadPolicy policy =
+                            new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+                }
+                BaseResponse result = loginResponseCall.execute().body();
                 if (result.code == 200) {
                     return "";
-                }else{
+                } else {
                     return result.message;
                 }
             } catch (Exception ex) {
                 String ss = ex.toString();
                 return ss;
             }
-        }catch (Exception exx){
+        } catch (Exception exx) {
         }
         return "";
     }
 
-    public String GetToken(TokenRequest loginRequest){
+
+    public String GetToken(TokenRequest loginRequest) {
         try {
             retrofit.Call<LoginResponse> loginResponseCall = service.getToken(loginRequest);
-            Gson gson= new Gson();
-            String json=gson.toJson(loginRequest).toString();
+            Gson gson = new Gson();
+            String json = gson.toJson(loginRequest).toString();
             try {
                 if (android.os.Build.VERSION.SDK_INT > 9) {
                     StrictMode.ThreadPolicy policy =
@@ -96,25 +121,25 @@ public class UserController {
                 LoginResponse results = loginResponseCall.execute().body();
                 if (results.code == 200) {
                     return results.result.apiToken;
-                }else{
+                } else {
                     return "";
                 }
             } catch (Exception ex) {
                 String ss = ex.toString();
                 return ss;
             }
-        }catch (Exception exx){
+        } catch (Exception exx) {
         }
         return "";
     }
 
-    public ProfileModel GetProfileCompany(int userID,String token,int companyID){
+    public ProfileModel GetProfileCompany(int userID, String token, int companyID) {
         try {
             retrofit.Call<ProfileResponse> loginResponseCall = service.getCompanyProfile(
                     APICommon.getSign(APICommon.getApiKey(), JobListRequest.PATH_URL),
                     APICommon.getAppId(),
                     APICommon.getDeviceType(),
-                    userID,token,companyID
+                    userID, token, companyID
             );
 
             try {
@@ -130,12 +155,12 @@ public class UserController {
             } catch (Exception ex) {
                 String ss = ex.toString();
             }
-        }catch (Exception exx){
+        } catch (Exception exx) {
         }
         return null;
     }
 
-    public String UpdateProfileCompany(ProfileRequest profileRequest){
+    public String UpdateProfileCompany(ProfileRequest profileRequest) {
         try {
             retrofit.Call<UploadFileResponse> loginResponseCall = service.updateProfile(profileRequest);
 
@@ -151,12 +176,12 @@ public class UserController {
             } catch (Exception ex) {
                 return ex.getMessage();
             }
-        }catch (Exception exx){
+        } catch (Exception exx) {
         }
         return "";
     }
 
-    public String ChangePassword(ChangePassRequest changePassRequest){
+    public String ChangePassword(ChangePassRequest changePassRequest) {
         try {
             retrofit.Call<BaseResponse> loginResponseCall = service.changePassword(changePassRequest);
 
@@ -172,7 +197,7 @@ public class UserController {
             } catch (Exception ex) {
                 return ex.getMessage();
             }
-        }catch (Exception exx){
+        } catch (Exception exx) {
         }
         return "";
     }

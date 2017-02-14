@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.adapter.IndustryAdapter;
 import com.newtech.jobnow.common.APICommon;
@@ -28,6 +29,7 @@ import com.newtech.jobnow.controller.UserController;
 import com.newtech.jobnow.models.IndustryObject;
 import com.newtech.jobnow.models.IndustryResponse;
 import com.newtech.jobnow.models.LoginRequest;
+import com.newtech.jobnow.models.LoginResponse;
 import com.newtech.jobnow.models.RegisterManagerRequest;
 import com.newtech.jobnow.models.RegisterRequest;
 import com.newtech.jobnow.models.UserModel;
@@ -203,7 +205,7 @@ public class RegisterManagerActivity extends AppCompatActivity {
         });
     }
     // AsynTask
-    class RegisterAsystask extends AsyncTask<RegisterManagerRequest,Void,String> {
+    class RegisterAsystask extends AsyncTask<RegisterManagerRequest,Void,LoginResponse> {
         ProgressDialog dialog;
         String sessionId="";
         RegisterManagerRequest loginRequest;
@@ -214,7 +216,7 @@ public class RegisterManagerActivity extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(RegisterManagerRequest... params) {
+        protected LoginResponse doInBackground(RegisterManagerRequest... params) {
             try {
                 UserController controller= new UserController();
                 return controller.RegisterManager(loginRequest);
@@ -232,16 +234,21 @@ public class RegisterManagerActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String error) {
+        protected void onPostExecute(LoginResponse response) {
             try {
-                if(error.equals("")){
+                Toast.makeText(RegisterManagerActivity.this, response.message, Toast.LENGTH_SHORT).show();
+                if(response.code==200){
+                    Gson gson= new Gson();
+                    String profile=gson.toJson(response.result);
+                    SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt(Config.KEY_COMPANYID, response.result.getId()).commit();
+                    editor.putString(Config.KEY_USER_PROFILE, profile).commit();
+
                     Intent intent= new Intent(RegisterManagerActivity.this,MenuActivity.class);
                     startActivity(intent);
-                    /*SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt(Config.KEY_COMPANYID, code.getId()).commit();*/
                 }else {
-                    Toast.makeText(RegisterManagerActivity.this, error, Toast.LENGTH_SHORT).show();
+
                 }
             }catch (Exception e){
             }

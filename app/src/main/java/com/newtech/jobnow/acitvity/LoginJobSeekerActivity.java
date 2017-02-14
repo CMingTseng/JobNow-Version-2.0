@@ -105,6 +105,13 @@ public class LoginJobSeekerActivity extends AppCompatActivity {
                 loginFacebook();
             }
         });
+        txtForgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(LoginJobSeekerActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void getLogin() {
         String email = edtEmail_ver2.getText().toString();
