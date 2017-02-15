@@ -12,6 +12,8 @@ import com.newtech.jobnow.models.JobObject;
 import com.newtech.jobnow.models.JobRequest;
 import com.newtech.jobnow.models.LoginRequest;
 import com.newtech.jobnow.models.LoginResponse;
+import com.newtech.jobnow.models.PostJobRequest;
+import com.newtech.jobnow.models.PostJobResponse;
 import com.newtech.jobnow.models.UserModel;
 
 import java.util.List;
@@ -76,6 +78,27 @@ public class JobController {
                 }
                 BaseResponse result = inResponseCall.execute().body();
                 return result.message;
+
+            } catch (Exception ex) {
+                return ex.getMessage();
+            }
+        }catch (Exception exx){
+        }
+        return "";
+    }
+
+    public String PostAJobs(PostJobRequest request){
+        try {
+            retrofit.Call<PostJobResponse> inResponseCall = service.PostAJobs(request);
+
+            try {
+                if (android.os.Build.VERSION.SDK_INT > 9) {
+                    StrictMode.ThreadPolicy policy =
+                            new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+                }
+                PostJobResponse result = inResponseCall.execute().body();
+                return result.result;
 
             } catch (Exception ex) {
                 return ex.getMessage();

@@ -1,11 +1,16 @@
 package com.newtech.jobnow.acitvity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -21,6 +26,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -34,12 +40,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.adapter.CategoryIndustryAdapter;
 import com.newtech.jobnow.adapter.IndustryAdapter;
 import com.newtech.jobnow.adapter.LevelAdapter;
 import com.newtech.jobnow.common.APICommon;
 import com.newtech.jobnow.common.MultiSpinner;
+import com.newtech.jobnow.config.Config;
+import com.newtech.jobnow.controller.JobController;
 import com.newtech.jobnow.controller.UserController;
 import com.newtech.jobnow.models.CategoryIndustryObject;
 import com.newtech.jobnow.models.CategoryIndustryResponse;
@@ -49,11 +58,14 @@ import com.newtech.jobnow.models.IndustryResponse;
 import com.newtech.jobnow.models.JobListRequest;
 import com.newtech.jobnow.models.LevelObject;
 import com.newtech.jobnow.models.LevelResponse;
+import com.newtech.jobnow.models.PostJobRequest;
 import com.newtech.jobnow.models.SkillObject;
+import com.newtech.jobnow.models.UserModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -67,24 +79,39 @@ import retrofit.Retrofit;
 public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
     private GoogleMap mMap;
     private static final String TAG = LoginActivity.class.getSimpleName();
-    private EditText edtEmail;
-    private Button btnForgot;
-    private TextView txt_des_forgot_pass,txt_status;
+    private EditText editJobTitle,edtPosition,edtSalaryFrom,edtSalaryTo,editResponsibilities,editRequiment;
+    private CheckBox ckShowSalary;
     private Toolbar toolbar;
+    private Button btnSavePostJobs;
     MultiSpinner spSkills;
     private LevelAdapter spJobLevelAdapter;
     private CategoryIndustryAdapter spJobCategoryAdapter;
     Spinner spJobLevel,spJobCategory;
     List<CategoryIndustryObject> listCategoryIndustry = new ArrayList<>();
+    List<LevelObject> listLevelObjects = new ArrayList<>();
+    List<SkillObject> listSkill= new ArrayList<>();
     TextView btn_startdate,btn_enddate;
     private int mYear, mMonth, mDay, mHour, mMinute;
     String startDateTimeInterview="",endDateTimeInterview="";
     SupportMapFragment mapFragment;
     double latitude, longitude;
+    TextView txt_titleLocation;
+    String addressName="";
+
+    CategoryIndustryObject categoryIndustryObject;
+    LevelObject levelObject;
+    SkillObject skillObject;
+    UserModel userModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_job);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
+        String profile=sharedPreferences.getString(Config.KEY_USER_PROFILE,"");
+        Gson gson= new Gson();
+        userModel=gson.fromJson(profile,UserModel.class);
+
         InitUI();
         InitEvent();
     }
@@ -103,15 +130,24 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map_postjob);
         mapFragment.getMapAsync(this);
 
-
-
         btn_enddate=(TextView) findViewById(R.id.btn_enddate);
         btn_startdate=(TextView) findViewById(R.id.btn_startdate);
 
         spJobLevel=(Spinner) findViewById(R.id.spJobLevel);
         spJobCategory=(Spinner) findViewById(R.id.spJobCategory);
+        txt_titleLocation=(TextView) findViewById(R.id.txt_titleLocation);
         getLevel();
         getJobCategory();
+
+        editJobTitle=(EditText) findViewById(R.id.editJobTitle);
+        edtPosition=(EditText) findViewById(R.id.edtPosition);
+        edtSalaryFrom=(EditText) findViewById(R.id.edtSalaryFrom);
+        edtSalaryTo=(EditText) findViewById(R.id.edtSalaryTo);
+        editResponsibilities=(EditText) findViewById(R.id.editResponsibilities);
+        editRequiment=(EditText) findViewById(R.id.editRequiment);
+
+        ckShowSalary=(CheckBox) findViewById(R.id.ckShowSalary);
+        btnSavePostJobs=(Button) findViewById(R.id.btnSavePostJobs);
     }
 
     public void InitEvent(){
@@ -124,10 +160,24 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
             }
         });
 
+        spJobLevel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                levelObject=listLevelObjects.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         spJobCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                List<SkillObject> listSkill=listCategoryIndustry.get(position).data;
+                categoryIndustryObject= listCategoryIndustry.get(position);
+                listSkill=listCategoryIndustry.get(position).data;
                 List<String> items= new ArrayList<>();
                 for (int i=0; i<listSkill.size();i++){
                     items.add(listSkill.get(i).Name);
@@ -222,7 +272,72 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
                 datePickerDialog.show();
             }
         });
+        btnSavePostJobs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(CheckOK()){
+                    String jobTitle=editJobTitle.getText().toString();
+                    String jobPosition=edtPosition.getText().toString();
+                    String jobSalaryFrom=edtSalaryFrom.getText().toString();
+                    String jobSalaryTo=edtSalaryTo.getText().toString();
+                    String jobResponsibilities=editResponsibilities.getText().toString();
+                    String jobRequiment=editRequiment.getText().toString();
+                    String jobStartDate=btn_startdate.getText().toString();
+                    String jobEndDate=btn_enddate.getText().toString();
+
+                    PostJobRequest request= new PostJobRequest(jobTitle,jobPosition,1,"",1,categoryIndustryObject.id,Float.parseFloat(jobSalaryFrom),Float.parseFloat(jobSalaryTo),2,ckShowSalary.isChecked()==false?0:1,levelObject.id,Float.parseFloat(latitude+""),Float.parseFloat(longitude+""),jobResponsibilities,jobRequiment,startDateTimeInterview,endDateTimeInterview,1,userModel.id,userModel.apiToken);
+                    PostAJobAsyntask postAJobAsyntask= new PostAJobAsyntask(PostAJobsActivity.this,request);
+                    postAJobAsyntask.execute();
+                }
+            }
+        });
     }
+    /*
+    * Check OK: Check dữ liệu trên form
+    * */
+    public boolean CheckOK(){
+
+        String jobTitle=editJobTitle.getText().toString();
+        String jobPosition=edtPosition.getText().toString();
+        String jobSalaryFrom=edtSalaryFrom.getText().toString();
+        String jobSalaryTo=edtSalaryTo.getText().toString();
+        String jobResponsibilities=editResponsibilities.getText().toString();
+        String jobRequiment=editRequiment.getText().toString();
+        String jobStartDate=btn_startdate.getText().toString();
+        String jobEndDate=btn_enddate.getText().toString();
+        if(jobTitle.isEmpty()){
+            Toast.makeText(PostAJobsActivity.this, "Please Input A Job Title", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(jobPosition.isEmpty()){
+            Toast.makeText(PostAJobsActivity.this,"Please Input A Position", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(startDateTimeInterview.equals("")){
+            Toast.makeText(PostAJobsActivity.this,"Please Input Start Date", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(endDateTimeInterview.equals("")){
+            Toast.makeText(PostAJobsActivity.this,"Please Input End Date", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if(jobSalaryFrom.isEmpty()|| Float.parseFloat(jobSalaryFrom)<0){
+            Toast.makeText(PostAJobsActivity.this,"Please Input Salary From", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(jobSalaryTo.isEmpty()|| Float.parseFloat(jobSalaryTo)<0){
+            Toast.makeText(PostAJobsActivity.this,"Please Input Salary From", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(Float.parseFloat(jobSalaryTo)<Float.parseFloat(jobSalaryFrom)){
+            Toast.makeText(PostAJobsActivity.this,"Salary From Is Less Than ", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(jobResponsibilities.isEmpty()){
+            Toast.makeText(PostAJobsActivity.this,"Please Input A Responsibilities", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(jobRequiment.isEmpty()){
+            Toast.makeText(PostAJobsActivity.this,"Please Input A Requirements", Toast.LENGTH_SHORT).show();
+            return false;
+        }else {
+            return true;
+        }
+    }
+    /*-------------------------End Function--------------------------*/
 
     /*
     get level
@@ -241,10 +356,10 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
             public void onResponse(Response<LevelResponse> response, Retrofit retrofit) {
                 progressDialog.dismiss();
                 if (response.body() != null && response.body().code == 200) {
-                    List<LevelObject> list = new ArrayList<>();
+
                     if (response.body().result != null && response.body().result.size() > 0)
-                        list.addAll(response.body().result);
-                    spJobLevelAdapter = new LevelAdapter(PostAJobsActivity.this, list);
+                        listLevelObjects.addAll(response.body().result);
+                    spJobLevelAdapter = new LevelAdapter(PostAJobsActivity.this, listLevelObjects);
                     spJobLevel.setAdapter(spJobLevelAdapter);
                 }
             }
@@ -291,6 +406,8 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
             Location location = new Location("you");
             location.setLatitude(latLng.latitude);
             location.setLongitude(latLng.longitude);
+            addressName=GetAddress(latLng.latitude,latLng.longitude);
+            txt_titleLocation.setText(addressName);
             addMaker(location);
         } catch (Exception e) {
         }
@@ -332,6 +449,8 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
                 @Override
                 public void onMapClick(LatLng latLng) {
                     //latLng_new = latLng;
+                    latitude = latLng.latitude;
+                    longitude = latLng.longitude;
                     addMarkerChoice(latLng);
 
                 }
@@ -372,29 +491,49 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
                 }
+
                 addMarkerChoice(new LatLng(latitude, longitude));
             } else {
                 addMarkerChoice(new LatLng(0, 0));
             }
         }
     }
+    public String GetAddress(double lati, double longti){
+        try {
+            Geocoder geo = new Geocoder(PostAJobsActivity.this.getApplicationContext(), Locale.getDefault());
+            List<Address> addresses = geo.getFromLocation(lati, longti, 1);
+            if (addresses.isEmpty()) {
+                return "Waiting for Location";
+            }
+            else {
+                if (addresses.size() > 0) {
+                    return (addresses.get(0).getFeatureName() +", "+ addresses.get(0).getAdminArea() +", "/* + ", " + addresses.get(0).getLocality() */+ addresses.get(0).getCountryName());
+                    //Toast.makeText(getApplicationContext(), "Address:- " + addresses.get(0).getFeatureName() + addresses.get(0).getAdminArea() + addresses.get(0).getLocality(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace(); // getFromLocation() may sometimes fail
+        }
+        return "";
+    }
 
     // AsynTask
-    class ForgotAsystask extends AsyncTask<ForgotRequest,Void,String> {
+    class PostAJobAsyntask extends AsyncTask<PostJobRequest,Void,String> {
         ProgressDialog dialog;
         String sessionId="";
-        ForgotRequest request;
+        PostJobRequest request;
         Context ct;
-        public ForgotAsystask(Context ct,ForgotRequest request){
+        public PostAJobAsyntask(Context ct,PostJobRequest request){
             this.ct=ct;
             this.request=request;
         }
 
         @Override
-        protected String doInBackground(ForgotRequest... params) {
+        protected String doInBackground(PostJobRequest... params) {
             try {
-                UserController controller= new UserController();
-                return controller.ForgotPass(request);
+                JobController controller= new JobController();
+                return controller.PostAJobs(request);
             }catch (Exception ex){
                 return null;
             }
@@ -412,15 +551,10 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
         protected void onPostExecute(String code) {
             try {
                 Toast.makeText(PostAJobsActivity.this, code, Toast.LENGTH_SHORT).show();
-                if(code.equals("")) {
-                    txt_status.setVisibility(View.VISIBLE);
-                    txt_des_forgot_pass.setVisibility(View.VISIBLE);
-                    String textCondition= "A email has been send to "+edtEmail.getText().toString().trim()+", \nplease check email to reset password. Thank you!!!";
-                    Spannable wordtoSpan1 = new SpannableString(textCondition);
-                    int index=textCondition.indexOf(edtEmail.getText().toString().trim());
-                    wordtoSpan1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)), index, index+edtEmail.getText().toString().trim().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    txt_des_forgot_pass.setText(wordtoSpan1);
-                }
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("results",150293);
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
             }catch (Exception e){
             }
             dialog.dismiss();

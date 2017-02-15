@@ -1,5 +1,6 @@
 package com.newtech.jobnow.acitvity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -171,7 +172,7 @@ public class MenuActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else if (id == R.id.nav_feedback) {
                     Intent intent= new Intent(MenuActivity.this, FeedbackActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent,1);
                 }else if (id == R.id.nav_logOut) {
                     finish();
                     Intent intent= new Intent(MenuActivity.this,SplashScreen.class);

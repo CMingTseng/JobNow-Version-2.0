@@ -30,6 +30,8 @@ import com.newtech.jobnow.models.LoginRequest;
 import com.newtech.jobnow.models.LoginResponse;
 import com.newtech.jobnow.models.MapJobListReponse;
 import com.newtech.jobnow.models.NotificationResponse;
+import com.newtech.jobnow.models.PostJobRequest;
+import com.newtech.jobnow.models.PostJobResponse;
 import com.newtech.jobnow.models.ProfileRequest;
 import com.newtech.jobnow.models.ProfileResponse;
 import com.newtech.jobnow.models.RegisterFBReponse;
@@ -367,5 +369,8 @@ public class APICommon {
 
         @GET()
         Call<CategoryIndustryResponse> getListCategoryIndustry(@Url String url);
+
+        @POST("jobs/postCreateJob")
+        Call<PostJobResponse> PostAJobs(@Body PostJobRequest request);
     }
 }

@@ -1,6 +1,8 @@
 package com.newtech.jobnow.fragment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -271,6 +273,23 @@ public class JobHiringFragment extends Fragment {
             }
             adapter.clear();
             adapter.addAll(list_employee_tmp);
+        }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if(resultCode == Activity.RESULT_OK) {
+                int result = data.getIntExtra("result", 0);
+                if(result==150293){
+                    ChangeStatusTab(1);
+                    type=1;
+                    adapter.clear();
+                    list.clear();
+                    page = 1;
+                    bindData();
+                }
+            }
         }
     }
 }
