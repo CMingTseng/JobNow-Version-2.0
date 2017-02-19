@@ -38,4 +38,6 @@
     <color name="colorBgBtnDoneInvite">#67da72</color>
     <color name="colorBgRejectInvite">#f55557</color>
     <color name="colorBgBtnRejectInvite">#ff7779</color>
+    <color name="transparent">#00ffffff</color>
+
 </resources>

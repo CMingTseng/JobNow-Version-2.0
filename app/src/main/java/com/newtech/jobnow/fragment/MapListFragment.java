@@ -127,13 +127,13 @@ public class MapListFragment extends Fragment implements OnMapReadyCallback,
                             List<JobObject> lstJobs = response.body().result.data;
                             JobObject firstJob = lstJobs.get(0);
                             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(
-                                    new LatLng(firstJob.latitude, firstJob.longtitude));
+                                    new LatLng(firstJob.Latitude, firstJob.Longitude));
                             mMap.moveCamera(cameraUpdate);
 
 
                             for (JobObject jobObject : lstJobs) {
                                 MarkerOptions markerOptions = new MarkerOptions()
-                                        .position(new LatLng(jobObject.latitude, jobObject.longtitude))
+                                        .position(new LatLng(jobObject.Latitude, jobObject.Longitude))
                                         .title(jobObject.Title)
                                         .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker))
                                         .snippet(jobObject.FromSalary + "-" + jobObject.ToSalary + " USD");
@@ -230,7 +230,7 @@ public class MapListFragment extends Fragment implements OnMapReadyCallback,
 
                         for (JobObject jobObject : lstJobs) {
                             MarkerOptions markerOptions = new MarkerOptions()
-                                    .position(new LatLng(jobObject.latitude, jobObject.longtitude))
+                                    .position(new LatLng(jobObject.Latitude, jobObject.Longitude))
                                     .title(jobObject.Title)
                                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker))
                                     .snippet(jobObject.FromSalary + "-" + jobObject.ToSalary + " USD");

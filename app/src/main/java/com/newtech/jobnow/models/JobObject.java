@@ -9,9 +9,7 @@ import java.io.Serializable;
  */
 public class JobObject implements Serializable {
     public Integer id;
-    @SerializedName("JobID")
-    public Integer job_id;
-
+    public Integer JobID;
     public Integer CompanyID;
     public String Title;
     public String Position;
@@ -31,23 +29,25 @@ public class JobObject implements Serializable {
     public String updated_at;
     public String Start_date;
     public String End_date;
+    public int JobLevelID;
+    public String Location;
+    public String SkillList;
+    public int ExperienceID;
     public String LocationName;
     public String CompanyName;
     public String CompanyLogo;
     public String IndustryName;
     public String CurrencyName;
+    public long CreateDate_int;
     public Integer CountUserApplyJob;
-
-    @SerializedName("IsApplyJob")
-    public boolean isApplyJob;
-
-    @SerializedName("IsSaveJob")
-    public boolean isSaveJob;
+    public boolean IsApplyJob;
+    public boolean IsSaveJob;
     public String ShareUrl;
-    @SerializedName("Latitude")
-    public Double latitude;
-
-    @SerializedName("Longitude")
-    public Double longtitude;
+    public Double Latitude;
+    public Double Longitude;
+    public long created_at_int;
+    public long updated_at_int;
+    public long Start_date_int;
+    public long End_date_int;
 
 }

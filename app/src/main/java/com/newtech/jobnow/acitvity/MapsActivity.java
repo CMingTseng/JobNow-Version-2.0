@@ -75,8 +75,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onResponse(Response<DetailJobResponse> response, Retrofit retrofit) {
                 progressDialog.dismiss();
                 if (response.body() != null && response.body().code == 200) {
-                    Double lattitude = response.body().result.latitude;
-                    Double longtitude = response.body().result.longtitude;
+                    Double lattitude = response.body().result.Latitude;
+                    Double longtitude = response.body().result.Longitude;
                     String title = response.body().result.Title;
 
                     if (lattitude != null && longtitude != null) {

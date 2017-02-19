@@ -236,7 +236,7 @@ public class AppliedJobListFragment extends Fragment {
     public void onEvent(DeleteJobEvent event) {
         int type = event.type;
         if (type == JobListAdapter.APPLY_TYPE) {
-            int job_id = adapter.getItembyPostion(event.position).job_id;
+            int job_id = adapter.getItembyPostion(event.position).JobID;
             final int position = event.position;
             APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(

@@ -89,7 +89,7 @@ public class JobListAdapter extends BaseRecyclerAdapter<JobObject, JobListAdapte
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, DetailJobsActivity.class);
                     int job_id = (type == NORMAL_TYPE ? list.get(getAdapterPosition()).id :
-                            list.get(getAdapterPosition()).job_id);
+                            list.get(getAdapterPosition()).JobID);
                     intent.putExtra("jobId", job_id);
                     intent.putExtra("jobObject", list.get(getAdapterPosition()));
                     mContext.startActivity(intent);

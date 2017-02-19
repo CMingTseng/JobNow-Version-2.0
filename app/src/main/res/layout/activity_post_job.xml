@@ -7,37 +7,77 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:weightSum="1">
-
-    <android.support.design.widget.AppBarLayout
+    <RelativeLayout
+        android:id="@+id/tab_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/bgActionBar">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/imgMenu"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_sign_in"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/bgActionBar"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="15dp"
+                android:src="@mipmap/ic_back"
+                android:id="@+id/img_back"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/imgRing"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
 
             <com.newtech.jobnow.common.CustomTextViewHelveticaneue
-                android:id="@+id/toolbar_title"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Done"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp16"
+                android:id="@+id/btnSetDone" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/imgMenu"
+            android:layout_toLeftOf="@+id/imgRing"
+            android:layout_toRightOf="@+id/imgMenu"
+            android:layout_toStartOf="@+id/imgRing"
+            android:gravity="center"
+            android:padding="3dp">
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                android:id="@+id/edTitleCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginLeft="3dp"
+                android:background="@null"
+                android:drawablePadding="5dp"
+                android:ellipsize="start"
                 android:gravity="center"
-                android:text="Post A Jobs"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/sp20"
-                android:textStyle="bold" />
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="3dp"
+                android:text="Post a Jobs"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp18" />
+            />
+        </RelativeLayout>
 
+    </RelativeLayout>
     <View
         android:id="@+id/view2"
         android:layout_width="fill_parent"
@@ -142,11 +182,38 @@
                 android:id="@+id/spJobCategory"
                 android:layout_margin="10dp" />
             <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                android:id="@+id/txt_Experience"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Job Experience"
+                android:textColor="@color/black" />
+            <Spinner
+                android:background="@drawable/bg_spiner2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spExperience"
+                android:layout_margin="10dp" />
+
+            <com.newtech.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_JobLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="Job Location"
+                android:textColor="@color/black" />
+            <Spinner
+                android:background="@drawable/bg_spiner2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spJobLocation"
+                android:layout_margin="10dp" />
+            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                android:id="@+id/txt_Address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Address"
                 android:textColor="@color/black" />
             <com.newtech.jobnow.common.CustomTextViewHelveticaneue
                 android:hint="Location"
@@ -361,7 +428,6 @@
                 android:layout_marginLeft="10dp"
                 android:text="Status"
                 android:textColor="@color/black"
-                android:visibility="gone"
                 />
             <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/editStatus"
@@ -378,16 +444,47 @@
                 android:textSize="16sp"
                 android:visibility="gone"
                 />
-
-            <Button
-                android:id="@+id/btnSavePostJobs"
+            <RadioGroup
+                android:checkedButton="@+id/active"
+                android:id="@+id/toggle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/bg_btn_signup"
-                android:text="Save Post A Jobs"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white" />
+                android:layout_height="28dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/pink_out_line"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:id="@+id/active"
+                    android:background="@drawable/toggle_widget_background"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="Active"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:id="@+id/deactive"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_widget_background"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="Deactive"
+                    android:textColor="@color/colorPrimary" />
+            </RadioGroup>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -107,4 +107,24 @@ public class JobController {
         }
         return "";
     }
+    public String EditPostAJobs(PostJobRequest request){
+        try {
+            retrofit.Call<PostJobResponse> inResponseCall = service.EditPostAJobs(request);
+
+            try {
+                if (android.os.Build.VERSION.SDK_INT > 9) {
+                    StrictMode.ThreadPolicy policy =
+                            new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+                }
+                PostJobResponse result = inResponseCall.execute().body();
+                return result.result;
+
+            } catch (Exception ex) {
+                return ex.getMessage();
+            }
+        }catch (Exception exx){
+        }
+        return "";
+    }
 }

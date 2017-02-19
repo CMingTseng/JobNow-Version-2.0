@@ -26,6 +26,8 @@ import com.newtech.jobnow.models.JobListReponse;
 import com.newtech.jobnow.models.JobLocationResponse;
 import com.newtech.jobnow.models.JobRequest;
 import com.newtech.jobnow.models.LevelResponse;
+import com.newtech.jobnow.models.ListExperienceResponse;
+import com.newtech.jobnow.models.LocationResponse;
 import com.newtech.jobnow.models.LoginRequest;
 import com.newtech.jobnow.models.LoginResponse;
 import com.newtech.jobnow.models.MapJobListReponse;
@@ -372,5 +374,14 @@ public class APICommon {
 
         @POST("jobs/postCreateJob")
         Call<PostJobResponse> PostAJobs(@Body PostJobRequest request);
+
+        @POST("jobs/postEditJob")
+        Call<PostJobResponse> EditPostAJobs(@Body PostJobRequest request);
+
+        @GET()
+        Call<ListExperienceResponse> getListExperience(@Url String url);
+
+        @GET()
+        Call<LocationResponse> getListLocation(@Url String url);
     }
 }

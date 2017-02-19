@@ -3,6 +3,7 @@ package com.newtech.jobnow.adapter;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.acitvity.FeedbackActivity;
+import com.newtech.jobnow.acitvity.PostAJobsActivity;
 import com.newtech.jobnow.controller.FeedbackController;
 import com.newtech.jobnow.controller.JobController;
 import com.newtech.jobnow.fragment.JobHiringFragment;
@@ -76,6 +78,7 @@ public class JobManagerAdapter extends BaseRecyclerAdapter<JobObject, JobManager
         private TextView txt_title_job_item, txt_location_item, txt_price_item, txt_time_post, txt_name_company;
         private ImageView img_photo_company;
         private TextView btn_delete;
+        private LinearLayout layout_parent;
 
         public ViewHolder(View view) {
             super(view);
@@ -86,6 +89,7 @@ public class JobManagerAdapter extends BaseRecyclerAdapter<JobObject, JobManager
             txt_name_company=(TextView) view.findViewById(R.id.txt_name_employee);
             btn_delete=(TextView) view.findViewById(R.id.btn_delete);
             img_photo_company=(ImageView) view.findViewById(R.id.img_photo_company);
+            layout_parent=(LinearLayout) view.findViewById(R.id.layout_parent);
         }
 
         public void bindData(final JobObject jobObject, final int position) {
@@ -106,6 +110,15 @@ public class JobManagerAdapter extends BaseRecyclerAdapter<JobObject, JobManager
                     JobRequest jobRequest= new JobRequest(userModel.apiToken,jobObject.id,userModel.id);
                     DeleteJobAsystask deleteJobAsystask= new DeleteJobAsystask(mContext,jobRequest,position);
                     deleteJobAsystask.execute();
+                }
+            });
+
+            layout_parent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent= new Intent(mContext, PostAJobsActivity.class);
+                    intent.putExtra("job_detail",jobObject);
+                    mContext.startActivity(intent);
                 }
             });
         }

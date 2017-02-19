@@ -161,14 +161,14 @@ public class DetailJobsActivity extends AppCompatActivity implements View.OnClic
                     Picasso.with(DetailJobsActivity.this).load(jobObject.CompanyLogo).placeholder(R.mipmap.img_logo_company).error(R.mipmap.img_logo_company).into(imgLogo);
                     tvDescription.setText(jobObject.Description);
                     tvRequirement.setText(jobObject.Requirement);
-                    appliedJob = response.body().result.isApplyJob;
-                    savedJob = response.body().result.isSaveJob;
+                    appliedJob = response.body().result.IsApplyJob;
+                    savedJob = response.body().result.IsSaveJob;
                     ivSaveJob.setImageResource(savedJob ? R.mipmap.ic_saved_job : R.mipmap.ic_unsaved_job);
                     btnSaveJob.setText(savedJob ? "Unsaved" : "Save job");
                     btnApplyJob.setText(appliedJob ? "Unapplied" : "Apply job");
                     shareUrl = response.body().result.ShareUrl;
-                    latitude = response.body().result.latitude;
-                    longtitude = response.body().result.longtitude;
+                    latitude = response.body().result.Latitude;
+                    longtitude = response.body().result.Longitude;
                     tvYearOfExperience.setText(jobObject.YearOfExperience);
                     tvCountUserApplyJob.setText(jobObject.CountUserApplyJob + " Applications");
                 } else if(response.body().code == 503) {
