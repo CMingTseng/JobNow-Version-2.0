@@ -23,10 +23,15 @@ import java.util.List;
 public class ExperienceAdapter extends BaseRecyclerAdapter<ExperienceResponse.Experience, ExperienceAdapter.ViewHolder> {
     public static final String TAG = ExperienceAdapter.class.getSimpleName();
     private PrettyTime p;
-
+    int type=0;
     public ExperienceAdapter(Context context, List<ExperienceResponse.Experience> list) {
         super(context, list);
         this.p = new PrettyTime();
+    }
+    public ExperienceAdapter(Context context, List<ExperienceResponse.Experience> list, int type) {
+        super(context, list);
+        this.p = new PrettyTime();
+        this.type=type;
     }
 
     @Override
@@ -61,13 +66,18 @@ public class ExperienceAdapter extends BaseRecyclerAdapter<ExperienceResponse.Ex
             tvLocation = (TextView) view.findViewById(R.id.tvLocation);
             tvDescription = (TextView) view.findViewById(R.id.tvDescription);
             imgEdit = (ImageView) view.findViewById(R.id.imgEdit);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            if(type==0) {
+
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 //                    Intent intent = new Intent(mContext, DetailJobsActivity.class);
 //                    mContext.startActivity(intent);
-                }
-            });
+                    }
+                });
+            }else {
+                imgEdit.setVisibility(View.INVISIBLE);
+            }
         }
 
         public void bindData(ExperienceResponse.Experience experience) {

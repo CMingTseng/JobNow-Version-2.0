@@ -49,12 +49,28 @@
                     android:layout_centerVertical="true">
 
                     <ImageView
-                        android:layout_width="40dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:layout_marginRight="10dp"
                         android:src="@mipmap/ic_ring"
                         android:id="@+id/img_notification" />
+
+                    <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                        android:background="@drawable/bg_circle"
+                        android:gravity="center"
+                        android:textSize="7sp"
+                        android:textColor="@color/white"
+                        android:text="95"
+                        android:id="@+id/txtCount"
+                        android:layout_above="@+id/img_notification"
+                        android:layout_toRightOf="@+id/img_notification"
+                        android:layout_toEndOf="@+id/img_notification"
+                        android:layout_height="13dp"
+                        android:layout_width="13dp"
+                        android:visibility="gone"
+                        android:padding="1dp"
+                        android:layout_marginLeft="-5dp" />
+
 
                 </RelativeLayout>
 

@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,17 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.acitvity.SetInterviewActivity;
 import com.newtech.jobnow.common.CustomTextViewHelveticaneuelight;
 import com.newtech.jobnow.common.DrawableClickListener;
-import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.controller.CategoryController;
 import com.newtech.jobnow.models.CompanyIDRequest;
-import com.newtech.jobnow.models.JobRequest;
 import com.newtech.jobnow.models.ShortlistDetailObject;
-import com.newtech.jobnow.models.UserModel;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.squareup.picasso.Picasso;
 
@@ -81,7 +76,7 @@ public class ShortlistManagerAdapter extends BaseRecyclerAdapter<ShortlistDetail
 
         public ViewHolder(View view) {
             super(view);
-            txt_name_employee=(TextView) view.findViewById(R.id.txt_name_employee);
+            txt_name_employee=(TextView) view.findViewById(R.id.txtTitleNotification);
             txt_location=(TextView) view.findViewById(R.id.txt_location);
             txt_description=(TextView) view.findViewById(R.id.txt_datetime_interview);
             btn_set_interview=(CustomTextViewHelveticaneuelight) view.findViewById(R.id.txt_set_interview);

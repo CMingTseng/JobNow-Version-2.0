@@ -14,12 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.newtech.jobnow.R;
-import com.newtech.jobnow.acitvity.FeedbackActivity;
 import com.newtech.jobnow.acitvity.PostAJobsActivity;
-import com.newtech.jobnow.controller.FeedbackController;
 import com.newtech.jobnow.controller.JobController;
-import com.newtech.jobnow.fragment.JobHiringFragment;
-import com.newtech.jobnow.models.FeedbackRequest;
 import com.newtech.jobnow.models.JobObject;
 import com.newtech.jobnow.models.JobRequest;
 import com.newtech.jobnow.models.UserModel;
@@ -86,7 +82,7 @@ public class JobManagerAdapter extends BaseRecyclerAdapter<JobObject, JobManager
             txt_location_item=(TextView) view.findViewById(R.id.txt_location_item);
             txt_price_item=(TextView) view.findViewById(R.id.txt_price_item);
             txt_time_post=(TextView) view.findViewById(R.id.txt_time_post);
-            txt_name_company=(TextView) view.findViewById(R.id.txt_name_employee);
+            txt_name_company=(TextView) view.findViewById(R.id.txtTitleNotification);
             btn_delete=(TextView) view.findViewById(R.id.btn_delete);
             img_photo_company=(ImageView) view.findViewById(R.id.img_photo_company);
             layout_parent=(LinearLayout) view.findViewById(R.id.layout_parent);

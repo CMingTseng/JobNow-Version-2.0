@@ -1,28 +1,16 @@
 package com.newtech.jobnow.adapter;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.newtech.jobnow.R;
-import com.newtech.jobnow.acitvity.SetInterviewActivity;
 import com.newtech.jobnow.common.CustomTextViewHelveticaneuelight;
-import com.newtech.jobnow.common.DrawableClickListener;
-import com.newtech.jobnow.controller.CategoryController;
-import com.newtech.jobnow.controller.JobController;
-import com.newtech.jobnow.models.CompanyIDRequest;
 import com.newtech.jobnow.models.EmployeeObject;
-import com.newtech.jobnow.models.JobRequest;
-import com.newtech.jobnow.models.ShortlistDetailObject;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.squareup.picasso.Picasso;
 
@@ -78,7 +66,7 @@ public class EmployeeAdapter extends BaseRecyclerAdapter<EmployeeObject, Employe
 
         public ViewHolder(View view) {
             super(view);
-            txt_name_employee=(TextView) view.findViewById(R.id.txt_name_employee);
+            txt_name_employee=(TextView) view.findViewById(R.id.txtTitleNotification);
             txt_location=(TextView) view.findViewById(R.id.txt_location);
             img_photo_company=(ImageView) view.findViewById(R.id.img_photo_company);
             btn_addEmployee=(ImageView) view.findViewById(R.id.btn_addEmployee);

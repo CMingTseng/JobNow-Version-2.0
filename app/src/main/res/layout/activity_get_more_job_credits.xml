@@ -124,14 +124,14 @@
             android:gravity="left|center_vertical"
             android:hint="@string/email"
             android:imeOptions="actionDone"
-            android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
             android:textColorHint="@color/colorTextHint"
             android:textSize="16sp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:inputType="textEmailAddress" />
         <Button
             android:id="@+id/btnRecivePricing"
             android:layout_width="match_parent"

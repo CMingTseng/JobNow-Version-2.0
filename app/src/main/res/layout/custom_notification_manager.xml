@@ -1,19 +1,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
     android:background="@color/white"
     android:orientation="vertical">
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tb_add_category"
+        android:background="@color/colorTimer"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp" />
+
     <TableRow
         android:id="@+id/tb_add_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:background="@color/white"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_photo_company"
@@ -30,8 +42,19 @@
             android:layout_weight="0.3"
             android:paddingRight="10dp">
 
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                android:text="15/02/1993"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtTimeNotification"
+                android:layout_below="@+id/tb_shortlist_detail"
+                android:gravity="right"
+                android:textSize="@dimen/sp12"
+                android:textColor="@color/colorTimer"
+                />
+
             <com.newtech.jobnow.common.CustomTextViewHelveticaneue
-                android:id="@+id/txt_name_employee"
+                android:id="@+id/txtTitleNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Jessie Nencer"
@@ -43,32 +66,22 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_name_employee"
+                android:layout_below="@+id/txtTitleNotification"
                 android:id="@+id/tb_shortlist_detail"
                 android:layout_marginTop="5dp">
 
                 <com.newtech.jobnow.common.CustomTextViewLatoRegular
-                    android:id="@+id/textView9"
+                    android:id="@+id/txtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:text="Viet Nam"
-                    android:textColor="@color/colorText" />
+                    android:textColor="@color/colorText"
+                    android:maxLines="1" />
 
             </TableRow>
 
         </RelativeLayout>
 
     </TableRow>
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tb_add_category"
-        android:background="@color/colorTimer"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp" />
 </RelativeLayout>

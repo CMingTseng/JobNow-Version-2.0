@@ -20,32 +20,38 @@
     </android.support.design.widget.AppBarLayout>
 
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGray" />
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp">
+        android:layout_height="215dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="2">
+            android:weightSum="2"
+            android:layout_above="@+id/tvName">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
-                android:layout_weight="1"
+                android:layout_weight="1.39"
                 android:background="@mipmap/banner" />
 
         </LinearLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_avatar"
-            android:layout_width="@dimen/image_width"
-            android:layout_height="@dimen/image_width"
             android:layout_centerInParent="true"
             android:src="@mipmap/default_avatar"
             app:border_color="@color/white"
-            app:border_width="2dp" />
+            app:border_width="2dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -75,7 +81,7 @@
                 android:src="@mipmap/ic_edit" />
         </RelativeLayout>
 
-        <TextView
+        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,7 +89,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
             android:drawablePadding="5dp"
-            android:textColor="@color/black"
+            android:textColor="@color/colorText"
             android:textStyle="bold" />
 
         <TextView
@@ -96,11 +102,6 @@
             android:drawableLeft="@mipmap/ic_location"
             android:drawablePadding="5dp" />
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorGray" />
 
     <LinearLayout
         android:layout_width="match_parent"

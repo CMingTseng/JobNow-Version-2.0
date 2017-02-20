@@ -5,9 +5,9 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+
 import java.util.Calendar;
 
 import android.graphics.drawable.ColorDrawable;
@@ -33,8 +33,7 @@ import com.newtech.jobnow.common.CustomTextViewHelveticaneuelight;
 import com.newtech.jobnow.common.DrawableClickListener;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.controller.InterviewController;
-import com.newtech.jobnow.controller.InviteController;
-import com.newtech.jobnow.models.InviteRequest;
+import com.newtech.jobnow.models.InterviewObject;
 import com.newtech.jobnow.models.ProfileModel;
 import com.newtech.jobnow.models.SetInterviewRequest;
 import com.newtech.jobnow.models.ShortlistDetailObject;
@@ -58,12 +57,13 @@ public class SetInterviewActivity extends AppCompatActivity {
 
     private int mYear, mMonth, mDay, mHour, mMinute;
 
-    String dateTimeInterview="";
-    String startTime="";
-    String endTime="";
+    String dateTimeInterview = "";
+    String startTime = "";
+    String endTime = "";
 
     UserModel userModel;
     ProfileModel profileModel;
+    InterviewObject interviewObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +72,11 @@ public class SetInterviewActivity extends AppCompatActivity {
 
         try {
             shortlistDetailObject = (ShortlistDetailObject) getIntent().getSerializableExtra("jobseeker_v2");
+            interviewObject = (InterviewObject) getIntent().getSerializableExtra("interview_detail");
         } catch (Exception err) {
 
         }
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
         String profileUser = sharedPreferences.getString(Config.KEY_USER_PROFILE, "");
         String profileCompany = sharedPreferences.getString(Config.KEY_COMPANY_PROFILE, "");
         Gson gson = new Gson();
@@ -101,7 +102,7 @@ public class SetInterviewActivity extends AppCompatActivity {
 
         img_photo_company = (ImageView) findViewById(R.id.img_photo_company);
 
-        txt_name_employee = (TextView) findViewById(R.id.txt_name_employee);
+        txt_name_employee = (TextView) findViewById(R.id.txtTitleNotification);
         txt_location = (TextView) findViewById(R.id.txt_location);
         editDatetimeInterview = (CustomTextViewHelveticaneuelight) findViewById(R.id.editDatetimeInterview);
         btn_start_time = (TextView) findViewById(R.id.btn_start_time);
@@ -126,8 +127,6 @@ public class SetInterviewActivity extends AppCompatActivity {
             }
         });
 
-
-
         editDatetimeInterview.setDrawableClickListener(new DrawableClickListener() {
             @Override
             public void onClick(DrawablePosition target) {
@@ -138,6 +137,7 @@ public class SetInterviewActivity extends AppCompatActivity {
                         break;
                     case RIGHT:
                         // Get Current Date
+
                         final Calendar c = Calendar.getInstance();
                         mYear = c.get(Calendar.YEAR);
                         mMonth = c.get(Calendar.MONTH);
@@ -147,22 +147,22 @@ public class SetInterviewActivity extends AppCompatActivity {
                                     @Override
                                     public void onDateSet(DatePicker view, int year,
                                                           int monthOfYear, int dayOfMonth) {
-                                        if(dayOfMonth<10){
+                                        if (dayOfMonth < 10) {
 
-                                            if(monthOfYear+1<10){
-                                                editDatetimeInterview.setText("0"+dayOfMonth + "-0" + (monthOfYear + 1) + "-" + year);
-                                                dateTimeInterview=year+ "-0" + (monthOfYear + 1) + "-" + "0"+dayOfMonth;
-                                            }else {
-                                                editDatetimeInterview.setText("0"+dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                                                dateTimeInterview=year+ "-" + (monthOfYear + 1) + "-" + "0"+dayOfMonth;
+                                            if (monthOfYear + 1 < 10) {
+                                                editDatetimeInterview.setText("0" + dayOfMonth + "-0" + (monthOfYear + 1) + "-" + year);
+                                                dateTimeInterview = year + "-0" + (monthOfYear + 1) + "-" + "0" + dayOfMonth;
+                                            } else {
+                                                editDatetimeInterview.setText("0" + dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                                dateTimeInterview = year + "-" + (monthOfYear + 1) + "-" + "0" + dayOfMonth;
                                             }
-                                        }else {
-                                            if(monthOfYear+1<10){
+                                        } else {
+                                            if (monthOfYear + 1 < 10) {
                                                 editDatetimeInterview.setText(dayOfMonth + "-0" + (monthOfYear + 1) + "-" + year);
-                                                dateTimeInterview=year+ "-0" + (monthOfYear + 1) + "-"+dayOfMonth;
-                                            }else {
+                                                dateTimeInterview = year + "-0" + (monthOfYear + 1) + "-" + dayOfMonth;
+                                            } else {
                                                 editDatetimeInterview.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                                                dateTimeInterview=year+ "-" + (monthOfYear + 1) + "-"+dayOfMonth;
+                                                dateTimeInterview = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
                                             }
                                         }
 
@@ -180,10 +180,12 @@ public class SetInterviewActivity extends AppCompatActivity {
                         break;
                     default:
                         break;
+
                 }
 
             }
         });
+
         btn_start_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,35 +196,35 @@ public class SetInterviewActivity extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                if(minute<10){
-                                    if(hourOfDay<10){
-                                        startTime="0"+hourOfDay+":0"+minute+" AM";
-                                    }else if(hourOfDay<12){
-                                        startTime="0"+hourOfDay+":0"+minute+" AM";
-                                    }else {
-                                        if(hourOfDay-12<10) {
-                                            startTime = "0"+(hourOfDay-12) + ":0" + minute + " PM";
-                                        }else {
-                                            startTime = (hourOfDay-12) + ":0" + minute + " PM";
+                                if (minute < 10) {
+                                    if (hourOfDay < 10) {
+                                        startTime = "0" + hourOfDay + ":0" + minute + " AM";
+                                    } else if (hourOfDay < 12) {
+                                        startTime = "0" + hourOfDay + ":0" + minute + " AM";
+                                    } else {
+                                        if (hourOfDay - 12 < 10) {
+                                            startTime = "0" + (hourOfDay - 12) + ":0" + minute + " PM";
+                                        } else {
+                                            startTime = (hourOfDay - 12) + ":0" + minute + " PM";
                                         }
                                     }
-                                }else {
-                                    if(hourOfDay<10){
-                                        startTime="0"+hourOfDay+":"+minute+" AM";
-                                    }else if(hourOfDay<12){
-                                        startTime="0"+hourOfDay+":"+minute+" AM";
-                                    }else {
-                                        if(hourOfDay-12<10) {
-                                            startTime = "0"+(hourOfDay-12) + ":" + minute + " PM";
-                                        }else {
-                                            startTime = (hourOfDay-12) + ":" + minute + " PM";
+                                } else {
+                                    if (hourOfDay < 10) {
+                                        startTime = "0" + hourOfDay + ":" + minute + " AM";
+                                    } else if (hourOfDay < 12) {
+                                        startTime = "0" + hourOfDay + ":" + minute + " AM";
+                                    } else {
+                                        if (hourOfDay - 12 < 10) {
+                                            startTime = "0" + (hourOfDay - 12) + ":" + minute + " PM";
+                                        } else {
+                                            startTime = (hourOfDay - 12) + ":" + minute + " PM";
                                         }
                                     }
                                 }
 
                                 btn_start_time.setText(startTime);
                             }
-                        }, mHour, mMinute,true);
+                        }, mHour, mMinute, true);
                 datePickerDialog.show();
             }
         });
@@ -237,35 +239,35 @@ public class SetInterviewActivity extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                if(minute<10){
-                                    if(hourOfDay<10){
-                                        endTime="0"+hourOfDay+":0"+minute+" AM";
-                                    }else if(hourOfDay<12){
-                                        endTime="0"+hourOfDay+":0"+minute+" AM";
-                                    }else {
-                                        if(hourOfDay-12<10) {
-                                            endTime = "0"+(hourOfDay-12) + ":0" + minute + " PM";
-                                        }else {
-                                            endTime = (hourOfDay-12) + ":0" + minute + " PM";
+                                if (minute < 10) {
+                                    if (hourOfDay < 10) {
+                                        endTime = "0" + hourOfDay + ":0" + minute + " AM";
+                                    } else if (hourOfDay < 12) {
+                                        endTime = "0" + hourOfDay + ":0" + minute + " AM";
+                                    } else {
+                                        if (hourOfDay - 12 < 10) {
+                                            endTime = "0" + (hourOfDay - 12) + ":0" + minute + " PM";
+                                        } else {
+                                            endTime = (hourOfDay - 12) + ":0" + minute + " PM";
                                         }
                                     }
-                                }else {
-                                    if(hourOfDay<10){
-                                        endTime="0"+hourOfDay+":"+minute+" AM";
-                                    }else if(hourOfDay<12){
-                                        endTime="0"+hourOfDay+":"+minute+" AM";
-                                    }else {
-                                        if(hourOfDay-12<10) {
-                                            endTime = "0"+(hourOfDay-12) + ":" + minute + " PM";
-                                        }else {
-                                            endTime = (hourOfDay-12) + ":" + minute + " PM";
+                                } else {
+                                    if (hourOfDay < 10) {
+                                        endTime = "0" + hourOfDay + ":" + minute + " AM";
+                                    } else if (hourOfDay < 12) {
+                                        endTime = "0" + hourOfDay + ":" + minute + " AM";
+                                    } else {
+                                        if (hourOfDay - 12 < 10) {
+                                            endTime = "0" + (hourOfDay - 12) + ":" + minute + " PM";
+                                        } else {
+                                            endTime = (hourOfDay - 12) + ":" + minute + " PM";
                                         }
                                     }
                                 }
 
                                 btn_end_time.setText(endTime);
                             }
-                        }, mHour, mMinute,true);
+                        }, mHour, mMinute, true);
                 datePickerDialog.show();
             }
         });
@@ -280,8 +282,8 @@ public class SetInterviewActivity extends AppCompatActivity {
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
-                TextView txt_setInterView=(TextView) dialog.findViewById(R.id.txt_setInterview);
-                ImageView btn_confirm_send_interview=(ImageView) dialog.findViewById(R.id.btn_confirm_send_interview);
+                TextView txt_setInterView = (TextView) dialog.findViewById(R.id.txt_setInterview);
+                ImageView btn_confirm_send_interview = (ImageView) dialog.findViewById(R.id.btn_confirm_send_interview);
 
                 btn_confirm_send_interview.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -291,10 +293,16 @@ public class SetInterviewActivity extends AppCompatActivity {
                         String numberPhone = editPhoneNumber.getText().toString();
                         String location = editLocation.getText().toString();
                         String message = editMessage.getText().toString();
-
-                        SetInterviewRequest request = new SetInterviewRequest(0, shortlistDetailObject.JobSeekerID, profileModel.CompanyID, title, message, dateTimeInterview, interview, numberPhone, 1, startTime, endTime, location);
-                        SetNewInterviewAsystask setNewInterviewAsystask = new SetNewInterviewAsystask(SetInterviewActivity.this, request,dialog);
+                        SetInterviewRequest request;
+                        if (shortlistDetailObject != null) {
+                            request = new SetInterviewRequest(0, shortlistDetailObject.JobSeekerID, profileModel.CompanyID, title, message, dateTimeInterview, interview, numberPhone, 1, startTime, endTime, location);
+                        }
+                        else {
+                            request = new SetInterviewRequest(interviewObject.id, interviewObject.JobSeekerID, profileModel.CompanyID, title, message, dateTimeInterview, interview, numberPhone, 1, startTime, endTime, location);
+                        }
+                        SetNewInterviewAsystask setNewInterviewAsystask = new SetNewInterviewAsystask(SetInterviewActivity.this, request, dialog);
                         setNewInterviewAsystask.execute();
+
                     }
                 });
 
@@ -308,33 +316,58 @@ public class SetInterviewActivity extends AppCompatActivity {
         String companyProfile = sharedPreferences.getString(Config.KEY_COMPANY_PROFILE, "");
         Gson gson = new Gson();
 
-        try {
-            Picasso.with(SetInterviewActivity.this).load(shortlistDetailObject.Avatar).placeholder(R.mipmap.img_logo_company).error(R.mipmap.default_avatar).into(img_photo_company);
-        } catch (Exception e) {
-            Picasso.with(SetInterviewActivity.this).load(R.mipmap.default_avatar).into(img_photo_company);
+
+        if (shortlistDetailObject != null) {
+            try {
+                Picasso.with(SetInterviewActivity.this).load(shortlistDetailObject.Avatar).placeholder(R.mipmap.img_logo_company).error(R.mipmap.default_avatar).into(img_photo_company);
+            } catch (Exception e) {
+                Picasso.with(SetInterviewActivity.this).load(R.mipmap.default_avatar).into(img_photo_company);
+            }
+            txt_name_employee.setText(shortlistDetailObject.FullName);
+            txt_location.setText(shortlistDetailObject.CountryName);
+        } else {
+            try {
+                Picasso.with(SetInterviewActivity.this).load(interviewObject.Avatar).placeholder(R.mipmap.img_logo_company).error(R.mipmap.default_avatar).into(img_photo_company);
+            } catch (Exception e) {
+                Picasso.with(SetInterviewActivity.this).load(R.mipmap.default_avatar).into(img_photo_company);
+            }
+            txt_name_employee.setText(interviewObject.FullName);
+            txt_location.setText(interviewObject.CountryName);
+
+            String[] dateInterview = interviewObject.InterviewDate.substring(0, interviewObject.InterviewDate.indexOf(" ")).split("-");
+            dateTimeInterview = interviewObject.InterviewDate.substring(0, interviewObject.InterviewDate.indexOf(" "));
+            editDatetimeInterview.setText(dateInterview[2] + "-" + dateInterview[1] + "-" + dateInterview[0]);
+            startTime=interviewObject.Start_time;
+            endTime=interviewObject.End_time;
+            btn_start_time.setText(interviewObject.Start_time);
+            btn_end_time.setText(interviewObject.End_time);
+            editInterviewer.setText(interviewObject.ContactName);
+            editPhoneNumber.setText(interviewObject.PhoneNumber);
+            editLocation.setText(interviewObject.Location);
+            editSubjects.setText(interviewObject.Title);
+            editMessage.setText(interviewObject.Content);
         }
-        txt_name_employee.setText(shortlistDetailObject.FullName);
-        txt_location.setText(shortlistDetailObject.CountryName);
     }
 
-    class SetNewInterviewAsystask extends AsyncTask<Void,Void,String> {
+    class SetNewInterviewAsystask extends AsyncTask<Void, Void, String> {
         ProgressDialog dialog;
-        String sessionId="";
+        String sessionId = "";
         SetInterviewRequest profileRequest;
         Context ct;
         Dialog dialogs;
-        public SetNewInterviewAsystask(Context ct,SetInterviewRequest profileRequest,Dialog dialogs){
-            this.ct=ct;
-            this.profileRequest=profileRequest;
-            this.dialogs=dialogs;
+
+        public SetNewInterviewAsystask(Context ct, SetInterviewRequest profileRequest, Dialog dialogs) {
+            this.ct = ct;
+            this.profileRequest = profileRequest;
+            this.dialogs = dialogs;
         }
 
         @Override
         protected String doInBackground(Void... params) {
             try {
-                InterviewController controller= new InterviewController();
+                InterviewController controller = new InterviewController();
                 return controller.SetInterviewTime(profileRequest);
-            }catch (Exception ex){
+            } catch (Exception ex) {
                 return null;
             }
         }
@@ -343,19 +376,19 @@ public class SetInterviewActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             dialog = new ProgressDialog(ct);
-            dialog.setMessage("" );
+            dialog.setMessage("");
             dialog.show();
         }
 
         @Override
         protected void onPostExecute(String code) {
             try {
-                if(!code.equals("")){
+                if (!code.equals("")) {
                     Toast.makeText(SetInterviewActivity.this, code, Toast.LENGTH_SHORT).show();
                     dialogs.dismiss();
                     finish();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
             }
             dialog.dismiss();
         }

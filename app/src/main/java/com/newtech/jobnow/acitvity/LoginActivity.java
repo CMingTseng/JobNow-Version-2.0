@@ -17,6 +17,7 @@ import com.newtech.jobnow.common.APICommon;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.models.LoginRequest;
 import com.newtech.jobnow.models.LoginResponse;
+import com.newtech.jobnow.service.DeleteTokenService;
 import com.newtech.jobnow.utils.Utils;
 
 import retrofit.Call;

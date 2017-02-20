@@ -73,10 +73,16 @@ public class UserModel implements Serializable {
     @SerializedName("PostalCode")
     public String postalCode;
 
+    @SerializedName("CreditNumber")
+    public float creditNumber;
+
+    @SerializedName("TokenFirebase")
+    public String tokenFirebase;
+
     public UserModel() {
     }
 
-    public UserModel(int id, String username, String email, String fullname, int isCompany, String createDate, int isEmailConfirmed, String passwordSalt, String fb_id, String google_id, String created_at, String updated_at, String apiToken, String avatar, String birthDay, String phoneNumber, String countryID, Integer gender, String curriculumVitae, String description, String countryName, String postalCode) {
+    public UserModel(int id, String username, String email, String fullname, int isCompany, String createDate, int isEmailConfirmed, String passwordSalt, String fb_id, String google_id, String created_at, String updated_at, String apiToken, String avatar, String birthDay, String phoneNumber, String countryID, Integer gender, String curriculumVitae, String description, String countryName, String postalCode, float creditNumber, String tokenFirebase) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -99,6 +105,25 @@ public class UserModel implements Serializable {
         this.description = description;
         this.countryName = countryName;
         this.postalCode = postalCode;
+        this.creditNumber = creditNumber;
+        this.tokenFirebase = tokenFirebase;
+    }
+
+
+    public float getCreditNumber() {
+        return creditNumber;
+    }
+
+    public void setCreditNumber(float creditNumber) {
+        this.creditNumber = creditNumber;
+    }
+
+    public String getTokenFirebase() {
+        return tokenFirebase;
+    }
+
+    public void setTokenFirebase(String tokenFirebase) {
+        this.tokenFirebase = tokenFirebase;
     }
 
     public int getId() {

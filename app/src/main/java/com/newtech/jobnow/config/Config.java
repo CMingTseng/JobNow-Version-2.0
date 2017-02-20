@@ -20,4 +20,5 @@ public class Config {
     public static final String KEY_COMPANYID="companyID";
     public static final String KEY_USER_PROFILE="user_profile";
     public static final String KEY_COMPANY_PROFILE="company_profile";
+    public static final String KEY_TOKEN_USER = "Token";
 }

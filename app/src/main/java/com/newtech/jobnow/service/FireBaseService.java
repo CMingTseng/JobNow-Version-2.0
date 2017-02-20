@@ -12,13 +12,21 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.acitvity.NotificationActivity;
+import com.newtech.jobnow.acitvity.NotificationManagerActivity;
+import com.newtech.jobnow.models.FirebaseObject;
+
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
 
 public class FireBaseService extends FirebaseMessagingService {
@@ -29,14 +37,18 @@ public class FireBaseService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         super.onMessageReceived(remoteMessage);
-        String ss = remoteMessage.getNotification().getBody();
-        sendNotification(remoteMessage.getNotification().getBody());
+
+        int key = Integer.parseInt(remoteMessage.getNotification().getSound());
+        sendNotification(remoteMessage.getNotification().getBody(),key);
     }
 
-    private void sendNotification(String messageBody) {
-
-        Intent intent = new Intent(this, NotificationActivity.class);
-        intent.putExtra("position", "1");
+    private void sendNotification(String messageBody, int key) {
+        Intent intent;
+        if(key==1){
+            intent = new Intent(this, NotificationActivity.class);
+        }else {
+            intent = new Intent(this, NotificationManagerActivity.class);
+        }
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);

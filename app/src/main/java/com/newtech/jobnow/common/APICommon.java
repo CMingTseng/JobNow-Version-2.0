@@ -31,7 +31,9 @@ import com.newtech.jobnow.models.LocationResponse;
 import com.newtech.jobnow.models.LoginRequest;
 import com.newtech.jobnow.models.LoginResponse;
 import com.newtech.jobnow.models.MapJobListReponse;
+import com.newtech.jobnow.models.NotificationRequest;
 import com.newtech.jobnow.models.NotificationResponse;
+import com.newtech.jobnow.models.NotificationVersion2Response;
 import com.newtech.jobnow.models.PostJobRequest;
 import com.newtech.jobnow.models.PostJobResponse;
 import com.newtech.jobnow.models.ProfileRequest;
@@ -43,9 +45,12 @@ import com.newtech.jobnow.models.RegisterRequest;
 import com.newtech.jobnow.models.RegisterResponse;
 import com.newtech.jobnow.models.SaveJobRequest;
 import com.newtech.jobnow.models.SetInterviewRequest;
+import com.newtech.jobnow.models.SetNotificationResponse;
 import com.newtech.jobnow.models.ShortlistDetailResponse;
 import com.newtech.jobnow.models.SkillRequest;
 import com.newtech.jobnow.models.SkillResponse;
+import com.newtech.jobnow.models.SendPricingRequest;
+import com.newtech.jobnow.models.TermResponse;
 import com.newtech.jobnow.models.TokenRequest;
 import com.newtech.jobnow.models.UpdateProfileRequest;
 import com.newtech.jobnow.models.UploadFileResponse;
@@ -271,6 +276,7 @@ public class APICommon {
                                                  @Query("isHiring") Integer isHiring,
                                                  @Query("CompanyID") Integer CompanyID
         );
+
         @GET("companyprofile/getCompanyProfile/{sign}/{app_id}/{device_type}/{user_id}/{token}/")
         Call<ProfileResponse> getCompanyProfile(@Path("sign") String sign,
                                                 @Path("app_id") String app_id,
@@ -283,11 +289,11 @@ public class APICommon {
         @Multipart
         @POST("companyprofile/postCompanyUploadFile")
         Call<UploadFileResponse> uploadImageProfile(@Part("sign") RequestBody sign,
-                                                  @Part("app_id") RequestBody app_id,
-                                                  @Part("device_type") RequestBody device_type,
-                                                  @Part("ApiToken") RequestBody ApiToken,
-                                                  @Part("UserID") RequestBody userid,
-                                                  @Part("Files\"; filename=\"avatar.jpg\"") RequestBody file);
+                                                    @Part("app_id") RequestBody app_id,
+                                                    @Part("device_type") RequestBody device_type,
+                                                    @Part("ApiToken") RequestBody ApiToken,
+                                                    @Part("UserID") RequestBody userid,
+                                                    @Part("Files\"; filename=\"avatar.jpg\"") RequestBody file);
 
         @POST("companyprofile/postUpdateCompany")
         Call<UploadFileResponse> updateProfile(@Body ProfileRequest request);
@@ -308,9 +314,9 @@ public class APICommon {
 
         @GET("category/getListCategory/{sign}/{app_id}/{device_type}/")
         Call<CategoryResponse> getListCategory(@Path("sign") String sign,
-                                                 @Path("app_id") String app_id,
-                                                 @Path("device_type") int device_type,
-                                                 @Query("CompanyID") int companyID
+                                               @Path("app_id") String app_id,
+                                               @Path("device_type") int device_type,
+                                               @Query("CompanyID") int companyID
 
         );
 
@@ -319,9 +325,9 @@ public class APICommon {
 
         @GET("shortlist/getShortlist/{sign}/{app_id}/{device_type}/")
         Call<ShortlistDetailResponse> getShortlistDetail(@Path("sign") String sign,
-                                                        @Path("app_id") String app_id,
-                                                        @Path("device_type") int device_type,
-                                                        @Query("CategoryID") int user_id
+                                                         @Path("app_id") String app_id,
+                                                         @Path("device_type") int device_type,
+                                                         @Query("CategoryID") int user_id
 
         );
 
@@ -383,5 +389,19 @@ public class APICommon {
 
         @GET()
         Call<LocationResponse> getListLocation(@Url String url);
+
+        @POST("notification/setNotification\n")
+        Call<SetNotificationResponse> SetNotification(@Body NotificationRequest request);
+
+        @GET("notification/getListNotification/{sign}/{app_id}/{device_type}/")
+        Call<NotificationVersion2Response> getListNotification(@Path("sign") String sign,
+                                                               @Path("app_id") String app_id,
+                                                               @Path("device_type") int device_type,
+                                                               @Query("CompanyID") int company_id,
+                                                               @Query("JobSeekerID") int jobSeekerId
+                                                    );
+
+        @POST("users/sendPricing")
+        Call<BaseResponse> SendPricing(@Body SendPricingRequest request);
     }
 }

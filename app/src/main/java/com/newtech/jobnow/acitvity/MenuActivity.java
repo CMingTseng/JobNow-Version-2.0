@@ -62,7 +62,7 @@ public class MenuActivity extends AppCompatActivity {
     RelativeLayout header_layout;
 
     ImageView img_avatar;
-    TextView txt_emailUser;
+    TextView txt_emailUser,txt_numberCredits;
     UserModel userModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +123,9 @@ public class MenuActivity extends AppCompatActivity {
         img_avatar=(ImageView) headerview.findViewById(R.id.img_avatar);
         txt_emailUser=(TextView) headerview.findViewById(R.id.txt_emailUser);
         header_layout = (RelativeLayout) headerview.findViewById(R.id.header_layout);
+        txt_numberCredits=(TextView) headerview.findViewById(R.id.txt_numberCredits) ;
 
+        txt_numberCredits.setText(userModel.creditNumber+"");
         txt_emailUser.setText(userModel.email);
         try {
             Picasso.with(MenuActivity.this).load(userModel.avatar).placeholder(R.mipmap.default_avatar).error(R.mipmap.default_avatar).into(img_avatar);
@@ -150,6 +152,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent= new Intent(MenuActivity.this,NotificationManagerActivity.class);
                 startActivityForResult(intent,1);
+
             }
         });
         header_layout.setOnClickListener(new View.OnClickListener() {

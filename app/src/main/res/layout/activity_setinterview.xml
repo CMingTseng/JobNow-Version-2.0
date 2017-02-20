@@ -63,7 +63,7 @@
             android:paddingRight="10dp">
 
             <com.newtech.jobnow.common.CustomTextViewLato
-                android:id="@+id/txt_name_employee"
+                android:id="@+id/txtTitleNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Jessie Nencer"
@@ -168,7 +168,7 @@
                     android:background="@drawable/bg_edit_interview"
                     android:padding="10dp"
                     android:text="@string/start_time"
-                    android:textColorHint="@color/colorText"
+                    android:textColor="@color/colorText"
 
                     />
 

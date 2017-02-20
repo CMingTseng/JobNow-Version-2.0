@@ -25,8 +25,10 @@ import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.controller.UserController;
 import com.newtech.jobnow.models.ChangePassRequest;
 import com.newtech.jobnow.models.InviteObject;
+import com.newtech.jobnow.models.LoginRequest;
 import com.newtech.jobnow.models.ProfileModel;
 import com.newtech.jobnow.models.ProfileRequest;
+import com.newtech.jobnow.models.SendPricingRequest;
 import com.newtech.jobnow.models.UserModel;
 
 /**
@@ -65,7 +67,6 @@ public class GetMoreJobCreditsActivity extends AppCompatActivity {
     }
 
     public void InitEvent() {
-        /*click vào nut home tren toolbar*/
         View view = toolbar.getChildAt(0);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +86,12 @@ public class GetMoreJobCreditsActivity extends AppCompatActivity {
         btnRecivePricing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(edtEmailInviteSend.getText().toString().isEmpty()){
+                    Toast.makeText(GetMoreJobCreditsActivity.this,"Please input a email",Toast.LENGTH_LONG).show();
+                }else {
+                    SendPricingAsystask sendPricingAsystask = new SendPricingAsystask(GetMoreJobCreditsActivity.this, new SendPricingRequest(edtEmailInviteSend.getText().toString()));
+                    sendPricingAsystask.execute();
+                }
             }
         });
     }
@@ -97,5 +103,44 @@ public class GetMoreJobCreditsActivity extends AppCompatActivity {
         Gson gson = new Gson();
     }
 
+    class SendPricingAsystask extends AsyncTask<SendPricingRequest,Void,String> {
+        ProgressDialog dialog;
+        String sessionId="";
+        SendPricingRequest request;
+        Context ct;
+        public SendPricingAsystask(Context ct,SendPricingRequest request){
+            this.ct=ct;
+            this.request=request;
+        }
 
+        @Override
+        protected String doInBackground(SendPricingRequest... params) {
+            try {
+                UserController controller= new UserController();
+                return controller.SendPricing(request);
+            }catch (Exception ex){
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(ct);
+            dialog.setMessage("" );
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String code) {
+            try {
+                if(code!=null){
+                    Toast.makeText(GetMoreJobCreditsActivity.this,code,Toast.LENGTH_LONG).show();
+                    edtEmailInviteSend.setText("");
+                }
+            }catch (Exception e){
+            }
+            dialog.dismiss();
+        }
+    }
 }

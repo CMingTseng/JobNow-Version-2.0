@@ -26,7 +26,6 @@ public class DeleteTokenService extends IntentService
         {
             // Check for current token
             String originalToken = getTokenFromPrefs();
-            Log.d(TAG, "Token before deletion: " + FirebaseInstanceId.getInstance().getToken());
 
             // Resets Instance ID and revokes all tokens.
             FirebaseInstanceId.getInstance().deleteInstanceId();

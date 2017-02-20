@@ -233,19 +233,23 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
                 listSkill = listCategoryIndustry.get(position).data;
                 String skillChoose="Select All Skill";
                 if(jobObject!=null){
-                    skillChoose="";
-                    listChoose= new ArrayList<Integer>();
-                    String []listSkillChoose=jobObject.SkillList.split(",");
-                    for (int i = 0; i < listSkill.size(); i++) {
-                        for (int j=0; j<listSkillChoose.length; j++){
-                            if(listSkillChoose[j].equals(listSkill.get(i).id+"")) {
-                                listChoose.add(i);
-                                skillChoose=skillChoose+listSkill.get(i).Name+",";
-                                break;
+                    try {
+                        skillChoose = "";
+                        listChoose = new ArrayList<Integer>();
+                        String[] listSkillChoose = jobObject.SkillList.split(",");
+                        for (int i = 0; i < listSkill.size(); i++) {
+                            for (int j = 0; j < listSkillChoose.length; j++) {
+                                if (listSkillChoose[j].equals(listSkill.get(i).id + "")) {
+                                    listChoose.add(i);
+                                    skillChoose = skillChoose + listSkill.get(i).Name + ",";
+                                    break;
+                                }
                             }
                         }
+                        skillChoose = skillChoose.substring(0, skillChoose.length() - 1);
+                    }catch (Exception err){
+
                     }
-                    skillChoose=skillChoose.substring(0,skillChoose.length()-1);
                 }
 
                 final List<String> items = new ArrayList<>();
@@ -422,7 +426,7 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
             active.setChecked(true);
         }
 
-        addMarkerChoice(new LatLng(jobObject.Latitude,jobObject.Longitude));
+
     }
 
     /*
@@ -634,6 +638,8 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
 
     public void addMarkerChoice(LatLng latLng) {
         try {
+            latitude=latLng.latitude;
+            longitude=latLng.longitude;
             Location location = new Location("Location set job");
             location.setLatitude(latLng.latitude);
             location.setLongitude(latLng.longitude);
@@ -710,7 +716,11 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
                 }
-                addMarkerChoice(new LatLng(latitude, longitude));
+                if(jobObject!=null){
+                    addMarkerChoice(new LatLng(jobObject.Latitude,jobObject.Longitude));
+                }else {
+                    addMarkerChoice(new LatLng(latitude, longitude));
+                }
             } else {
                 addMarkerChoice(new LatLng(0, 0));
             }
@@ -724,7 +734,11 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
                     longitude = location.getLongitude();
                 }
 
-                addMarkerChoice(new LatLng(latitude, longitude));
+                if(jobObject!=null){
+                    addMarkerChoice(new LatLng(jobObject.Latitude,jobObject.Longitude));
+                }else {
+                    addMarkerChoice(new LatLng(latitude, longitude));
+                }
             } else {
                 addMarkerChoice(new LatLng(0, 0));
             }

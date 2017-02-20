@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-/**
- * Created by sang on 9/28/2016.
- */
 public class NotificationObject implements Serializable {
     public Integer id;
 

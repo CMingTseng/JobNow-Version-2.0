@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,13 +17,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.newtech.jobnow.R;
+import com.newtech.jobnow.adapter.NotificationVer2Adapter;
 import com.newtech.jobnow.adapter.ShortlistManagerAdapter;
 import com.newtech.jobnow.common.APICommon;
+import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.controller.CategoryController;
+import com.newtech.jobnow.models.NotificationVersion2Object;
+import com.newtech.jobnow.models.NotificationVersion2Response;
 import com.newtech.jobnow.models.ProfileModel;
 import com.newtech.jobnow.models.ShortlistDetailObject;
 import com.newtech.jobnow.models.ShortlistDetailResponse;
+import com.newtech.jobnow.models.UserModel;
 import com.newtech.jobnow.utils.Utils;
 import com.newtech.jobnow.widget.CRecyclerView;
 
@@ -46,21 +53,20 @@ public class NotificationManagerActivity extends AppCompatActivity {
     private boolean isProgessingLoadMore = false;
     private LinearLayout lnErrorView;
     private CRecyclerView rvListJob;
-    private ShortlistManagerAdapter adapter;
+    private NotificationVer2Adapter adapter;
     private RelativeLayout btn_add_manager;
     ProfileModel profileModel;
-    int category_id=0;
-    String category_name="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_manager);
-        try {
-            category_id=getIntent().getIntExtra("category_id",0);
-            category_name=getIntent().getStringExtra("category_name");
-        }catch (Exception err){
 
-        }
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref,MODE_PRIVATE);
+        String profile=sharedPreferences.getString(Config.KEY_COMPANY_PROFILE,"");
+        Gson gson= new Gson();
+        profileModel=gson.fromJson(profile,ProfileModel.class);
+
         InitUI();
         InitEvent();
         BindData();
@@ -68,7 +74,7 @@ public class NotificationManagerActivity extends AppCompatActivity {
 
     public void InitUI() {
         rvListJob = (CRecyclerView) findViewById(R.id.rvListNotification);
-        adapter = new ShortlistManagerAdapter(NotificationManagerActivity.this, new ArrayList<ShortlistDetailObject>(),0,category_id);
+        adapter = new NotificationVer2Adapter(NotificationManagerActivity.this, new ArrayList<NotificationVersion2Object>());
         lnErrorView = (LinearLayout) findViewById(R.id.lnErrorView);
         rvListJob.setAdapter(adapter);
 
@@ -117,35 +123,32 @@ public class NotificationManagerActivity extends AppCompatActivity {
     }
 
     private void BindData() {
-        /*final ProgressDialog progressDialog = ProgressDialog.show(NotificationManagerActivity.this, "Loading...", "Please wait", true, false);
-        isProgessingLoadMore = true;*/
-
-        lnErrorView.setVisibility(View.VISIBLE);
-        rvListJob.setVisibility(View.GONE);
-
-        /*APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
-        Call<ShortlistDetailResponse> getJobList = service.getShortlistDetail(
-                APICommon.getSign(APICommon.getApiKey(), "api/v1/shortlist/getShortlist"),
+        final ProgressDialog progressDialog = ProgressDialog.show(NotificationManagerActivity.this, "Loading...", "Please wait", true, false);
+        isProgessingLoadMore = true;
+        APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
+        Call<NotificationVersion2Response> getJobList = service.getListNotification(
+                APICommon.getSign(APICommon.getApiKey(), "api/v1/notification/getListNotification"),
                 APICommon.getAppId(),
                 APICommon.getDeviceType(),
-                category_id
+                profileModel.CompanyID,
+                0
         );
-        getJobList.enqueue(new Callback<ShortlistDetailResponse>() {
+        getJobList.enqueue(new Callback<NotificationVersion2Response>() {
             @Override
-            public void onResponse(Response<ShortlistDetailResponse> response, Retrofit retrofit) {
+            public void onResponse(Response<NotificationVersion2Response> response, Retrofit retrofit) {
                 isProgessingLoadMore = false;
                 refresh.setRefreshing(false);
                 try {
                     progressDialog.dismiss();
                     if (response.body() != null && response.body().code == 200) {
                         if (response.body().result != null && response.body().result != null) {
-                            adapter.addAll(response.body().result);
-                            *//*if (page < response.body().result.last_page) {
+                            adapter.addAll(response.body().result.data);
+                            if (page < response.body().result.last_page) {
                                 page++;
                                 isCanNext = true;
                             } else {
                                 isCanNext = false;
-                            }*//*
+                            }
                         } else {
                             isCanNext = false;
                         }
@@ -173,7 +176,7 @@ public class NotificationManagerActivity extends AppCompatActivity {
                 rvListJob.setVisibility(View.GONE);
                 //Toast.makeText(ShortlistManagerActivity.this, ShortlistManagerActivity.this.getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

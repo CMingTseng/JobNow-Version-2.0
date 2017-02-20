@@ -30,7 +30,7 @@
             android:paddingRight="10dp">
 
             <com.newtech.jobnow.common.CustomTextViewLato
-                android:id="@+id/txt_name_employee"
+                android:id="@+id/txtTitleNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Jessie Nencer"
@@ -40,7 +40,7 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_below="@+id/txt_name_employee"
+                android:layout_below="@+id/txtTitleNotification"
                 android:id="@+id/tb_shortlist_detail"
                 android:layout_marginTop="5dp"
                 android:layout_height="25dp">

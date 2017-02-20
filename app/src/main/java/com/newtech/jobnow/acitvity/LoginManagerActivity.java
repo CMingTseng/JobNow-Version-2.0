@@ -16,12 +16,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.controller.UserController;
 import com.newtech.jobnow.models.LoginRequest;
 import com.newtech.jobnow.models.UserModel;
+import com.newtech.jobnow.service.DeleteTokenService;
 
 /**
  * Created by Administrator on 07/02/2017.
@@ -42,6 +44,8 @@ public class LoginManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_manager_v2);
         InitUI();
         InitEvent();
+        Intent intent1 = new Intent(getApplication(), DeleteTokenService.class);
+        startService(intent1);
     }
     public void InitUI(){
         toolbar = (Toolbar)findViewById(R.id.toolbar_sign_in);
@@ -75,8 +79,15 @@ public class LoginManagerActivity extends AppCompatActivity {
         btnLoginManager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginAsystask loginAsystask= new LoginAsystask(LoginManagerActivity.this, new LoginRequest(edtEmailManager.getText().toString(),edtPasswordManager.getText().toString(),1));
-                loginAsystask.execute();
+                try {
+                    java.lang.Thread.sleep(3000);
+                    String session_id = FirebaseInstanceId.getInstance().getToken().toString();
+                    LoginAsystask loginAsystask= new LoginAsystask(LoginManagerActivity.this, new LoginRequest(edtEmailManager.getText().toString(),edtPasswordManager.getText().toString(),1,session_id));
+                    loginAsystask.execute();
+                }catch (Exception ex){
+
+                }
+
             }
         });
 

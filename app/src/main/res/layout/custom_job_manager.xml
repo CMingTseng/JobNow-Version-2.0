@@ -128,7 +128,7 @@
             android:paddingRight="10dp">
 
             <com.newtech.jobnow.common.CustomTextViewHelveticaneue
-                android:id="@+id/txt_name_employee"
+                android:id="@+id/txtTitleNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Jessie Nencer"

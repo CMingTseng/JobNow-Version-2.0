@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.acitvity.MyApplication;
+import com.newtech.jobnow.acitvity.ProfileVer2Activity;
 import com.newtech.jobnow.adapter.LocationSpinnerAdapter;
 import com.newtech.jobnow.common.APICommon;
 import com.newtech.jobnow.config.Config;
@@ -49,7 +50,7 @@ import retrofit.Retrofit;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class MyProfileFragment extends Fragment implements View.OnClickListener {
+public class UserProfileFragment extends Fragment {
     private TextView tvEmail, tvPhoneNumber, tvGender, tvBirthday, tvCountry, tvPostalCode, tvDescription;
     private ProgressDialog progressDialog;
     private ImageView imgEditPhoneNumber, imgEditGender, imgEditBirthday, imgEditCountry, imgEditPostalCode, imgEditDescription;
@@ -64,20 +65,15 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         initUI(view);
-        bindData();
+        getApiToken();
         event();
         return view;
     }
 
     private void event() {
-        imgEditPhoneNumber.setOnClickListener(this);
-        imgEditGender.setOnClickListener(this);
-        imgEditBirthday.setOnClickListener(this);
-        imgEditCountry.setOnClickListener(this);
-        imgEditPostalCode.setOnClickListener(this);
-        imgEditDescription.setOnClickListener(this);
+
     }
 
     private void bindData() {
@@ -86,9 +82,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
     public void getApiToken() {
         APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.Pref, MODE_PRIVATE);
-        int userId = sharedPreferences.getInt(Config.KEY_ID, 0);
-        String email = sharedPreferences.getString(Config.KEY_EMAIL, "");
+        int userId = ProfileVer2Activity.idJobSeeker;
+        String email =ProfileVer2Activity.emailJobSeeker;
         Call<LoginResponse> call = service.getToken(new TokenRequest(userId, email));
         call.enqueue(new Callback<LoginResponse>() {
             @Override
@@ -96,7 +91,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                 if(response.body() != null && response.body().code == 200) {
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.Pref, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(Config.KEY_TOKEN, response.body().result.apiToken);
+                    editor.putString(Config.KEY_TOKEN_USER, response.body().result.apiToken);
                     editor.commit();
                     bindData();
                 } else
@@ -115,8 +110,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
     private void loadUserDetail() {
         progressDialog = ProgressDialog.show(getActivity(), "", getString(R.string.loading), true, true);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.Pref, Context.MODE_PRIVATE);
-        int user_id = sharedPreferences.getInt(Config.KEY_ID, 0);
-        String token = sharedPreferences.getString(Config.KEY_TOKEN, "");
+        int user_id = ProfileVer2Activity.idJobSeeker;
+        String token = sharedPreferences.getString(Config.KEY_TOKEN_USER, "");
         APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
         Call<UserDetailResponse> call =
                 service.getUserDetail(APICommon.getSign(APICommon.getApiKey(),
@@ -135,8 +130,6 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                             setProfileToUI(true);
                         }
                     });
-                } else if(response.body().code == 503) {
-                    getApiToken();
                 }
             }
 
@@ -154,11 +147,11 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                 Picasso.with(getActivity()).load(userModel.avatar).
                         placeholder(R.mipmap.default_avatar).
                         error(R.mipmap.default_avatar).
-                        into(ProfileFragment.img_avatar);
+                        into(ProfileVer2Activity.img_avatar);
             }
-        ProfileFragment.tvName.setText(
+        ProfileVer2Activity.tvName.setText(
                 userModel.fullname == null || userModel.fullname.isEmpty() ? userModel.email : userModel.fullname);
-        ProfileFragment.tvLocation.setText(userModel.countryName);
+        ProfileVer2Activity.tvLocation.setText(userModel.countryName);
         tvEmail.setText(userModel.email);
         tvPhoneNumber.setText(userModel.phoneNumber);
         gender = userModel.gender;
@@ -182,39 +175,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         tvPostalCode = (TextView) view.findViewById(R.id.tvPostalCode);
         tvDescription = (TextView) view.findViewById(R.id.tvDescription);
 
-
-        imgEditPhoneNumber = (ImageView) view.findViewById(R.id.imgEditPhoneNumber);
-        imgEditGender = (ImageView) view.findViewById(R.id.imgEditGender);
-        imgEditBirthday = (ImageView) view.findViewById(R.id.imgEditBirthday);
-        imgEditCountry = (ImageView) view.findViewById(R.id.imgEditCountry);
-        imgEditPostalCode = (ImageView) view.findViewById(R.id.imgEditPostalCode);
-        imgEditDescription = (ImageView) view.findViewById(R.id.imgEditDescription);
     }
 
-    @Override
-    public void onClick(View v) {
-
-        switch (v.getId()) {
-            case R.id.imgEditPhoneNumber:
-                updateProfile(Config.TYPE_EDIT_PHONE_NUMBER);
-                break;
-            case R.id.imgEditGender:
-                updateProfile(Config.TYPE_EDIT_GENDER);
-                break;
-            case R.id.imgEditBirthday:
-                updateProfileBirthDay();
-                break;
-            case R.id.imgEditCountry:
-                updateCountry();
-                break;
-            case R.id.imgEditPostalCode:
-                updateProfile(Config.TYPE_EDIT_POSTALCODE);
-                break;
-            case R.id.imgEditDescription:
-                updateProfile(Config.TYPE_EDIT_DESCRIPTION);
-                break;
-        }
-    }
 
     Integer coutryId;
     String countryName;
@@ -271,8 +233,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                                 userModel.countryID = coutryID;
                                 userModel.countryName = countryName;
                                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.Pref, Context.MODE_PRIVATE);
-                                String token = sharedPreferences.getString(Config.KEY_TOKEN, "");
-                                int userId = sharedPreferences.getInt(Config.KEY_ID, 0);
+                                String token = sharedPreferences.getString(Config.KEY_TOKEN_USER, "");
+                                int userId = ProfileVer2Activity.idJobSeeker;
                                 Call<BaseResponse> call =
                                         service.postUpdateDetail(new UpdateProfileRequest(fullname, email, birthday, gender, postalCode, description, phonenumber, fb_id, token, userId, coutryID));
                                 call.enqueue(new Callback<BaseResponse>() {
@@ -353,8 +315,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                 }
                 String coutryID = userModel.countryID == null ? "" : userModel.countryID;
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.Pref, Context.MODE_PRIVATE);
-                String token = sharedPreferences.getString(Config.KEY_TOKEN, "");
-                int userId = sharedPreferences.getInt(Config.KEY_ID, 0);
+                String token = sharedPreferences.getString(Config.KEY_TOKEN_USER, "");
+                int userId = ProfileVer2Activity.idJobSeeker;
 
                 Call<BaseResponse> call =
                         service.postUpdateDetail(new UpdateProfileRequest(fullname, email, birthday, gender, postalCode, description, phonenumber, fb_id, token, userId, coutryID));
@@ -458,8 +420,8 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                 }
                 String coutryID = userModel.countryID == null ? "" : userModel.countryID;
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.Pref, Context.MODE_PRIVATE);
-                String token = sharedPreferences.getString(Config.KEY_TOKEN, "");
-                int userId = sharedPreferences.getInt(Config.KEY_ID, 0);
+                String token = sharedPreferences.getString(Config.KEY_TOKEN_USER, "");
+                int userId = ProfileVer2Activity.idJobSeeker;
                 if (type == Config.TYPE_EDIT_PHONE_NUMBER) {
                     phonenumber = input.getText().toString();
                     userModel.phoneNumber = phonenumber;

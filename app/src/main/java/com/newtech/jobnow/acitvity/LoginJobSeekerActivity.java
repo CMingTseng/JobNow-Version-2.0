@@ -17,7 +17,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.gson.Gson;
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.common.APICommon;
@@ -25,8 +31,12 @@ import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.controller.UserController;
 import com.newtech.jobnow.models.LoginRequest;
 import com.newtech.jobnow.models.LoginResponse;
+import com.newtech.jobnow.models.RegisterFBReponse;
+import com.newtech.jobnow.models.RegisterFBRequest;
 import com.newtech.jobnow.models.UserModel;
 import com.newtech.jobnow.utils.Utils;
+
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -47,13 +57,14 @@ public class LoginJobSeekerActivity extends AppCompatActivity {
     private Button btnLogin_v2,btnRegister_v2,fbLogin;
     private TextView txtForgotPass;
     private Toolbar toolbar;
-
+    private CallbackManager callbackManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_ver2);
         InitUI();
         InitEvent();
+        initData();
     }
     public void InitUI(){
         toolbar = (Toolbar)findViewById(R.id.toolbar_sign_in);
@@ -153,10 +164,101 @@ public class LoginJobSeekerActivity extends AppCompatActivity {
             });
         }
 
-
     }
 
     private void loginFacebook() {
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends", "email"));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void initData() {
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(final LoginResult loginResult) {
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(final JSONObject object,
+                                                    GraphResponse response) {
+                                if (object != null) {
+                                    String email = object.optString("email");
+                                    String name = object.optString("name");
+                                    String fbid = object.optString("id");
+                                    String avatar = Utils.addressAvatarFB(fbid);
+                                    APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
+                                    Call<RegisterFBReponse> registerFBReponseCall =
+                                            service.registerFB(new RegisterFBRequest(name, email, avatar, fbid));
+                                    registerFBReponseCall.enqueue(new Callback<RegisterFBReponse>() {
+                                        @Override
+                                        public void onResponse(final Response<RegisterFBReponse> response, Retrofit retrofit) {
+                                            Log.d(TAG, "get login response: " + response.body().toString());
+                                            int code = response.body().code;
+                                            if (code == 200) {
+                                                SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                editor.putString(Config.KEY_TOKEN, response.body().result.apiToken).commit();
+                                                editor.putInt(Config.KEY_ID, response.body().result.id).commit();
+                                                editor.putString(Config.KEY_EMAIL, response.body().result.email).commit();
+                                                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(getApplicationContext(),
+                                                                response.body().message, Toast.LENGTH_SHORT)
+                                                                .show();
+                                                    }
+                                                });
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Throwable t) {
+                                            Log.d(TAG, "(on failed): " + t.toString());
+                                        }
+                                    });
+                                } else {
+
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(LoginJobSeekerActivity.this, "Login Cancel", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onError(final FacebookException error) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(LoginJobSeekerActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+        });
     }
 }

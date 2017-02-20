@@ -20,6 +20,12 @@ public class LoginRequest extends BaseRequest implements Serializable {
     @SerializedName("isEmployee")
     private int isEmployee;
 
+    @SerializedName("Check")
+    private int check;
+
+    @SerializedName("TokenFirebase")
+    private String tokenFirebase;
+
     public LoginRequest(String email, String password) {
         super(PATH_URL);
         this.email = email;
@@ -31,6 +37,39 @@ public class LoginRequest extends BaseRequest implements Serializable {
         this.email = email;
         this.password = password;
         this.isEmployee= isEmployee;
+    }
+
+    public LoginRequest(String email, String password, int isEmployee, int check, String tokenFirebase) {
+        super(PATH_URL);
+        this.email = email;
+        this.password = password;
+        this.isEmployee = isEmployee;
+        this.check = check;
+        this.tokenFirebase = tokenFirebase;
+    }
+
+    public LoginRequest(String email, String password, int isEmployee,String tokenFirebase) {
+        super(PATH_URL);
+        this.email = email;
+        this.password = password;
+        this.isEmployee = isEmployee;
+        this.tokenFirebase = tokenFirebase;
+    }
+
+    public int getCheck() {
+        return check;
+    }
+
+    public void setCheck(int check) {
+        this.check = check;
+    }
+
+    public String getTokenFirebase() {
+        return tokenFirebase;
+    }
+
+    public void setTokenFirebase(String tokenFirebase) {
+        this.tokenFirebase = tokenFirebase;
     }
 
     public static String getPathUrl() {

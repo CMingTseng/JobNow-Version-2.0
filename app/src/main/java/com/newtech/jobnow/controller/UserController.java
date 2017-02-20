@@ -18,6 +18,7 @@ import com.newtech.jobnow.models.ProfileRequest;
 import com.newtech.jobnow.models.ProfileResponse;
 import com.newtech.jobnow.models.RegisterManagerRequest;
 import com.newtech.jobnow.models.RegisterResponse;
+import com.newtech.jobnow.models.SendPricingRequest;
 import com.newtech.jobnow.models.TokenRequest;
 import com.newtech.jobnow.models.UploadFileResponse;
 import com.newtech.jobnow.models.UserModel;
@@ -184,6 +185,27 @@ public class UserController {
     public String ChangePassword(ChangePassRequest changePassRequest) {
         try {
             retrofit.Call<BaseResponse> loginResponseCall = service.changePassword(changePassRequest);
+
+            try {
+                if (android.os.Build.VERSION.SDK_INT > 9) {
+                    StrictMode.ThreadPolicy policy =
+                            new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+                }
+                BaseResponse result = loginResponseCall.execute().body();
+                return result.message;
+
+            } catch (Exception ex) {
+                return ex.getMessage();
+            }
+        } catch (Exception exx) {
+        }
+        return "";
+    }
+
+    public String SendPricing(SendPricingRequest request) {
+        try {
+            retrofit.Call<BaseResponse> loginResponseCall = service.SendPricing(request);
 
             try {
                 if (android.os.Build.VERSION.SDK_INT > 9) {
