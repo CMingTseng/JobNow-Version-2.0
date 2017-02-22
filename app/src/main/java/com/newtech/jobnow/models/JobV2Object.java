@@ -1,13 +1,11 @@
 package com.newtech.jobnow.models;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
 /**
  * Created by manhi on 26/8/2016.
  */
-public class JobObject implements Serializable {
+public class JobV2Object implements Serializable {
     public Integer id;
     public int JobSeekerID;
     public Integer JobID;
@@ -24,7 +22,6 @@ public class JobObject implements Serializable {
     public Integer IsDisplaySalary;
     public String Description;
     public String Requirement;
-    public String CreateDate;
     public Integer IsActive;
     public String created_at;
     public String updated_at;
@@ -51,4 +48,5 @@ public class JobObject implements Serializable {
     public long Start_date_int;
     public long End_date_int;
 
+    public CreateDateObject CreateDate;
 }

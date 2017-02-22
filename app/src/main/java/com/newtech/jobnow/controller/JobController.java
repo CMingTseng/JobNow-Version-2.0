@@ -87,7 +87,7 @@ public class JobController {
         return "";
     }
 
-    public String PostAJobs(PostJobRequest request){
+    public PostJobResponse PostAJobs(PostJobRequest request){
         try {
             retrofit.Call<PostJobResponse> inResponseCall = service.PostAJobs(request);
 
@@ -98,14 +98,14 @@ public class JobController {
                     StrictMode.setThreadPolicy(policy);
                 }
                 PostJobResponse result = inResponseCall.execute().body();
-                return result.result;
+                return result;
 
             } catch (Exception ex) {
-                return ex.getMessage();
+
             }
         }catch (Exception exx){
         }
-        return "";
+        return null;
     }
     public String EditPostAJobs(PostJobRequest request){
         try {

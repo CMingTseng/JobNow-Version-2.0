@@ -23,6 +23,7 @@ import com.newtech.jobnow.models.InterviewResponse;
 import com.newtech.jobnow.models.InviteRequest;
 import com.newtech.jobnow.models.InviteResponse;
 import com.newtech.jobnow.models.JobListReponse;
+import com.newtech.jobnow.models.JobListV2Reponse;
 import com.newtech.jobnow.models.JobLocationResponse;
 import com.newtech.jobnow.models.JobRequest;
 import com.newtech.jobnow.models.LevelResponse;
@@ -142,7 +143,7 @@ public class APICommon {
         Call<BaseResponse> applyJob(@Body ApplyJobRequest request);
 
         @GET("jobs/getAppliedJob/{sign}/{app_id}/{device_type}/{user_id}/{ApiToken}")
-        Call<JobListReponse> getAppliedListJob(@Path("sign") String sign,
+        Call<JobListV2Reponse> getAppliedListJob(@Path("sign") String sign,
                                                @Path("app_id") String app_id,
                                                @Path("device_type") int device_type,
                                                @Path("user_id") int user_id,
@@ -151,11 +152,19 @@ public class APICommon {
 
         @GET("jobs/getSaveJob/{sign}/{app_id}/{device_type}/{user_id}/{ApiToken}")
         Call<JobListReponse> getSaveListJob(@Path("sign") String sign,
-                                            @Path("app_id") String app_id,
-                                            @Path("device_type") int device_type,
-                                            @Path("user_id") int user_id,
-                                            @Path("ApiToken") String apiToken,
-                                            @Query("page") Integer page);
+                                              @Path("app_id") String app_id,
+                                              @Path("device_type") int device_type,
+                                              @Path("user_id") int user_id,
+                                              @Path("ApiToken") String apiToken,
+                                              @Query("page") Integer page);
+
+        @GET("jobs/getSaveJob/{sign}/{app_id}/{device_type}/{user_id}/{ApiToken}")
+        Call<JobListV2Reponse> getSaveListJobV2(@Path("sign") String sign,
+                                              @Path("app_id") String app_id,
+                                              @Path("device_type") int device_type,
+                                              @Path("user_id") int user_id,
+                                              @Path("ApiToken") String apiToken,
+                                              @Query("page") Integer page);
 
         @POST("users/postLogin")
         Call<LoginResponse> loginUser(@Body LoginRequest request);
@@ -362,7 +371,8 @@ public class APICommon {
         Call<InterviewResponse> getInterview(@Path("sign") String sign,
                                              @Path("app_id") String app_id,
                                              @Path("device_type") int device_type,
-                                             @Query("CompanyID") int company_id
+                                             @Query("CompanyID") int company_id,
+                                             @Query("JobSeekerID") int jobSeekerID
 
         );
 
@@ -390,7 +400,7 @@ public class APICommon {
         @GET()
         Call<LocationResponse> getListLocation(@Url String url);
 
-        @POST("notification/setNotification\n")
+        @POST("notification/setNotification")
         Call<SetNotificationResponse> SetNotification(@Body NotificationRequest request);
 
         @GET("notification/getListNotification/{sign}/{app_id}/{device_type}/")
@@ -398,10 +408,28 @@ public class APICommon {
                                                                @Path("app_id") String app_id,
                                                                @Path("device_type") int device_type,
                                                                @Query("CompanyID") int company_id,
-                                                               @Query("JobSeekerID") int jobSeekerId
-                                                    );
+                                                               @Query("JobSeekerID") int jobSeekerId,
+                                                               @Query("page") int page
+        );
 
         @POST("users/sendPricing")
         Call<BaseResponse> SendPricing(@Body SendPricingRequest request);
+
+        @GET()
+        Call<TermResponse> getTermsofUse(@Url String url);
+
+        @GET("users/getUserProfile/{sign}/{app_id}/{device_type}/")
+        Call<UserDetailResponse> getUserProfile(@Path("sign") String sign,
+                                                @Path("app_id") String app_id,
+                                                @Path("device_type") int device_type,
+                                                @Query("user_id") int user_id
+        );
+
+        @GET("jobseekerexperience/getAllUserExperience/{sign}/{app_id}/{device_type}/")
+        Call<ExperienceResponse> getUserExperience(@Path("sign") String sign,
+                                                   @Path("app_id") String app_id,
+                                                   @Path("device_type") int device_type,
+                                                   @Query("user_id") int user_id
+        );
     }
 }

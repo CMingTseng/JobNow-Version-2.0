@@ -17,6 +17,7 @@ import com.newtech.jobnow.R;
 import com.newtech.jobnow.common.APICommon;
 import com.newtech.jobnow.models.RegisterRequest;
 import com.newtech.jobnow.models.RegisterResponse;
+import com.newtech.jobnow.service.DeleteTokenService;
 import com.newtech.jobnow.utils.Utils;
 
 import retrofit.Call;
@@ -37,6 +38,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initUI();
+        Intent intent1 = new Intent(this, DeleteTokenService.class);
+        startService(intent1);
     }
 
     private void initUI() {
@@ -87,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                        Intent intent = new Intent(getApplicationContext(), LoginJobSeekerActivity.class);
                                         startActivity(intent);
                                         dialog.dismiss();
                                     }

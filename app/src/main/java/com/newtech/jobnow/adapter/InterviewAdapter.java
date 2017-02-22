@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.acitvity.SetInterviewActivity;
+import com.newtech.jobnow.acitvity.SetInterviewDetailActivity;
 import com.newtech.jobnow.models.InterviewObject;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.squareup.picasso.Picasso;
@@ -99,9 +100,17 @@ public class InterviewAdapter extends BaseRecyclerAdapter<InterviewObject, Inter
             tb_add_category.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent= new Intent(mContext, SetInterviewActivity.class);
-                    intent.putExtra("interview_detail",object);
-                    mContext.startActivity(intent);
+                    if(type==1) {
+                        Intent intent = new Intent(mContext, SetInterviewActivity.class);
+                        intent.putExtra("interview_detail", object);
+                        mContext.startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(mContext, SetInterviewDetailActivity.class);
+                        intent.putExtra("interview_detail", object);
+                        mContext.startActivity(intent);
+                    }
+
+
                 }
             });
 

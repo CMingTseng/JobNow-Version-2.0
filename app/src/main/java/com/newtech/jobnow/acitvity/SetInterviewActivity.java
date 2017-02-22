@@ -61,7 +61,7 @@ public class SetInterviewActivity extends AppCompatActivity {
     String startTime = "";
     String endTime = "";
 
-    UserModel userModel;
+    UserModel userModel,profile;
     ProfileModel profileModel;
     InterviewObject interviewObject;
 
@@ -73,6 +73,7 @@ public class SetInterviewActivity extends AppCompatActivity {
         try {
             shortlistDetailObject = (ShortlistDetailObject) getIntent().getSerializableExtra("jobseeker_v2");
             interviewObject = (InterviewObject) getIntent().getSerializableExtra("interview_detail");
+            profile=(UserModel) getIntent().getSerializableExtra("profile");
         } catch (Exception err) {
 
         }
@@ -199,8 +200,8 @@ public class SetInterviewActivity extends AppCompatActivity {
                                 if (minute < 10) {
                                     if (hourOfDay < 10) {
                                         startTime = "0" + hourOfDay + ":0" + minute + " AM";
-                                    } else if (hourOfDay < 12) {
-                                        startTime = "0" + hourOfDay + ":0" + minute + " AM";
+                                    } else if (hourOfDay <= 12) {
+                                        startTime = hourOfDay + ":0" + minute + " AM";
                                     } else {
                                         if (hourOfDay - 12 < 10) {
                                             startTime = "0" + (hourOfDay - 12) + ":0" + minute + " PM";
@@ -211,8 +212,8 @@ public class SetInterviewActivity extends AppCompatActivity {
                                 } else {
                                     if (hourOfDay < 10) {
                                         startTime = "0" + hourOfDay + ":" + minute + " AM";
-                                    } else if (hourOfDay < 12) {
-                                        startTime = "0" + hourOfDay + ":" + minute + " AM";
+                                    } else if (hourOfDay <= 12) {
+                                        startTime = hourOfDay + ":" + minute + " AM";
                                     } else {
                                         if (hourOfDay - 12 < 10) {
                                             startTime = "0" + (hourOfDay - 12) + ":" + minute + " PM";
@@ -295,7 +296,9 @@ public class SetInterviewActivity extends AppCompatActivity {
                         String message = editMessage.getText().toString();
                         SetInterviewRequest request;
                         if (shortlistDetailObject != null) {
-                            request = new SetInterviewRequest(0, shortlistDetailObject.JobSeekerID, profileModel.CompanyID, title, message, dateTimeInterview, interview, numberPhone, 1, startTime, endTime, location);
+                            request = new SetInterviewRequest(0, shortlistDetailObject.UserID, profileModel.CompanyID, title, message, dateTimeInterview, interview, numberPhone, 1, startTime, endTime, location);
+                        }else if(profile!=null){
+                            request = new SetInterviewRequest(0, profile.id, profileModel.CompanyID, title, message, dateTimeInterview, interview, numberPhone, 1, startTime, endTime, location);
                         }
                         else {
                             request = new SetInterviewRequest(interviewObject.id, interviewObject.JobSeekerID, profileModel.CompanyID, title, message, dateTimeInterview, interview, numberPhone, 1, startTime, endTime, location);
@@ -325,6 +328,14 @@ public class SetInterviewActivity extends AppCompatActivity {
             }
             txt_name_employee.setText(shortlistDetailObject.FullName);
             txt_location.setText(shortlistDetailObject.CountryName);
+        } else if (profile != null) {
+            try {
+                Picasso.with(SetInterviewActivity.this).load(profile.avatar).placeholder(R.mipmap.img_logo_company).error(R.mipmap.default_avatar).into(img_photo_company);
+            } catch (Exception e) {
+                Picasso.with(SetInterviewActivity.this).load(R.mipmap.default_avatar).into(img_photo_company);
+            }
+            txt_name_employee.setText(profile.fullName);
+            txt_location.setText(profile.countryName);
         } else {
             try {
                 Picasso.with(SetInterviewActivity.this).load(interviewObject.Avatar).placeholder(R.mipmap.img_logo_company).error(R.mipmap.default_avatar).into(img_photo_company);

@@ -158,12 +158,12 @@
                 <TextView
                     android:id="@+id/tvLocation"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="10dp"
                     android:drawableLeft="@mipmap/ic_location"
-                    android:drawablePadding="5dp" />
+                    android:drawablePadding="5dp"
+                    android:layout_height="25dp" />
             </RelativeLayout>
 
             <LinearLayout
@@ -287,7 +287,7 @@
         android:layout_alignParentStart="true">
 
         <Button
-            android:id="@+id/btnLogin_v2"
+            android:id="@+id/btnAddShortList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
@@ -297,7 +297,7 @@
             android:layout_weight="1"
             android:textSize="@dimen/sp16" />
         <Button
-            android:id="@+id/btnRegister_v2"
+            android:id="@+id/btnSetInterviewTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorBgApplyJob"

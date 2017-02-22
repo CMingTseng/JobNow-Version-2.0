@@ -26,6 +26,7 @@ import com.newtech.jobnow.acitvity.MyApplication;
 import com.newtech.jobnow.acitvity.NotificationActivity;
 import com.newtech.jobnow.acitvity.SearchResultActivity;
 import com.newtech.jobnow.adapter.JobListAdapter;
+import com.newtech.jobnow.adapter.JobListV2Adapter;
 import com.newtech.jobnow.common.APICommon;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.eventbus.DeleteJobEvent;
@@ -35,7 +36,9 @@ import com.newtech.jobnow.models.BaseResponse;
 import com.newtech.jobnow.models.DeleteJobRequest;
 import com.newtech.jobnow.models.JobListReponse;
 import com.newtech.jobnow.models.JobListRequest;
+import com.newtech.jobnow.models.JobListV2Reponse;
 import com.newtech.jobnow.models.JobObject;
+import com.newtech.jobnow.models.JobV2Object;
 import com.newtech.jobnow.utils.Utils;
 import com.newtech.jobnow.widget.CRecyclerView;
 
@@ -69,7 +72,7 @@ public class SaveJobListFragment extends Fragment {
 
     //    private LinearLayout lnJob1, lnJob2, lnJob3;
     private CRecyclerView rvListJob;
-    private JobListAdapter adapter;
+    private JobListV2Adapter adapter;
     private TextView tvNumberJob;
     private SwipeRefreshLayout refresh;
     private boolean isCanNext = false;
@@ -96,21 +99,21 @@ public class SaveJobListFragment extends Fragment {
                 Config.Pref, Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(Config.KEY_TOKEN, "");
         int userId = sharedPreferences.getInt(Config.KEY_ID, 0);
-        Call<JobListReponse> request = service.getSaveListJob(
+        Call<JobListV2Reponse> request = service.getSaveListJobV2(
                 APICommon.getSign(APICommon.getApiKey(), "/api/v1/jobs/getSaveJob"),
                 APICommon.getAppId(),
                 APICommon.getDeviceType(),
                 userId,
                 token, page);
-        request.enqueue(new Callback<JobListReponse>() {
+        request.enqueue(new Callback<JobListV2Reponse>() {
             @Override
-            public void onResponse(Response<JobListReponse> response, Retrofit retrofit) {
+            public void onResponse(Response<JobListV2Reponse> response, Retrofit retrofit) {
                 refresh.setRefreshing(false);
                 isProgessingLoadMore = false;
-                JobListReponse jobList = response.body();
+                JobListV2Reponse jobList = response.body();
                 if(jobList != null) {
                     if(jobList.code == 200) {
-                        JobListReponse.JobListResult result = jobList.result;
+                        JobListV2Reponse.JobListV2Result result = jobList.result;
                         if(result != null) {
                             tvNumberJob.setText(result.total + " saved job");
                             adapter.addAll(result.data);
@@ -174,7 +177,7 @@ public class SaveJobListFragment extends Fragment {
     private void initUI(View view) {
         rvListJob = (CRecyclerView) view.findViewById(R.id.rvListJob);
         rvListJob.setDivider();
-        adapter = new JobListAdapter(getActivity(), new ArrayList<JobObject>(), JobListAdapter.SAVE_TYPE);
+        adapter = new JobListV2Adapter(getActivity(), new ArrayList<JobV2Object>(), JobListAdapter.SAVE_TYPE);
         rvListJob.setAdapter(adapter);
         tvNumberJob = (TextView) view.findViewById(R.id.tvNumberJob);
         lnErrorView = (LinearLayout) view.findViewById(R.id.lnErrorView);

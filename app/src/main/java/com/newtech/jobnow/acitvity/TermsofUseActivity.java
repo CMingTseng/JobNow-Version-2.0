@@ -1,34 +1,39 @@
 package com.newtech.jobnow.acitvity;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.newtech.jobnow.R;
-import com.newtech.jobnow.adapter.NotificationVer2Adapter;
-import com.newtech.jobnow.adapter.ShortlistManagerAdapter;
+import com.newtech.jobnow.adapter.InviteAdapter;
+import com.newtech.jobnow.adapter.TermsofUseAdapter;
 import com.newtech.jobnow.common.APICommon;
 import com.newtech.jobnow.config.Config;
-import com.newtech.jobnow.controller.CategoryController;
-import com.newtech.jobnow.models.NotificationVersion2Object;
-import com.newtech.jobnow.models.NotificationVersion2Response;
-import com.newtech.jobnow.models.ProfileModel;
-import com.newtech.jobnow.models.ShortlistDetailObject;
-import com.newtech.jobnow.models.ShortlistDetailResponse;
+import com.newtech.jobnow.controller.InviteController;
+import com.newtech.jobnow.models.InviteObject;
+import com.newtech.jobnow.models.InviteRequest;
+import com.newtech.jobnow.models.InviteResponse;
+import com.newtech.jobnow.models.JobListRequest;
+import com.newtech.jobnow.models.TermObject;
+import com.newtech.jobnow.models.TermResponse;
 import com.newtech.jobnow.models.UserModel;
 import com.newtech.jobnow.utils.Utils;
 import com.newtech.jobnow.widget.CRecyclerView;
@@ -44,53 +49,53 @@ import retrofit.Retrofit;
  * Created by Administrator on 12/02/2017.
  */
 
-public class NotificationManagerActivity extends AppCompatActivity {
-    ImageView img_back;
-    TextView edTitleCategory;
+public class TermsofUseActivity extends AppCompatActivity {
+    private Toolbar toolbar;
     private SwipeRefreshLayout refresh;
     int page=1;
     private boolean isCanNext = false;
     private boolean isProgessingLoadMore = false;
     private LinearLayout lnErrorView;
     private CRecyclerView rvListJob;
-    private NotificationVer2Adapter adapter;
-    private RelativeLayout btn_add_manager;
-    ProfileModel profileModel;
-
+    private TermsofUseAdapter adapter;
+    UserModel userModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification_manager);
-
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref,MODE_PRIVATE);
-        String profile=sharedPreferences.getString(Config.KEY_COMPANY_PROFILE,"");
-        Gson gson= new Gson();
-        profileModel=gson.fromJson(profile,ProfileModel.class);
-
+        setContentView(R.layout.activity_term_use);
         InitUI();
         InitEvent();
         BindData();
     }
 
     public void InitUI() {
-        rvListJob = (CRecyclerView) findViewById(R.id.rvListNotification);
-        adapter = new NotificationVer2Adapter(NotificationManagerActivity.this, new ArrayList<NotificationVersion2Object>(),1);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_sign_in);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Material Search");
+        toolbar.setTitleTextColor(Color.parseColor("#0c69d3"));
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Terms of Use");
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setIcon(R.mipmap.ic_back);
+
+        rvListJob = (CRecyclerView) findViewById(R.id.rvListTermUseList);
+        adapter = new TermsofUseAdapter(TermsofUseActivity.this, new ArrayList<TermObject>());
         lnErrorView = (LinearLayout) findViewById(R.id.lnErrorView);
         rvListJob.setAdapter(adapter);
 
         refresh = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
-        Utils.closeKeyboard(NotificationManagerActivity.this);
-        img_back=(ImageView) findViewById(R.id.img_back);
+        Utils.closeKeyboard(TermsofUseActivity.this);
 
     }
 
     public void InitEvent() {
-        img_back.setOnClickListener(new View.OnClickListener() {
+        /*click vào nut home tren toolbar*/
+        View view = toolbar.getChildAt(0);
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent returnIntent = new Intent();
-                returnIntent.putExtra("result",1);
-                setResult(Activity.RESULT_OK,returnIntent);*/
                 finish();
             }
         });
@@ -120,35 +125,38 @@ public class NotificationManagerActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
-    private void BindData() {
-        final ProgressDialog progressDialog = ProgressDialog.show(NotificationManagerActivity.this, "Loading...", "Please wait", true, false);
+    public void BindData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
+        String userProfile = sharedPreferences.getString(Config.KEY_USER_PROFILE, "");
+        Gson gson = new Gson();
+        userModel=gson.fromJson(userProfile,UserModel.class);
+
+        final ProgressDialog progressDialog = ProgressDialog.show(TermsofUseActivity.this, "Loading...", "Please wait", true, false);
         isProgessingLoadMore = true;
+
         APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
-        Call<NotificationVersion2Response> getJobList = service.getListNotification(
-                APICommon.getSign(APICommon.getApiKey(), "api/v1/notification/getListNotification"),
-                APICommon.getAppId(),
-                APICommon.getDeviceType(),
-                profileModel.CompanyID,
-                0,page
-        );
-        getJobList.enqueue(new Callback<NotificationVersion2Response>() {
+        String url = APICommon.BASE_URL + "users/getListTerm/" + APICommon.getSign(APICommon.getApiKey(), "api/v1/users/getListTerm")
+                + "/" + APICommon.getAppId() + "/" + APICommon.getDeviceType();
+        Call<TermResponse> getJobList = service.getTermsofUse(url);
+        getJobList.enqueue(new Callback<TermResponse>() {
             @Override
-            public void onResponse(Response<NotificationVersion2Response> response, Retrofit retrofit) {
+            public void onResponse(Response<TermResponse> response, Retrofit retrofit) {
                 isProgessingLoadMore = false;
                 refresh.setRefreshing(false);
                 try {
                     progressDialog.dismiss();
                     if (response.body() != null && response.body().code == 200) {
-                        if (response.body().result != null && response.body().result != null) {
-                            adapter.addAll(response.body().result.data);
-                            if (page < response.body().result.last_page) {
+                        if (response.body().result != null && response.body().result.size() > 0) {
+                            adapter.addAll(response.body().result);
+                           /* if (page < response.body().result.last_page) {
                                 page++;
                                 isCanNext = true;
                             } else {
                                 isCanNext = false;
-                            }
+                            }*/
                         } else {
                             isCanNext = false;
                         }
@@ -172,53 +180,31 @@ public class NotificationManagerActivity extends AppCompatActivity {
                 refresh.setRefreshing(false);
                 isProgessingLoadMore = false;
                 progressDialog.dismiss();
-                lnErrorView.setVisibility(View.VISIBLE);
-                rvListJob.setVisibility(View.GONE);
-                //Toast.makeText(ShortlistManagerActivity.this, ShortlistManagerActivity.this.getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TermsofUseActivity.this, TermsofUseActivity.this.getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
             }
         });
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == 1) {
-            if(resultCode == Activity.RESULT_OK){
-                int result=data.getIntExtra("result",0);
-                String results=data.getStringExtra("results");
-                if (result==15){
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("result",result);
-                    setResult(Activity.RESULT_OK,returnIntent);
-                    finish();
-                }
-                edTitleCategory.setText(results);
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-
-        }
-    }
-    class GetShortListDetailAsystask extends AsyncTask<Void,Void,Void> {
+    class SetNewInviteAsystask extends AsyncTask<Void,Void,String> {
         ProgressDialog dialog;
         String sessionId="";
-       int category_id;
+        InviteRequest profileRequest;
         Context ct;
         Dialog dialogs;
-        public GetShortListDetailAsystask(Context ct,int category_id){
+        public SetNewInviteAsystask(Context ct,InviteRequest profileRequest,Dialog dialogs){
             this.ct=ct;
-            this.category_id=category_id;
-
+            this.profileRequest=profileRequest;
+            this.dialogs=dialogs;
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected String doInBackground(Void... params) {
             try {
-                CategoryController controller= new CategoryController();
-                controller.GetShortListDetail(category_id);
+                InviteController controller= new InviteController();
+                return controller.SetNewInvite(profileRequest);
             }catch (Exception ex){
+                return null;
             }
-            return null;
         }
 
         @Override
@@ -230,12 +216,18 @@ public class NotificationManagerActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void code) {
+        protected void onPostExecute(String code) {
             try {
-
+                if(!code.equals("")){
+                    Toast.makeText(TermsofUseActivity.this, code, Toast.LENGTH_SHORT).show();
+                    adapter.clear();
+                    BindData();
+                    dialogs.dismiss();
+                }
             }catch (Exception e){
             }
             dialog.dismiss();
         }
     }
+
 }

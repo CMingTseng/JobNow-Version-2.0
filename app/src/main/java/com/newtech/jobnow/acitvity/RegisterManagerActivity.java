@@ -33,6 +33,7 @@ import com.newtech.jobnow.models.LoginResponse;
 import com.newtech.jobnow.models.RegisterManagerRequest;
 import com.newtech.jobnow.models.RegisterRequest;
 import com.newtech.jobnow.models.UserModel;
+import com.newtech.jobnow.service.DeleteTokenService;
 import com.newtech.jobnow.utils.Utils;
 
 import java.util.ArrayList;
@@ -64,6 +65,8 @@ public class RegisterManagerActivity extends AppCompatActivity {
         getIndustry();
         getCompanySize();
         InitEvent();
+        Intent intent1 = new Intent(this, DeleteTokenService.class);
+        startService(intent1);
     }
     public void InitUI(){
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_sign_up);

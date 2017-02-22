@@ -25,6 +25,7 @@ import com.newtech.jobnow.acitvity.MyApplication;
 import com.newtech.jobnow.acitvity.NotificationActivity;
 import com.newtech.jobnow.acitvity.SearchResultActivity;
 import com.newtech.jobnow.adapter.JobListAdapter;
+import com.newtech.jobnow.adapter.JobListV2Adapter;
 import com.newtech.jobnow.common.APICommon;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.eventbus.ApplyJobEvent;
@@ -33,7 +34,9 @@ import com.newtech.jobnow.models.BaseResponse;
 import com.newtech.jobnow.models.DeleteJobRequest;
 import com.newtech.jobnow.models.JobListReponse;
 import com.newtech.jobnow.models.JobListRequest;
+import com.newtech.jobnow.models.JobListV2Reponse;
 import com.newtech.jobnow.models.JobObject;
+import com.newtech.jobnow.models.JobV2Object;
 import com.newtech.jobnow.utils.Utils;
 import com.newtech.jobnow.widget.CRecyclerView;
 
@@ -56,7 +59,7 @@ public class AppliedJobListFragment extends Fragment {
     public static final String TAG = AppliedJobListFragment.class.getSimpleName();
     //    private LinearLayout lnJob1, lnJob2, lnJob3;
     private CRecyclerView rvListJob;
-    private JobListAdapter adapter;
+    private JobListV2Adapter adapter;
     private TextView tvNumberJob;
     private LinearLayout lnErrorView;
     private RelativeLayout imgFilter, imgBack;
@@ -89,21 +92,21 @@ public class AppliedJobListFragment extends Fragment {
                 Config.Pref, Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(Config.KEY_TOKEN, "");
         int userId = sharedPreferences.getInt(Config.KEY_ID, 0);
-        Call<JobListReponse> request = service.getAppliedListJob(
+        Call<JobListV2Reponse> request = service.getAppliedListJob(
                 APICommon.getSign(APICommon.getApiKey(), "/api/v1/jobs/getAppliedJob"),
                 APICommon.getAppId(),
                 APICommon.getDeviceType(),
                 userId,
                 token, page);
-        request.enqueue(new Callback<JobListReponse>() {
+        request.enqueue(new Callback<JobListV2Reponse>() {
             @Override
-            public void onResponse(Response<JobListReponse> response, Retrofit retrofit) {
+            public void onResponse(Response<JobListV2Reponse> response, Retrofit retrofit) {
                 refresh.setRefreshing(false);
                 isProgessingLoadMore = false;
-                JobListReponse jobList = response.body();
+                JobListV2Reponse jobList = response.body();
                 if (jobList != null) {
                     if (jobList.code == 200) {
-                        JobListReponse.JobListResult result = jobList.result;
+                        JobListV2Reponse.JobListV2Result result = jobList.result;
                         if (result != null) {
                             tvNumberJob.setText(result.total + " applied job");
                             adapter.addAll(result.data);
@@ -166,7 +169,7 @@ public class AppliedJobListFragment extends Fragment {
         rvListJob = (CRecyclerView) view.findViewById(R.id.rvListJob);
         lnErrorView = (LinearLayout) view.findViewById(R.id.lnErrorView);
         rvListJob.setDivider();
-        adapter = new JobListAdapter(getActivity(), new ArrayList<JobObject>(),
+        adapter = new JobListV2Adapter(getActivity(), new ArrayList<JobV2Object>(),
                 JobListAdapter.APPLY_TYPE);
         rvListJob.setAdapter(adapter);
         tvNumberJob = (TextView) view.findViewById(R.id.tvNumberJob);

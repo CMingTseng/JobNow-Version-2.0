@@ -157,7 +157,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                         into(ProfileFragment.img_avatar);
             }
         ProfileFragment.tvName.setText(
-                userModel.fullname == null || userModel.fullname.isEmpty() ? userModel.email : userModel.fullname);
+                userModel.fullName == null || userModel.fullName.isEmpty() ? userModel.email : userModel.fullName);
         ProfileFragment.tvLocation.setText(userModel.countryName);
         tvEmail.setText(userModel.email);
         tvPhoneNumber.setText(userModel.phoneNumber);

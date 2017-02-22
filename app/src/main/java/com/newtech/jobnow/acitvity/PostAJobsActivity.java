@@ -69,6 +69,7 @@ import com.newtech.jobnow.models.ListExperienceResponse;
 import com.newtech.jobnow.models.LocationObject;
 import com.newtech.jobnow.models.LocationResponse;
 import com.newtech.jobnow.models.PostJobRequest;
+import com.newtech.jobnow.models.PostJobResponse;
 import com.newtech.jobnow.models.SkillObject;
 import com.newtech.jobnow.models.UserModel;
 
@@ -764,7 +765,7 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
     // AsynTask
-    class PostAJobAsyntask extends AsyncTask<PostJobRequest, Void, String> {
+    class PostAJobAsyntask extends AsyncTask<PostJobRequest, Void, PostJobResponse> {
         ProgressDialog dialog;
         String sessionId = "";
         PostJobRequest request;
@@ -776,7 +777,7 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
         }
 
         @Override
-        protected String doInBackground(PostJobRequest... params) {
+        protected PostJobResponse doInBackground(PostJobRequest... params) {
             try {
                 JobController controller = new JobController();
                 return controller.PostAJobs(request);
@@ -794,11 +795,20 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
         }
 
         @Override
-        protected void onPostExecute(String code) {
+        protected void onPostExecute(PostJobResponse code) {
             try {
-                Toast.makeText(PostAJobsActivity.this, code, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PostAJobsActivity.this, code.result, Toast.LENGTH_SHORT).show();
+
+                SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
+                Gson gson = new Gson();
+                userModel.creditNumber=Float.parseFloat(code.message+"");
+                String profile=gson.toJson(userModel);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(Config.KEY_USER_PROFILE, profile).commit();
+
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("results", 150293);
+                returnIntent.putExtra("credits", code.message);
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             } catch (Exception e) {

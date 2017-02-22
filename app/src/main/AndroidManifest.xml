@@ -144,7 +144,12 @@
         <activity
             android:name=".acitvity.ProfileVer2Activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
-
+        <activity
+            android:name=".acitvity.TermsofUseActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".acitvity.SetInterviewDetailActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
 
 
         <service android:name=".service.FireBaseService">

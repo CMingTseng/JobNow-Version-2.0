@@ -91,6 +91,7 @@ public class ProfileVer2Activity extends AppCompatActivity {
     public static int idJobSeeker;
     ImageView img_back;
     private ProgressDialog progressDialog;
+    public static Button btnSetInterviewTime,btnAddShortList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -282,6 +283,9 @@ public class ProfileVer2Activity extends AppCompatActivity {
         tvName = (TextView) findViewById(R.id.tvName);
         tvLocation = (TextView) findViewById(R.id.tvLocation);
         img_avatar = (CircleImageView) findViewById(R.id.img_avatar);
+
+        btnAddShortList=(Button) findViewById(R.id.btnAddShortList);
+        btnSetInterviewTime=(Button) findViewById(R.id.btnSetInterviewTime);
     }
 }
 

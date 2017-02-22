@@ -21,11 +21,15 @@ public class RegisterFBRequest extends BaseRequest implements Serializable {
     @SerializedName("FB_id")
     private String fb_id;
 
-    public RegisterFBRequest(String fullName, String email, String avatar, String fb_id) {
+    @SerializedName("TokenFirebase")
+    private String tokenFirebase;
+
+    public RegisterFBRequest(String fullName, String email, String avatar, String fb_id, String tokenFirebase) {
         super(PATH_URL);
         this.fullName = fullName;
         this.email = email;
         this.avatar = avatar;
         this.fb_id = fb_id;
+        this.tokenFirebase = tokenFirebase;
     }
 }

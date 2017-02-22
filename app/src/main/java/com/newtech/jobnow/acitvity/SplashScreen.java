@@ -74,11 +74,8 @@ public class SplashScreen extends AppCompatActivity {
             e.printStackTrace();
         }*/
 
-
-
-        InitProject initProject = new InitProject();
-        initProject.execute();
-
+        setupView();
+        getCountJob();
         try {
             SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
             String userProfile = sharedPreferences.getString(Config.KEY_USER_PROFILE, "");
@@ -89,94 +86,16 @@ public class SplashScreen extends AppCompatActivity {
             GetTokenAsync getTokenAsync = new GetTokenAsync(tokenRequest);
             getTokenAsync.execute();
         }catch (Exception err){
-
+            SharedPreferences sharedPreferences = getSharedPreferences(
+                    Config.Pref, Context.MODE_PRIVATE);
+            String token = sharedPreferences.getString(Config.KEY_TOKEN, "");
+            if (token != null && !token.isEmpty()) {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
         }
-    }
-
-    private void initData() {
-        callbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(final LoginResult loginResult) {
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(final JSONObject object,
-                                                    GraphResponse response) {
-                                if (object != null) {
-                                    String email = object.optString("email");
-                                    String name = object.optString("name");
-                                    String fbid = object.optString("id");
-                                    String avatar = Utils.addressAvatarFB(fbid);
-                                    APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
-                                    Call<RegisterFBReponse> registerFBReponseCall =
-                                            service.registerFB(new RegisterFBRequest(name, email, avatar, fbid));
-                                    registerFBReponseCall.enqueue(new Callback<RegisterFBReponse>() {
-                                        @Override
-                                        public void onResponse(final Response<RegisterFBReponse> response, Retrofit retrofit) {
-                                            Log.d(TAG, "get login response: " + response.body().toString());
-                                            int code = response.body().code;
-                                            if (code == 200) {
-                                                SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
-                                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                editor.putString(Config.KEY_TOKEN, response.body().result.apiToken).commit();
-                                                editor.putInt(Config.KEY_ID, response.body().result.id).commit();
-                                                editor.putString(Config.KEY_EMAIL, response.body().result.email).commit();
-                                                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                                                startActivity(intent);
-                                                finish();
-                                            } else {
-                                                runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        Toast.makeText(getApplicationContext(),
-                                                                response.body().message, Toast.LENGTH_SHORT)
-                                                                .show();
-                                                    }
-                                                });
-
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onFailure(Throwable t) {
-                                            Log.d(TAG, "(on failed): " + t.toString());
-                                        }
-                                    });
-                                } else {
-
-                                }
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email");
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
-
-            @Override
-            public void onCancel() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(SplashScreen.this, "Login Cancel", Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            }
-
-            @Override
-            public void onError(final FacebookException error) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(SplashScreen.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            }
-        });
     }
 
     private void getCountJob() {
@@ -203,7 +122,7 @@ public class SplashScreen extends AppCompatActivity {
                                 String ss= response.body().result+"";
                                 tvNumberJob.setText(getString(R.string.number_job, response.body().result));
                             } else {
-                                Toast.makeText(getApplicationContext(), response.body().message, Toast.LENGTH_SHORT)
+                                Toast.makeText(SplashScreen.this, response.body().message, Toast.LENGTH_SHORT)
                                         .show();
                             }
                         }
@@ -220,7 +139,7 @@ public class SplashScreen extends AppCompatActivity {
                     public void run() {
                         if (progressDialog.isShowing())
                             progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), getString(R.string.error_connect), Toast.LENGTH_SHORT)
+                        Toast.makeText(SplashScreen.this, getString(R.string.error_connect), Toast.LENGTH_SHORT)
                                 .show();
                     }
                 });
@@ -232,7 +151,6 @@ public class SplashScreen extends AppCompatActivity {
     private void setupView() {
         btnLookingForJob = (Button) findViewById(R.id.btnLookingForJob);
         btnHireStaff = (Button) findViewById(R.id.btnHireStaff);
-       // btnLoginFacebook = (Button) findViewById(R.id.btnHireStaff);
         tvNumberJob = (TextView) findViewById(R.id.tvNumberJob);
 
 
@@ -262,7 +180,7 @@ public class SplashScreen extends AppCompatActivity {
         if (System.currentTimeMillis() - key_pressed < 2000) {
             super.onBackPressed();
         } else {
-            Toast.makeText(getApplicationContext(), "Back again to exit", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SplashScreen.this, "Back again to exit", Toast.LENGTH_SHORT).show();
         }
         key_pressed = System.currentTimeMillis();
     }
@@ -273,48 +191,6 @@ public class SplashScreen extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void loginFacebook() {
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends", "email"));
-    }
-
-
-    private class InitProject extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            setupView();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            SharedPreferences sharedPreferences = getSharedPreferences(
-                    Config.Pref, Context.MODE_PRIVATE);
-            String token = sharedPreferences.getString(Config.KEY_TOKEN, "");
-            Boolean result = false;
-            if (token != null && !token.isEmpty()) {
-              result = true;
-            }
-            initData();
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aVoid) {
-            super.onPostExecute(aVoid);
-            if(!aVoid) {
-                getCountJob();
-            } else {
-                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-            }
-
-        }
-
-
-    }
 
     private class GetTokenAsync extends AsyncTask<Void, Void, String> {
         @Override

@@ -62,48 +62,18 @@ public class UserExperienceFragment extends Fragment{
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_user_experience, container, false);
         initUI(rootView);
-        getApiToken();
+        bindData();
         return rootView;
     }
-
-    public void getApiToken() {
-        APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
-        int userId = ProfileVer2Activity.idJobSeeker;
-        String email =ProfileVer2Activity.emailJobSeeker;
-        Call<LoginResponse> call = service.getToken(new TokenRequest(userId, email));
-        call.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Response<LoginResponse> response, Retrofit retrofit) {
-                Log.d(TAG, "get token: " + response.body());
-                if(response.body() != null && response.body().code == 200) {
-                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.Pref, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(Config.KEY_TOKEN_USER, response.body().result.apiToken);
-                    editor.commit();
-                    bindData();
-                } else
-                    Toast.makeText(getActivity().getApplicationContext(), response.body().message,
-                            Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Toast.makeText(getActivity().getApplicationContext(), R.string.error_connect, Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
-    }
-
 
     private void bindData() {
         progressDialog = ProgressDialog.show(getActivity(), "", getString(R.string.loading), true, true);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.Pref, MODE_PRIVATE);
-        String token = sharedPreferences.getString(Config.KEY_TOKEN_USER, "");
         int userId = ProfileVer2Activity.idJobSeeker;
         APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
-        Call<ExperienceResponse> call = service.getExperience(
-                APICommon.getSign(APICommon.getApiKey(), "api/v1/jobseekerexperience/getAllJobSeekerExperience"),
-                APICommon.getAppId(), APICommon.getDeviceType(), userId, token, userId);
+        Call<ExperienceResponse> call = service.getUserExperience(
+                APICommon.getSign(APICommon.getApiKey(), "api/v1/jobseekerexperience/getAllUserExperience"),
+                APICommon.getAppId(), APICommon.getDeviceType(), userId);
         call.enqueue(new Callback<ExperienceResponse>() {
             @Override
             public void onResponse(Response<ExperienceResponse> response, Retrofit retrofit) {

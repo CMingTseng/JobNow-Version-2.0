@@ -24,6 +24,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.common.APICommon;
@@ -34,6 +35,7 @@ import com.newtech.jobnow.models.LoginResponse;
 import com.newtech.jobnow.models.RegisterFBReponse;
 import com.newtech.jobnow.models.RegisterFBRequest;
 import com.newtech.jobnow.models.UserModel;
+import com.newtech.jobnow.service.DeleteTokenService;
 import com.newtech.jobnow.utils.Utils;
 
 import org.json.JSONObject;
@@ -65,6 +67,8 @@ public class LoginJobSeekerActivity extends AppCompatActivity {
         InitUI();
         InitEvent();
         initData();
+        Intent intent1 = new Intent(this, DeleteTokenService.class);
+        startService(intent1);
     }
     public void InitUI(){
         toolbar = (Toolbar)findViewById(R.id.toolbar_sign_in);
@@ -134,34 +138,45 @@ public class LoginJobSeekerActivity extends AppCompatActivity {
         } else if (!Utils.isEmailValid(email)) {
             Toast.makeText(LoginJobSeekerActivity.this, getString(R.string.emailNotValid), Toast.LENGTH_SHORT).show();
         } else {
-            APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
-            Call<LoginResponse> loginResponseCall =
-                    service.loginUser(new LoginRequest(email, password));
-            loginResponseCall.enqueue(new Callback<LoginResponse>() {
-                @Override
-                public void onResponse(Response<LoginResponse> response, Retrofit retrofit) {
-                    Log.d(TAG, "get login response: " + response.body().toString());
-                    int code = response.body().code;
-                    if (code == 200) {
-                        SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(Config.KEY_TOKEN, response.body().result.apiToken).commit();
-                        editor.putInt(Config.KEY_ID, response.body().result.id).commit();
-                        editor.putString(Config.KEY_EMAIL, response.body().result.email).commit();
-                        Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), response.body().message, Toast.LENGTH_SHORT).show();
-                    }
-                }
+            try {
+                Thread.sleep(3000);
+                String session_id = FirebaseInstanceId.getInstance().getToken().toString();
+                APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
+                Call<LoginResponse> loginResponseCall =
+                        service.loginUserV2(new LoginRequest(email, password,0,session_id));
+                loginResponseCall.enqueue(new Callback<LoginResponse>() {
+                    @Override
+                    public void onResponse(Response<LoginResponse> response, Retrofit retrofit) {
+                        try {
+                            int code = response.body().code;
+                            if (code == 200) {
 
-                @Override
-                public void onFailure(Throwable t) {
-                    Log.d(TAG, "(on failed): " + t.toString());
-                }
-            });
+                                SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString(Config.KEY_TOKEN, response.body().result.apiToken).commit();
+                                editor.putInt(Config.KEY_ID, response.body().result.id).commit();
+                                editor.putString(Config.KEY_EMAIL, response.body().result.email).commit();
+                                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(getApplicationContext(), response.body().message, Toast.LENGTH_SHORT).show();
+                            }
+                        }catch (Exception err){
+                            Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Log.d(TAG, "(on failed): " + t.toString());
+                    }
+                });
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         }
 
     }
@@ -192,9 +207,10 @@ public class LoginJobSeekerActivity extends AppCompatActivity {
                                     String name = object.optString("name");
                                     String fbid = object.optString("id");
                                     String avatar = Utils.addressAvatarFB(fbid);
+                                    String session_id = FirebaseInstanceId.getInstance().getToken().toString();
                                     APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
                                     Call<RegisterFBReponse> registerFBReponseCall =
-                                            service.registerFB(new RegisterFBRequest(name, email, avatar, fbid));
+                                            service.registerFB(new RegisterFBRequest(name, email, avatar, fbid,session_id));
                                     registerFBReponseCall.enqueue(new Callback<RegisterFBReponse>() {
                                         @Override
                                         public void onResponse(final Response<RegisterFBReponse> response, Retrofit retrofit) {

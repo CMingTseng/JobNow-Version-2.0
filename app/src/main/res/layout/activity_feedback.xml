@@ -58,7 +58,9 @@
             android:textColor="@color/black"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="10dp" />
+            android:paddingTop="10dp"
+            android:textSize="@dimen/sp16"
+            />
 
         <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
             android:text="@string/desc_shortlist_detail"

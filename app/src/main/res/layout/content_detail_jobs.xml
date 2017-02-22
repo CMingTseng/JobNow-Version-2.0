@@ -71,12 +71,12 @@
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgLogo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/img_logo_company" />
+                    android:src="@mipmap/img_logo_company"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -84,7 +84,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/imgLogo"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="3dp">
 
                     <TextView
                         android:id="@+id/tvCompanyName"
@@ -97,7 +98,6 @@
                         android:id="@+id/tvTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:drawableLeft="@mipmap/ic_time"
                         android:drawablePadding="5dp"
                         android:text="@string/posted" />
@@ -301,11 +301,11 @@
 
             <ImageView
                 android:id="@+id/ivSaveJob"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/ic_star" />
+                android:src="@mipmap/ic_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/btnSaveJob"
@@ -327,8 +327,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/ic_apply_job" />

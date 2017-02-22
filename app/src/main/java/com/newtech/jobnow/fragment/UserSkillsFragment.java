@@ -56,12 +56,7 @@ public class UserSkillsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_skills, container, false);
         initUI(view);
-        MyApplication.getInstance().getApiToken(new MyApplication.TokenCallback() {
-            @Override
-            public void onTokenSuccess() {
-                bindData();
-            }
-        });
+        bindData();
         event();
         return view;
     }
@@ -69,8 +64,6 @@ public class UserSkillsFragment extends Fragment {
 
     private void bindData() {
         progressDialog = ProgressDialog.show(getActivity(), "", getString(R.string.loading), true, true);
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.Pref, Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString(Config.KEY_TOKEN_USER, "");
         int userId = ProfileVer2Activity.idJobSeeker;
         APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
         Call<SkillResponse> call = service.getSkill(
@@ -90,10 +83,6 @@ public class UserSkillsFragment extends Fragment {
                         }
                     }
 
-                    if(response.body().result.size() == 0)
-                        lnRemoveSkill.setVisibility(View.GONE);
-                    else
-                        lnRemoveSkill.setVisibility(View.VISIBLE);
                 }
             }
 

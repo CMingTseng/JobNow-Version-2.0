@@ -151,26 +151,30 @@ public class DetailJobsActivity extends AppCompatActivity implements View.OnClic
             public void onResponse(Response<DetailJobResponse> response, Retrofit retrofit) {
                 progressDialog.dismiss();
                 if (response.body() != null && response.body().code == 200) {
-                    jobObject = response.body().result;
-                    tvName.setText(jobObject.Title);
-                    tvPosition.setText(jobObject.Position);
-                    tvLocation.setText(getString(R.string.address) + " " + jobObject.LocationName);
-                    tvPrice.setText(jobObject.FromSalary + " - " + jobObject.ToSalary + " (USD)");
-                    tvTime.setText(getString(R.string.posted) + " " + p.format(new Date(Utils.getLongTime(jobObject.created_at))));
-                    tvCompanyName.setText(jobObject.CompanyName);
-                    Picasso.with(DetailJobsActivity.this).load(jobObject.CompanyLogo).placeholder(R.mipmap.img_logo_company).error(R.mipmap.img_logo_company).into(imgLogo);
-                    tvDescription.setText(jobObject.Description);
-                    tvRequirement.setText(jobObject.Requirement);
-                    appliedJob = response.body().result.IsApplyJob;
-                    savedJob = response.body().result.IsSaveJob;
-                    ivSaveJob.setImageResource(savedJob ? R.mipmap.ic_saved_job : R.mipmap.ic_unsaved_job);
-                    btnSaveJob.setText(savedJob ? "Unsaved" : "Save job");
-                    btnApplyJob.setText(appliedJob ? "Unapplied" : "Apply job");
-                    shareUrl = response.body().result.ShareUrl;
-                    latitude = response.body().result.Latitude;
-                    longtitude = response.body().result.Longitude;
-                    tvYearOfExperience.setText(jobObject.YearOfExperience);
-                    tvCountUserApplyJob.setText(jobObject.CountUserApplyJob + " Applications");
+                    try {
+                        jobObject = response.body().result;
+                        tvName.setText(jobObject.Title);
+                        tvPosition.setText(jobObject.Position);
+                        tvLocation.setText(getString(R.string.address) + " " + jobObject.LocationName);
+                        tvPrice.setText(jobObject.FromSalary + " - " + jobObject.ToSalary + " (USD)");
+                        tvTime.setText(getString(R.string.posted) + " " + p.format(new Date(Utils.getLongTime(jobObject.created_at))));
+                        tvCompanyName.setText(jobObject.CompanyName);
+                        Picasso.with(DetailJobsActivity.this).load(jobObject.CompanyLogo).placeholder(R.mipmap.img_logo_company).error(R.mipmap.img_logo_company).into(imgLogo);
+                        tvDescription.setText(jobObject.Description);
+                        tvRequirement.setText(jobObject.Requirement);
+                        appliedJob = response.body().result.IsApplyJob;
+                        savedJob = response.body().result.IsSaveJob;
+                        ivSaveJob.setImageResource(savedJob ? R.mipmap.ic_saved_job : R.mipmap.ic_unsaved_job);
+                        btnSaveJob.setText(savedJob ? "Unsaved" : "Save job");
+                        btnApplyJob.setText(appliedJob ? "Unapplied" : "Apply job");
+                        shareUrl = response.body().result.ShareUrl;
+                        latitude = response.body().result.Latitude;
+                        longtitude = response.body().result.Longitude;
+                        tvYearOfExperience.setText(jobObject.YearOfExperience);
+                        tvCountUserApplyJob.setText(jobObject.CountUserApplyJob + " Applications");
+                    }catch (Exception err){
+
+                    }
                 } else if(response.body().code == 503) {
                     getApiToken();
                     bindData1();

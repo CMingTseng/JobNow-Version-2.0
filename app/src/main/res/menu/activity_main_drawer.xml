@@ -3,7 +3,7 @@
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_postJobs"
-            android:title="Post A Jobs"
+            android:title="Post Job"
             />
         <item android:id="@+id/nav_appSettings"
             android:title="App Settings"
@@ -13,9 +13,6 @@
             />
         <item android:id="@+id/nav_feedback"
             android:title="Feedback"
-            />
-        <item android:id="@+id/nav_needHelp"
-            android:title="Need Help"
             />
         <item android:id="@+id/nav_privacyPolicy"
             android:title="Privacy Policy"

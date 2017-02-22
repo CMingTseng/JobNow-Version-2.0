@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Set Interview Time"
+                android:text="Interview Time Detail"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/sp20"
@@ -131,7 +131,6 @@
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/bg_edittext"
-                android:drawableRight="@mipmap/ic_datetime"
                 android:gravity="left|center_vertical"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
@@ -164,7 +163,6 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="5dp"
                     android:layout_toLeftOf="@+id/textView11"
-                    android:drawableRight="@mipmap/ic_down"
                     android:background="@drawable/bg_edit_interview"
                     android:padding="10dp"
                     android:text="@string/start_time"
@@ -183,7 +181,6 @@
                     android:layout_marginRight="10dp"
                     android:layout_toRightOf="@+id/textView11"
                     android:background="@drawable/bg_edit_interview"
-                    android:drawableRight="@mipmap/ic_down"
                     android:padding="10dp"
                     android:text="@string/end_time"
                     android:textColor="@color/colorText" />
@@ -198,7 +195,7 @@
                 android:text="Interviewer"
                 android:textColor="@color/black" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                 android:id="@+id/editInterviewer"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -220,7 +217,7 @@
                 android:text="Phone Number"
                 android:textColor="@color/black" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                 android:id="@+id/editPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -242,7 +239,7 @@
                 android:text="Location"
                 android:textColor="@color/black" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                 android:id="@+id/editLocation"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -264,7 +261,7 @@
                 android:text="Subjects"
                 android:textColor="@color/black" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                 android:id="@+id/editSubjects"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -286,10 +283,10 @@
                 android:text="Message"
                 android:textColor="@color/black" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                 android:id="@+id/editMessage"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:gravity="left"
                 android:inputType="textMultiLine"
@@ -297,15 +294,6 @@
                 android:textSize="14sp" />
 
 
-            <Button
-                android:id="@+id/btnSendSetInterview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/bg_btn_signup"
-                android:text="@string/send"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

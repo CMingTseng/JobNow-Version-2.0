@@ -1,5 +1,6 @@
 package com.newtech.jobnow.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.acitvity.MenuActivity;
 import com.newtech.jobnow.acitvity.NotificationManagerActivity;
+import com.newtech.jobnow.acitvity.ProfileActivity;
 import com.newtech.jobnow.acitvity.ProfileVer2Activity;
 import com.newtech.jobnow.models.InterviewObject;
 import com.newtech.jobnow.models.NotificationVersion2Object;
@@ -92,11 +94,18 @@ public class NotificationVer2Adapter extends BaseRecyclerAdapter<NotificationVer
             tb_add_category.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent= new Intent(mContext,ProfileVer2Activity.class);
-                    intent.putExtra("idJobSeeker",object.JobSeekerID);
-                    intent.putExtra("emailJobSeeker",object.Email);
-                    mContext.startActivity(intent);
-
+                    if(type==1) {
+                        Intent intent = new Intent(mContext, ProfileVer2Activity.class);
+                        intent.putExtra("idJobSeeker", object.JobSeekerID);
+                        intent.putExtra("emailJobSeeker", object.Email);
+                        mContext.startActivity(intent);
+                    }
+                    else {
+                        Intent intent = new Intent(mContext, ProfileActivity.class);
+                        intent.putExtra("chooseTab", 3);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        mContext.startActivity(intent);
+                    }
                 }
             });
 

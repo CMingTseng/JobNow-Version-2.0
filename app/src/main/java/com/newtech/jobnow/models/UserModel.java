@@ -19,6 +19,9 @@ public class UserModel implements Serializable {
     @SerializedName("Fullname")
     public String fullname;
 
+    @SerializedName("FullName")
+    public String fullName;
+
     @SerializedName("IsCompany")
     public int isCompany;
 
@@ -82,11 +85,12 @@ public class UserModel implements Serializable {
     public UserModel() {
     }
 
-    public UserModel(int id, String username, String email, String fullname, int isCompany, String createDate, int isEmailConfirmed, String passwordSalt, String fb_id, String google_id, String created_at, String updated_at, String apiToken, String avatar, String birthDay, String phoneNumber, String countryID, Integer gender, String curriculumVitae, String description, String countryName, String postalCode, float creditNumber, String tokenFirebase) {
+    public UserModel(int id, String username, String email, String fullname, String fullName, int isCompany, String createDate, int isEmailConfirmed, String passwordSalt, String fb_id, String google_id, String created_at, String updated_at, String apiToken, String avatar, String birthDay, String phoneNumber, String countryID, Integer gender, String curriculumVitae, String description, String countryName, String postalCode, float creditNumber, String tokenFirebase) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.fullname = fullname;
+        this.fullName = fullName;
         this.isCompany = isCompany;
         this.createDate = createDate;
         this.isEmailConfirmed = isEmailConfirmed;
@@ -109,6 +113,13 @@ public class UserModel implements Serializable {
         this.tokenFirebase = tokenFirebase;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     public float getCreditNumber() {
         return creditNumber;

@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:id="@+id/layout_invite"
+    >
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:src="@mipmap/ic_term_use"
+            android:id="@+id/imageView"
+            android:layout_height="22dp"
+            android:layout_width="22dp" />
+
+        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            android:text="Term and use"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/txt_title_termuse"
+            android:textStyle="bold"
+            android:textSize="@dimen/sp16"
+            android:textColor="@color/black"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical" />
+    </TableRow>
+
+    <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+        android:text="Abc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_content"
+        android:layout_marginTop="5dp" />
+</LinearLayout>

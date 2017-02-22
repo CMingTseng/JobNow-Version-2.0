@@ -27,7 +27,7 @@
     <string name="send_email_get_list_price">Receive Pricing Details</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="feedback">Feedback</string>
-    <string name="desc_shortlist_detail">Many of our services let you share information with others. Remember that when you share information publicly, it may be indexable by search engines, including Google</string>
+    <string name="desc_shortlist_detail">We would love to hear your thoughts, concerns or problems with anything so we can improve!</string>
 
     <string name="large_text">
         "Material is the metaphor.\n\n"

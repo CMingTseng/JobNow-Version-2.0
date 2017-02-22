@@ -16,10 +16,12 @@ import com.newtech.jobnow.common.APICommon;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.eventbus.SaveJobListEvent;
 import com.newtech.jobnow.fragment.AppliedJobListFragment;
+import com.newtech.jobnow.fragment.InterviewJobSeekerFragment;
 import com.newtech.jobnow.fragment.MainFragment;
 import com.newtech.jobnow.fragment.ProfileFragment;
 import com.newtech.jobnow.fragment.SaveJobListFragment;
 import com.newtech.jobnow.models.JobListReponse;
+import com.newtech.jobnow.models.JobListV2Reponse;
 import com.newtech.jobnow.models.LoginResponse;
 import com.newtech.jobnow.models.TokenRequest;
 import com.newtech.jobnow.utils.Utils;
@@ -42,10 +44,10 @@ public class ProfileActivity extends AppCompatActivity {
     private CommonTabLayout tabbottom;
     private int[] mIconUnselectIds = {
             R.mipmap.ic_home_bottom, R.mipmap.ic_saved_bottom,
-            R.mipmap.ic_applied_bottom, R.mipmap.ic_profile_bottom};
+            R.mipmap.ic_applied_bottom,R.mipmap.ic_interview_inactive ,R.mipmap.ic_profile_bottom};
     private int[] mIconSelectIds = {
             R.mipmap.ic_home_bottom_selected, R.mipmap.ic_saved_bottom_selected,
-            R.mipmap.ic_applied_bottom_selected, R.mipmap.ic_profile_bottom_selected};
+            R.mipmap.ic_applied_bottom_selected,R.mipmap.ic_interview,R.mipmap.ic_profile_bottom_selected};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private ArrayList<Fragment> mFragments2 = new ArrayList<>();
     @Override
@@ -56,11 +58,17 @@ public class ProfileActivity extends AppCompatActivity {
         bindData();
         InitEvent();
         Utils.closeKeyboard(ProfileActivity.this);
+        try{
+            int chooseTab=getIntent().getIntExtra("chooseTab",0);
+            tabbottom.setCurrentTab(chooseTab);
+        }catch (Exception err){
+
+        }
     }
 
     private void bindData() {
 
-        String[] mTitles = {getString(R.string.home), getString(R.string.saved), getString(R.string.applied), getString(R.string.profile)};
+        String[] mTitles = {getString(R.string.home), getString(R.string.saved), getString(R.string.applied), "Interview",getString(R.string.profile)};
         for (int i = 0; i < mTitles.length; i++) {
             switch (i) {
                 case 0:
@@ -73,6 +81,9 @@ public class ProfileActivity extends AppCompatActivity {
                     mFragments2.add(AppliedJobListFragment.getInstance());
                     break;
                 case 3:
+                    mFragments2.add(new InterviewJobSeekerFragment());
+                    break;
+                case 4:
                     mFragments2.add(new ProfileFragment());
                     break;
                 default:
@@ -151,20 +162,20 @@ public class ProfileActivity extends AppCompatActivity {
                 Config.Pref, Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(Config.KEY_TOKEN, "");
         int userId = sharedPreferences.getInt(Config.KEY_ID, 0);
-        Call<JobListReponse> request = service.getSaveListJob(
+        Call<JobListV2Reponse> request = service.getSaveListJobV2(
                 APICommon.getSign(APICommon.getApiKey(), "/api/v1/jobs/getSaveJob"),
                 APICommon.getAppId(),
                 APICommon.getDeviceType(),
                 userId,
                 token, null);
-        request.enqueue(new Callback<JobListReponse>() {
+        request.enqueue(new Callback<JobListV2Reponse>() {
             @Override
-            public void onResponse(Response<JobListReponse> response, Retrofit retrofit) {
+            public void onResponse(Response<JobListV2Reponse> response, Retrofit retrofit) {
                 progressDialog.dismiss();
-                JobListReponse jobList = response.body();
+                JobListV2Reponse jobList = response.body();
                 if(jobList != null) {
                     if(jobList.code == 200) {
-                        JobListReponse.JobListResult result = jobList.result;
+                        JobListV2Reponse.JobListV2Result result = jobList.result;
                         if(result != null) {
                             Log.d(TAG, "save job list total:" + result.total);
                             EventBus.getDefault().post(new SaveJobListEvent(result.total));
