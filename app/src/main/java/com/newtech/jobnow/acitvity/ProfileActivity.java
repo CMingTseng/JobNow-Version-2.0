@@ -17,9 +17,11 @@ import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.eventbus.SaveJobListEvent;
 import com.newtech.jobnow.fragment.AppliedJobListFragment;
 import com.newtech.jobnow.fragment.InterviewJobSeekerFragment;
+import com.newtech.jobnow.fragment.JobMainFragment;
 import com.newtech.jobnow.fragment.MainFragment;
 import com.newtech.jobnow.fragment.ProfileFragment;
 import com.newtech.jobnow.fragment.SaveJobListFragment;
+import com.newtech.jobnow.fragment.SettingMainFragment;
 import com.newtech.jobnow.models.JobListReponse;
 import com.newtech.jobnow.models.JobListV2Reponse;
 import com.newtech.jobnow.models.LoginResponse;
@@ -43,11 +45,11 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = ProfileActivity.class.getSimpleName();
     private CommonTabLayout tabbottom;
     private int[] mIconUnselectIds = {
-            R.mipmap.ic_home_bottom, R.mipmap.ic_saved_bottom,
-            R.mipmap.ic_applied_bottom,R.mipmap.ic_interview_inactive ,R.mipmap.ic_profile_bottom};
+            R.mipmap.ic_home_bottom, R.mipmap.ic_job_inactive,
+            R.mipmap.ic_interview_inactive ,R.mipmap.ic_profile_bottom,R.mipmap.ic_setting_inactive};
     private int[] mIconSelectIds = {
-            R.mipmap.ic_home_bottom_selected, R.mipmap.ic_saved_bottom_selected,
-            R.mipmap.ic_applied_bottom_selected,R.mipmap.ic_interview,R.mipmap.ic_profile_bottom_selected};
+            R.mipmap.ic_home_bottom_selected, R.mipmap.ic_job,
+            R.mipmap.ic_interview,R.mipmap.ic_profile_bottom_selected,R.mipmap.ic_setting_active};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private ArrayList<Fragment> mFragments2 = new ArrayList<>();
     @Override
@@ -68,23 +70,24 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void bindData() {
 
-        String[] mTitles = {getString(R.string.home), getString(R.string.saved), getString(R.string.applied), "Interview",getString(R.string.profile)};
+        String[] mTitles = {getString(R.string.home), getString(R.string.job), "Interview",getString(R.string.profile),getString(R.string.appSetting)};
         for (int i = 0; i < mTitles.length; i++) {
             switch (i) {
                 case 0:
                     mFragments2.add(new MainFragment());
                     break;
                 case 1:
-                    mFragments2.add(SaveJobListFragment.getInstance());
+                    //mFragments2.add(SaveJobListFragment.getInstance());
+                    mFragments2.add(new JobMainFragment());
                     break;
                 case 2:
-                    mFragments2.add(AppliedJobListFragment.getInstance());
-                    break;
-                case 3:
                     mFragments2.add(new InterviewJobSeekerFragment());
                     break;
-                case 4:
+                case 3:
                     mFragments2.add(new ProfileFragment());
+                    break;
+                case 4:
+                    mFragments2.add(new SettingMainFragment());
                     break;
                 default:
                     break;
@@ -108,9 +111,12 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            fragment.onActivityResult(requestCode, resultCode, data);
+        try {
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
+        }catch (Exception er){
+            er.printStackTrace();
         }
     }
 
@@ -139,7 +145,7 @@ public class ProfileActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString(Config.KEY_TOKEN, response.body().result.apiToken);
                     editor.commit();
-                    displayNumberOfSaveJob();
+                    //displayNumberOfSaveJob();
                 } else
                     Toast.makeText(getApplicationContext(), response.body().message,
                             Toast.LENGTH_SHORT).show();
@@ -201,7 +207,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        displayNumberOfSaveJob();
+        //displayNumberOfSaveJob();
     }
 
     @Override

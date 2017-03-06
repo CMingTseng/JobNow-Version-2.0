@@ -31,7 +31,7 @@ public class FilterFragment extends Fragment {
     }
 
     private void InitUI(View v) {
-        ImageView imgBack = (ImageView) v.findViewById(R.id.imgRing);
+        ImageView imgBack = (ImageView) v.findViewById(R.id.btnRemove);
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

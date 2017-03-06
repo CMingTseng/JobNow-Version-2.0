@@ -116,7 +116,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String code) {
             try {
-                Toast.makeText(ForgotPasswordActivity.this, code, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ForgotPasswordActivity.this, "Please check your email to reset password", Toast.LENGTH_SHORT).show();
                 if(code.equals("")) {
                     txt_status.setVisibility(View.VISIBLE);
                     txt_des_forgot_pass.setVisibility(View.VISIBLE);

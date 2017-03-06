@@ -13,6 +13,7 @@ public class JobObject implements Serializable {
     public Integer JobID;
     public Integer CompanyID;
     public String Title;
+    public String ExperienceName;
     public String Position;
     public Integer Level;
     public String YearOfExperience;
@@ -50,5 +51,6 @@ public class JobObject implements Serializable {
     public long updated_at_int;
     public long Start_date_int;
     public long End_date_int;
-
+    public int EmploymentID;
+    public int WorkingHours;
 }

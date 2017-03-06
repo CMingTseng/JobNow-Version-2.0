@@ -35,13 +35,14 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
-                <EditText
+                <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
                     android:id="@+id/edtTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:textColorHint="@color/colorTextHint"
                     android:background="@drawable/bg_edittext"
-                    android:hint="Job title or keyword..." />
+                    android:hint="Job title or keywords..." />
 
                 <Spinner
                     android:id="@+id/spnIndustry"
@@ -51,8 +52,9 @@
                     android:background="@drawable/bg_edittext"
                     android:entries="@array/item_Specializations" />
 
-                <EditText
+                <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
                     android:id="@+id/edtMinimumSalary"
+                    android:textColorHint="@color/colorTextHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

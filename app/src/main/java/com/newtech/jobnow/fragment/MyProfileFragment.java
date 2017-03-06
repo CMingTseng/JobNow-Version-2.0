@@ -283,7 +283,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                                             if (response.body().code == 200) {
                                                 setProfileToUI(false);
                                             }
-                                            Toast.makeText(getActivity(), response.body().message, Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), /*response.body().message*/"Profile updated successfully", Toast.LENGTH_SHORT).show();
                                         }
                                     }
 
@@ -367,7 +367,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                                 userModel.birthDay = birthday;
                                 setProfileToUI(false);
                             }
-                            Toast.makeText(getActivity(), response.body().message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), /*response.body().message*/"Profile updated successfully", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -487,7 +487,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                             if (response.body().code == 200) {
                                 setProfileToUI(false);
                             }
-                            Toast.makeText(getActivity(), response.body().message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(),/* response.body().message*/"Profile updated successfully", Toast.LENGTH_SHORT).show();
                         }
                     }
 

@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:drawableLeft="@mipmap/ic_location"
+                    android:drawableLeft="@mipmap/ic_location_interview"
                     android:drawablePadding="10dp"
                     android:textSize="14sp" />
 
@@ -46,7 +46,7 @@
                     android:id="@+id/tvPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/ic_budget"
+                    android:drawableLeft="@mipmap/ic_money"
                     android:drawablePadding="10dp"
                     android:textColor="#f96145"
                     android:textSize="14sp" />
@@ -61,7 +61,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="1dp"
                     android:background="@color/colorGray" />
             </LinearLayout>
 
@@ -69,7 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:paddingTop="10dp">
+                android:paddingTop="10dp"
+                android:id="@+id/tb_company_detail">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgLogo"
@@ -106,69 +107,62 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="1dp"
                 android:background="@color/colorGray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
-                <TextView
+                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/jobDescription"
+                    android:text="JobDescription"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/sp18" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="jobDescription"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <TextView
+                <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                     android:id="@+id/tvDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="left" />
 
-                <TextView
+                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="@string/jobRequirement"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/sp18" />
 
-                <TextView
+                <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                     android:id="@+id/tvRequirement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/sp14" />
 
-                <TextView
+                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="@string/workLocation"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/sp18" />
 
-                <TextView
+                <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                     android:id="@+id/tvLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:text="@string/address"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/sp14"
+                    android:textColor="@color/black"
+                    />
 
-                <TextView
+                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
                     android:id="@+id/tvViewLargerMap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

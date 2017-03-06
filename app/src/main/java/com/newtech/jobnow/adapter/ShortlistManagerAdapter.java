@@ -3,8 +3,10 @@ package com.newtech.jobnow.adapter;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.newtech.jobnow.R;
+import com.newtech.jobnow.acitvity.ProfileVer2Activity;
 import com.newtech.jobnow.acitvity.SetInterviewActivity;
+import com.newtech.jobnow.acitvity.SettingCategoryActivity;
 import com.newtech.jobnow.common.CustomTextViewHelveticaneuelight;
 import com.newtech.jobnow.common.DrawableClickListener;
 import com.newtech.jobnow.controller.CategoryController;
+import com.newtech.jobnow.models.CategoryRequest;
 import com.newtech.jobnow.models.CompanyIDRequest;
+import com.newtech.jobnow.models.JobRequest;
 import com.newtech.jobnow.models.ShortlistDetailObject;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.squareup.picasso.Picasso;
@@ -100,10 +106,30 @@ public class ShortlistManagerAdapter extends BaseRecyclerAdapter<ShortlistDetail
             btn_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
+                    builder1.setMessage("Confirm to delete this candidate");
+                    builder1.setCancelable(true);
+                    builder1.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    CompanyIDRequest request= new CompanyIDRequest(category_id,shortlistDetailObject.UserID);
+                                    DeleteCategoryAsystask deleteJobAsystask= new DeleteCategoryAsystask(mContext,request,position);
+                                    deleteJobAsystask.execute();
+                                    dialog.cancel();
+                                }
+                            });
+                    builder1.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
 
-                    CompanyIDRequest request= new CompanyIDRequest(category_id,shortlistDetailObject.UserID);
-                    DeleteCategoryAsystask deleteJobAsystask= new DeleteCategoryAsystask(mContext,request,position);
-                    deleteJobAsystask.execute();
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+
                 }
             });
             btn_set_interview.setOnClickListener(new View.OnClickListener() {
@@ -148,9 +174,30 @@ public class ShortlistManagerAdapter extends BaseRecyclerAdapter<ShortlistDetail
                     switch (target) {
                         case LEFT:
                             //Do something here
-                            CompanyIDRequest request= new CompanyIDRequest(category_id,shortlistDetailObject.UserID);
-                            DeleteCategoryAsystask deleteJobAsystask= new DeleteCategoryAsystask(mContext,request,position);
-                            deleteJobAsystask.execute();
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
+                            builder1.setMessage("Are you sure to delete");
+                            builder1.setCancelable(true);
+                            builder1.setPositiveButton(
+                                    "Yes",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            CompanyIDRequest request= new CompanyIDRequest(category_id,shortlistDetailObject.UserID);
+                                            DeleteCategoryAsystask deleteJobAsystask= new DeleteCategoryAsystask(mContext,request,position);
+                                            deleteJobAsystask.execute();
+                                            dialog.cancel();
+                                        }
+                                    });
+                            builder1.setNegativeButton(
+                                    "No",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+
+                                            dialog.cancel();
+                                        }
+                                    });
+                            AlertDialog alert11 = builder1.create();
+                            alert11.show();
+
                             break;
                         case RIGHT:
                             break;
@@ -165,6 +212,16 @@ public class ShortlistManagerAdapter extends BaseRecyclerAdapter<ShortlistDetail
                     }
                 }
 
+            });
+
+            img_photo_company.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, ProfileVer2Activity.class);
+                    intent.putExtra("idJobSeeker", shortlistDetailObject.UserID);
+                    intent.putExtra("emailJobSeeker", shortlistDetailObject.email);
+                    mContext.startActivity(intent);
+                }
             });
 
         }

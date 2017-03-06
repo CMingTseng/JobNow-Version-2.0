@@ -2,6 +2,7 @@ package com.newtech.jobnow.fragment;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -11,10 +12,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +43,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -57,15 +63,17 @@ public class MapListFragment extends Fragment implements OnMapReadyCallback,
     private GoogleMap mMap;
     private HashMap<Marker, Integer> lstMarker = new HashMap<>();
     private int PERMISSION_REQUEST_MAP = 111;
-    private LatLng VIETNAM = new LatLng(20.993462, 105.846858);
+    private LatLng VIETNAM = new LatLng(1.3711001991132212, 103.86782258749008);
     private Location mLastLocation = null;
     private GoogleApiClient mGoogleClient = null;
-
+    List<JobObject> list = new ArrayList<>();
+    EditText edSearch;
     public MapListFragment() {
         // Required empty public constructor
     }
 
     private void initUI() {
+
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         SupportMapFragment mMapFragment = SupportMapFragment.newInstance();
         if (ft != null) {
@@ -96,13 +104,71 @@ public class MapListFragment extends Fragment implements OnMapReadyCallback,
         View rootView = inflater.inflate(R.layout.fragment_map_list, container, false);
 
         initUI();
+        edSearch= (EditText) getActivity().findViewById(R.id.edSearch);
+        edSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                changeSearch();
+            }
+        });
         return rootView;
     }
+    public void changeSearch() {
+        if (edSearch.getText().toString().equals("")) {
+            mMap.clear();
+            setMap(list);
+        } else {
+            List<JobObject> list_employee_tmp = new ArrayList<JobObject>();
 
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).Position.toLowerCase().contains(edSearch.getText().toString().toLowerCase()) ||
+                        list.get(i).CompanyName.toLowerCase().contains(edSearch.getText().toString().toLowerCase()) ||
+                        list.get(i).Title.toLowerCase().contains(edSearch.getText().toString().toLowerCase())) {
+                    list_employee_tmp.add(list.get(i));
+                }
+            }
+            mMap.clear();
+            setMap(list_employee_tmp);
+        }
+    }
+
+    public void setMap(List<JobObject> lstJobs){
+        for (JobObject jobObject : lstJobs) {
+            if(jobObject.IsDisplaySalary==1) {
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .position(new LatLng(jobObject.Latitude, jobObject.Longitude))
+                        .title(jobObject.Title)
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker))
+                        .snippet(new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.FromSalary)) + " - " + new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.ToSalary)) + " (SGD)");
+
+                Marker marker = mMap.addMarker(markerOptions);
+                marker.setTag(jobObject);
+                lstMarker.put(marker, jobObject.id);
+            }else {
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .position(new LatLng(jobObject.Latitude, jobObject.Longitude))
+                        .title(jobObject.Title)
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker));
+
+                Marker marker = mMap.addMarker(markerOptions);
+                marker.setTag(jobObject);
+                lstMarker.put(marker, jobObject.id);
+            }
+        }
+    }
 
     private void initData() {
         final JobListRequest jobListRequest = new JobListRequest(1, "ASC", null, null, null, null,
-                null, null, null);
+                null, null, null,0);
 
         APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
         Call<JobListReponse> getJobList = service.getJobListByParam(
@@ -125,6 +191,7 @@ public class MapListFragment extends Fragment implements OnMapReadyCallback,
                     if (response.body() != null && response.body().code == 200) {
                         if (response.body().result != null && response.body().result.data != null && response.body().result.data.size() > 0) {
                             List<JobObject> lstJobs = response.body().result.data;
+                            list.addAll(response.body().result.data);
                             JobObject firstJob = lstJobs.get(0);
                             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(
                                     new LatLng(firstJob.Latitude, firstJob.Longitude));
@@ -132,12 +199,20 @@ public class MapListFragment extends Fragment implements OnMapReadyCallback,
 
 
                             for (JobObject jobObject : lstJobs) {
-                                MarkerOptions markerOptions = new MarkerOptions()
-                                        .position(new LatLng(jobObject.Latitude, jobObject.Longitude))
-                                        .title(jobObject.Title)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker))
-                                        .snippet(jobObject.FromSalary + "-" + jobObject.ToSalary + " USD");
-                                mMap.addMarker(markerOptions);
+                                if(jobObject.IsDisplaySalary==1) {
+                                    MarkerOptions markerOptions = new MarkerOptions()
+                                            .position(new LatLng(jobObject.Latitude, jobObject.Longitude))
+                                            .title(jobObject.Title)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker))
+                                            .snippet(new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.FromSalary)) + " - " + new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.ToSalary)) + " (SGD)");
+                                    mMap.addMarker(markerOptions);
+                                }else {
+                                    MarkerOptions markerOptions = new MarkerOptions()
+                                            .position(new LatLng(jobObject.Latitude, jobObject.Longitude))
+                                            .title(jobObject.Title)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker));
+                                    mMap.addMarker(markerOptions);
+                                }
                             }
                         }
                     }
@@ -195,8 +270,12 @@ public class MapListFragment extends Fragment implements OnMapReadyCallback,
                             tvInfoWindowLocation.setText(location);
 
                             TextView tvInfoWindowMoney = (TextView) view.findViewById(R.id.tvInfoWindowSalary);
-                            String money = jobObject.FromSalary + "-" + jobObject.ToSalary + " USD";
-                            tvInfoWindowMoney.setText(money);
+                            if(jobObject.IsDisplaySalary==1) {
+                                String money = new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.FromSalary)) + " - " + new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.ToSalary)) + " (SGD)";
+                                tvInfoWindowMoney.setText(money);
+                            }else {
+                                tvInfoWindowMoney.setVisibility(View.GONE);
+                            }
                         }
                         return view;
                     }
@@ -227,17 +306,28 @@ public class MapListFragment extends Fragment implements OnMapReadyCallback,
                     //success
                     if (response.body().result != null && response.body().result != null && response.body().result.size() > 0) {
                         List<JobObject> lstJobs = response.body().result;
-
+                        list.addAll(response.body().result);
                         for (JobObject jobObject : lstJobs) {
-                            MarkerOptions markerOptions = new MarkerOptions()
-                                    .position(new LatLng(jobObject.Latitude, jobObject.Longitude))
-                                    .title(jobObject.Title)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker))
-                                    .snippet(jobObject.FromSalary + "-" + jobObject.ToSalary + " USD");
+                            if(jobObject.IsDisplaySalary==1) {
+                                MarkerOptions markerOptions = new MarkerOptions()
+                                        .position(new LatLng(jobObject.Latitude, jobObject.Longitude))
+                                        .title(jobObject.Title)
+                                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker))
+                                        .snippet(new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.FromSalary)) + " - " + new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.ToSalary)) + " (SGD)");
 
-                            Marker marker = mMap.addMarker(markerOptions);
-                            marker.setTag(jobObject);
-                            lstMarker.put(marker, jobObject.id);
+                                Marker marker = mMap.addMarker(markerOptions);
+                                marker.setTag(jobObject);
+                                lstMarker.put(marker, jobObject.id);
+                            }else {
+                                MarkerOptions markerOptions = new MarkerOptions()
+                                        .position(new LatLng(jobObject.Latitude, jobObject.Longitude))
+                                        .title(jobObject.Title)
+                                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker));
+
+                                Marker marker = mMap.addMarker(markerOptions);
+                                marker.setTag(jobObject);
+                                lstMarker.put(marker, jobObject.id);
+                            }
                         }
                     }
                 } else
@@ -299,7 +389,7 @@ public class MapListFragment extends Fragment implements OnMapReadyCallback,
                             tvInfoWindowLocation.setText(location);
 
                             TextView tvInfoWindowMoney = (TextView) view.findViewById(R.id.tvInfoWindowSalary);
-                            String money = jobObject.FromSalary + "-" + jobObject.ToSalary + " USD";
+                            String money = new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.FromSalary)) + " - " + new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.ToSalary)) + " (SGD)";
                             tvInfoWindowMoney.setText(money);
                         }
                         return view;
@@ -378,6 +468,24 @@ public class MapListFragment extends Fragment implements OnMapReadyCallback,
         super.onDestroy();
         if (mGoogleClient != null) {
             mGoogleClient.disconnect();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if(resultCode == Activity.RESULT_OK) {
+                //Bundle bundle = data.getExtras();
+               /* if(bundle != null) {
+                    jobListRequest = (JobListRequest) bundle.getSerializable(KEY_JOB);
+                    adapter.clear();
+                    list.clear();
+                    page = 1;
+                    bindData();
+                }
+*/
+            }
         }
     }
 }

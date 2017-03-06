@@ -45,6 +45,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.adapter.CategoryIndustryAdapter;
+import com.newtech.jobnow.adapter.EmploymentTypeAdapter;
 import com.newtech.jobnow.adapter.IndustryAdapter;
 import com.newtech.jobnow.adapter.LevelAdapter;
 import com.newtech.jobnow.adapter.ListExperienceAdapter;
@@ -56,6 +57,8 @@ import com.newtech.jobnow.controller.JobController;
 import com.newtech.jobnow.controller.UserController;
 import com.newtech.jobnow.models.CategoryIndustryObject;
 import com.newtech.jobnow.models.CategoryIndustryResponse;
+import com.newtech.jobnow.models.EmployeeResponse;
+import com.newtech.jobnow.models.EmploymentObject;
 import com.newtech.jobnow.models.ExperienceObject;
 import com.newtech.jobnow.models.ExperienceResponse;
 import com.newtech.jobnow.models.ForgotRequest;
@@ -65,6 +68,7 @@ import com.newtech.jobnow.models.JobListRequest;
 import com.newtech.jobnow.models.JobObject;
 import com.newtech.jobnow.models.LevelObject;
 import com.newtech.jobnow.models.LevelResponse;
+import com.newtech.jobnow.models.ListEmploymentResponse;
 import com.newtech.jobnow.models.ListExperienceResponse;
 import com.newtech.jobnow.models.LocationObject;
 import com.newtech.jobnow.models.LocationResponse;
@@ -73,6 +77,8 @@ import com.newtech.jobnow.models.PostJobResponse;
 import com.newtech.jobnow.models.SkillObject;
 import com.newtech.jobnow.models.UserModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -92,7 +98,7 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
     ImageView img_back;
     TextView btnSetDone;
     private static final String TAG = LoginActivity.class.getSimpleName();
-    private EditText editJobTitle, edtPosition, edtSalaryFrom, edtSalaryTo, editResponsibilities, editRequiment;
+    private EditText editJobTitle, edtSalaryFrom, edtSalaryTo, editResponsibilities, editRequiment,edtWorkinghour;
     private CheckBox ckShowSalary;
     private Toolbar toolbar;
     private Button btnSavePostJobs;
@@ -101,11 +107,13 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
     private ListExperienceAdapter spJobExperienceAdapter;
     private CategoryIndustryAdapter spJobCategoryAdapter;
     private LocationAdapter spJobLocationAdapter;
-    Spinner spJobLevel, spJobCategory, spExperience, spJobLocation;
+    private EmploymentTypeAdapter spEmploymentAdapter;
+    Spinner spJobLevel, spJobCategory, spExperience, spJobLocation, spEmploymentType;
     List<CategoryIndustryObject> listCategoryIndustry = new ArrayList<>();
     List<LevelObject> listLevelObjects = new ArrayList<>();
     List<ExperienceObject> listExperienceObjects = new ArrayList<>();
     List<SkillObject> listSkill = new ArrayList<>();
+    List<EmploymentObject> listEmployment = new ArrayList<>();
     List<LocationObject> locationObjectList = new ArrayList<>();
     TextView btn_startdate, btn_enddate;
     RadioButton active, deactive;
@@ -117,6 +125,7 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
     TextView txt_titleLocation;
     String addressName = "";
 
+    EmploymentObject employmentObject;
     LocationObject locationObject;
     CategoryIndustryObject categoryIndustryObject;
     LevelObject levelObject;
@@ -160,17 +169,18 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
         spJobCategory = (Spinner) findViewById(R.id.spJobCategory);
         spExperience = (Spinner) findViewById(R.id.spExperience);
         spJobLocation = (Spinner) findViewById(R.id.spJobLocation);
-        txt_titleLocation = (TextView) findViewById(R.id.txt_titleLocation);
+        spEmploymentType = (Spinner) findViewById(R.id.spEmploymentType);
         getLevel();
         getJobCategory();
         getJobExperience();
         getJobLocation();
+        getEmploymentType();
         editJobTitle = (EditText) findViewById(R.id.editJobTitle);
-        edtPosition = (EditText) findViewById(R.id.edtPosition);
         edtSalaryFrom = (EditText) findViewById(R.id.edtSalaryFrom);
         edtSalaryTo = (EditText) findViewById(R.id.edtSalaryTo);
         editResponsibilities = (EditText) findViewById(R.id.editResponsibilities);
         editRequiment = (EditText) findViewById(R.id.editRequiment);
+        edtWorkinghour=(EditText) findViewById(R.id.edtWorkinghour);
 
         ckShowSalary = (CheckBox) findViewById(R.id.ckShowSalary);
         active = (RadioButton) findViewById(R.id.active);
@@ -223,32 +233,43 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
 
             }
         });
+        spEmploymentType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                employmentObject = listEmployment.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         spJobCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 skillList = "";
-                List<Integer> listChoose=null;
+                List<Integer> listChoose = null;
 
                 categoryIndustryObject = listCategoryIndustry.get(position);
                 listSkill = listCategoryIndustry.get(position).data;
-                String skillChoose="Select All Skill";
-                if(jobObject!=null){
+                String skillChoose = "Select All Skill";
+                if (jobObject != null) {
                     try {
-                        skillChoose = "";
+                        skillList = "";
                         listChoose = new ArrayList<Integer>();
                         String[] listSkillChoose = jobObject.SkillList.split(",");
                         for (int i = 0; i < listSkill.size(); i++) {
                             for (int j = 0; j < listSkillChoose.length; j++) {
                                 if (listSkillChoose[j].equals(listSkill.get(i).id + "")) {
                                     listChoose.add(i);
-                                    skillChoose = skillChoose + listSkill.get(i).Name + ",";
+                                    skillList = skillList + listSkill.get(i).Name + ",";
                                     break;
                                 }
                             }
                         }
-                        skillChoose = skillChoose.substring(0, skillChoose.length() - 1);
-                    }catch (Exception err){
+                        skillList = skillList.substring(0, skillList.length() - 1);
+                    } catch (Exception err) {
 
                     }
                 }
@@ -258,9 +279,11 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
                     items.add(listSkill.get(i).Name);
                 }
                 spSkills = (MultiSpinner) findViewById(R.id.spSkills);
-                spSkills.setItems(items, skillChoose,listChoose,new MultiSpinner.MultiSpinnerListener() {
+
+                spSkills.setItems(items, skillChoose, listChoose, new MultiSpinner.MultiSpinnerListener() {
                     @Override
                     public void onItemsSelected(boolean[] selected) {
+                        skillList="";
                         for (int i = 0; i < selected.length; i++) {
                             if (selected[i]) {
                                 skillList = skillList + listSkill.get(i).id + ",";
@@ -308,7 +331,16 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
                                         startDateTimeInterview = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
                                     }
                                 }
-
+                                btn_enddate.setText(AddDate(startDateTimeInterview));
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                                Calendar c = Calendar.getInstance();
+                                try {
+                                    c.setTime(sdf.parse(AddDate(startDateTimeInterview)));
+                                    SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+                                    endDateTimeInterview= sdf1.format(c.getTime());
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
 
                             }
                         }, mYear, mMonth, mDay);
@@ -316,10 +348,12 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
             }
         });
 
+
+
         btn_enddate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
+               /* final Calendar c = Calendar.getInstance();
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
                 mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -350,7 +384,7 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
 
                             }
                         }, mYear, mMonth, mDay);
-                datePickerDialog.show();
+                datePickerDialog.show();*/
             }
         });
         btnSetDone.setOnClickListener(new View.OnClickListener() {
@@ -359,7 +393,7 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
 
                 if (CheckOK()) {
                     String jobTitle = editJobTitle.getText().toString();
-                    String jobPosition = edtPosition.getText().toString();
+
                     String jobSalaryFrom = edtSalaryFrom.getText().toString();
                     String jobSalaryTo = edtSalaryTo.getText().toString();
                     String jobResponsibilities = editResponsibilities.getText().toString();
@@ -370,14 +404,12 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
                     if (skillList.length() > 1) {
                         skillList = skillList.substring(0, skillList.length() - 1);
                     }
-
-
                     if (jobObject != null) {
-                        PostJobRequest request = new PostJobRequest(jobObject.id, jobTitle, jobPosition, 1, "", locationObject.id, categoryIndustryObject.id, Float.parseFloat(jobSalaryFrom), Float.parseFloat(jobSalaryTo), 2, ckShowSalary.isChecked() == false ? 0 : 1, levelObject.id, Float.parseFloat(latitude + ""), Float.parseFloat(longitude + ""), jobResponsibilities, jobRequiment, startDateTimeInterview, endDateTimeInterview, active.isChecked()==true?1:0, txt_titleLocation.getText().toString(), skillList, experienceObject.id + "", userModel.id, userModel.apiToken);
+                        PostJobRequest request = new PostJobRequest(jobObject.id, jobTitle, "jobnow", 1, "", locationObject.id, categoryIndustryObject.id, Float.parseFloat(jobSalaryFrom), Float.parseFloat(jobSalaryTo), 2, ckShowSalary.isChecked() == false ? 0 : 1, levelObject.id, Float.parseFloat(latitude + ""), Float.parseFloat(longitude + ""), jobResponsibilities, jobRequiment, startDateTimeInterview, endDateTimeInterview, active.isChecked() == true ? 1 : 0, "", skillList, experienceObject.id + "", userModel.id, userModel.apiToken,employmentObject.id,Integer.parseInt(edtWorkinghour.getText().toString()));
                         EditPostAJobAsyntask postAJobAsyntask = new EditPostAJobAsyntask(PostAJobsActivity.this, request);
                         postAJobAsyntask.execute();
                     } else {
-                        PostJobRequest request = new PostJobRequest(jobTitle, jobPosition, 1, "", locationObject.id, categoryIndustryObject.id, Float.parseFloat(jobSalaryFrom), Float.parseFloat(jobSalaryTo), 2, ckShowSalary.isChecked() == false ? 0 : 1, levelObject.id, Float.parseFloat(latitude + ""), Float.parseFloat(longitude + ""), jobResponsibilities, jobRequiment, startDateTimeInterview, endDateTimeInterview, active.isChecked()==true?1:0, txt_titleLocation.getText().toString(), skillList, experienceObject.id + "", userModel.id, userModel.apiToken);
+                        PostJobRequest request = new PostJobRequest(jobTitle, "jobnow", 1, "", locationObject.id, categoryIndustryObject.id, Float.parseFloat(jobSalaryFrom), Float.parseFloat(jobSalaryTo), 2, ckShowSalary.isChecked() == false ? 0 : 1, levelObject.id, Float.parseFloat(latitude + ""), Float.parseFloat(longitude + ""), jobResponsibilities, jobRequiment, startDateTimeInterview, endDateTimeInterview, active.isChecked() == true ? 1 : 0, "", skillList, experienceObject.id + "", userModel.id, userModel.apiToken,employmentObject.id,Integer.parseInt(edtWorkinghour.getText().toString()));
                         PostAJobAsyntask postAJobAsyntask = new PostAJobAsyntask(PostAJobsActivity.this, request);
                         postAJobAsyntask.execute();
                     }
@@ -402,15 +434,26 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
         });
     }
 
+    public String AddDate(String startDate){
+        String dt = startDate;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        try {
+            c.setTime(sdf.parse(dt));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        c.add(Calendar.DATE, 30);  // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+        return sdf1.format(c.getTime());
+    }
+
     public void SetData(JobObject jobObject) {
         editJobTitle.setText(jobObject.Title);
-        edtPosition.setText(jobObject.Position);
         edtSalaryFrom.setText(jobObject.FromSalary);
         edtSalaryTo.setText(jobObject.ToSalary);
         editResponsibilities.setText(jobObject.Description);
         editRequiment.setText(jobObject.Requirement);
-        txt_titleLocation.setText(jobObject.Location);
-
         ckShowSalary.setChecked(jobObject.IsDisplaySalary == 0 ? false : true);
 
         String[] startDate = jobObject.Start_date.substring(0, jobObject.Start_date.indexOf(" ")).split("-");
@@ -420,8 +463,10 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
         String[] endDate = jobObject.End_date.substring(0, jobObject.End_date.indexOf(" ")).split("-");
         endDateTimeInterview = endDate[0] + "-" + endDate[1] + "-" + endDate[2];
         btn_enddate.setText(endDate[2] + "-" + endDate[1] + "-" + endDate[0]);
-
+        edtWorkinghour.setText(jobObject.WorkingHours+"");
         if (jobObject.IsActive == 0) {
+            active.setTextColor(getResources().getColor(R.color.colorPrimary));
+            deactive.setTextColor(getResources().getColor(R.color.white));
             deactive.setChecked(true);
         } else {
             active.setChecked(true);
@@ -436,18 +481,14 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
     public boolean CheckOK() {
 
         String jobTitle = editJobTitle.getText().toString();
-        String jobPosition = edtPosition.getText().toString();
         String jobSalaryFrom = edtSalaryFrom.getText().toString();
         String jobSalaryTo = edtSalaryTo.getText().toString();
         String jobResponsibilities = editResponsibilities.getText().toString();
         String jobRequiment = editRequiment.getText().toString();
         String jobStartDate = btn_startdate.getText().toString();
-        String jobEndDate = btn_enddate.getText().toString();
+        String edtWorking = edtWorkinghour.getText().toString();
         if (jobTitle.isEmpty()) {
             Toast.makeText(PostAJobsActivity.this, "Please Input A Job Title", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (jobPosition.isEmpty()) {
-            Toast.makeText(PostAJobsActivity.this, "Please Input A Position", Toast.LENGTH_SHORT).show();
             return false;
         } else if (startDateTimeInterview.equals("")) {
             Toast.makeText(PostAJobsActivity.this, "Please Input Start Date", Toast.LENGTH_SHORT).show();
@@ -472,6 +513,9 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
             return false;
         } else if (skillList.equals("")) {
             Toast.makeText(PostAJobsActivity.this, "Please Select A Skill", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (edtWorking.equals("")) {
+            Toast.makeText(PostAJobsActivity.this, "Please Input Working hour number", Toast.LENGTH_SHORT).show();
             return false;
         }else {
             return true;
@@ -603,7 +647,7 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
                 "Loading", "Please wait..", true, false);
         APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
 
-        String url = APICommon.BASE_URL + "location/getAllLocationOnCountry/" + APICommon.getSign(APICommon.getApiKey(), "api/v1/jobs/getIndustry")
+        String url = APICommon.BASE_URL + "location/getAllLocationOnCountry/" + APICommon.getSign(APICommon.getApiKey(), "api/v1/location/getAllLocationOnCountry")
                 + "/" + APICommon.getAppId() + "/" + APICommon.getDeviceType() + "/0";
 
         Call<LocationResponse> experienceResponseCall = service.getListLocation(url);
@@ -637,15 +681,53 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
         });
     }
 
+    private void getEmploymentType() {
+        final ProgressDialog progressDialog = ProgressDialog.show(PostAJobsActivity.this,
+                "Loading", "Please wait..", true, false);
+        APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
+
+        String url = APICommon.BASE_URL + "employment/getListEmployment/" + APICommon.getSign(APICommon.getApiKey(), "api/v1/employment/getListEmployment")
+                + "/" + APICommon.getAppId() + "/" + APICommon.getDeviceType();
+
+        Call<ListEmploymentResponse> experienceResponseCall = service.getListEmployment(url);
+        experienceResponseCall.enqueue(new Callback<ListEmploymentResponse>() {
+            @Override
+            public void onResponse(Response<ListEmploymentResponse> response, Retrofit retrofit) {
+                progressDialog.dismiss();
+                if (response.body() != null && response.body().code == 200) {
+
+                    if (response.body().result != null && response.body().result.size() > 0)
+                        listEmployment.addAll(response.body().result);
+                    spEmploymentAdapter = new EmploymentTypeAdapter(PostAJobsActivity.this, listEmployment);
+                    spEmploymentType.setAdapter(spEmploymentAdapter);
+
+                    if (jobObject != null) {
+                        for (int i = 0; i < listEmployment.size(); i++) {
+                            if (listEmployment.get(i).id == jobObject.EmploymentID) {
+                                spEmploymentType.setSelection(i);
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(PostAJobsActivity.this, getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public void addMarkerChoice(LatLng latLng) {
         try {
-            latitude=latLng.latitude;
-            longitude=latLng.longitude;
+            latitude = latLng.latitude;
+            longitude = latLng.longitude;
             Location location = new Location("Location set job");
             location.setLatitude(latLng.latitude);
             location.setLongitude(latLng.longitude);
             addressName = GetAddress(latLng.latitude, latLng.longitude);
-            txt_titleLocation.setText(addressName);
             addMaker(location);
         } catch (Exception e) {
         }
@@ -717,9 +799,9 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
                 }
-                if(jobObject!=null){
-                    addMarkerChoice(new LatLng(jobObject.Latitude,jobObject.Longitude));
-                }else {
+                if (jobObject != null) {
+                    addMarkerChoice(new LatLng(jobObject.Latitude, jobObject.Longitude));
+                } else {
                     addMarkerChoice(new LatLng(latitude, longitude));
                 }
             } else {
@@ -735,9 +817,9 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
                     longitude = location.getLongitude();
                 }
 
-                if(jobObject!=null){
-                    addMarkerChoice(new LatLng(jobObject.Latitude,jobObject.Longitude));
-                }else {
+                if (jobObject != null) {
+                    addMarkerChoice(new LatLng(jobObject.Latitude, jobObject.Longitude));
+                } else {
                     addMarkerChoice(new LatLng(latitude, longitude));
                 }
             } else {
@@ -797,12 +879,12 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
         @Override
         protected void onPostExecute(PostJobResponse code) {
             try {
-                Toast.makeText(PostAJobsActivity.this, code.result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PostAJobsActivity.this, "Congratulations! Job Posting is created successfully", Toast.LENGTH_SHORT).show();
 
                 SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
                 Gson gson = new Gson();
-                userModel.creditNumber=Float.parseFloat(code.message+"");
-                String profile=gson.toJson(userModel);
+                userModel.creditNumber = Float.parseFloat(code.message + "");
+                String profile = gson.toJson(userModel);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(Config.KEY_USER_PROFILE, profile).commit();
 
@@ -849,7 +931,7 @@ public class PostAJobsActivity extends AppCompatActivity implements OnMapReadyCa
         @Override
         protected void onPostExecute(String code) {
             try {
-                Toast.makeText(PostAJobsActivity.this, code, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PostAJobsActivity.this, "Congratulations! Job Posting is created successfully", Toast.LENGTH_SHORT).show();
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("results", 150293);
                 setResult(Activity.RESULT_OK, returnIntent);

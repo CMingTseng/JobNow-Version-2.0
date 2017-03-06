@@ -1,17 +1,21 @@
 package com.newtech.jobnow.fragment;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -30,6 +34,7 @@ import com.newtech.jobnow.utils.Utils;
 import com.newtech.jobnow.widget.CRecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -48,13 +53,18 @@ public class JobListFragment extends Fragment {
     private String ASC = "ASC";
     private String DESC = "DESC";
     private Spinner spnSortBy;
-    private String sort = ASC;
+    private String sort = DESC;
     private int page = 1;
     private boolean isCanNext = false;
     private boolean isProgessingLoadMore = false;
     private JobListRequest jobListRequest = null;
     private LinearLayout lnErrorView;
-
+    EditText edSearch;
+    List<JobObject> list = new ArrayList<>();
+    boolean flag = false;
+    String sTotal="";
+    Bundle bundle;
+    int iRandom=-1;
     public JobListFragment() {
         // Required empty public constructor
     }
@@ -85,7 +95,7 @@ public class JobListFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_job_list, container, false);
         initUI(rootView);
-        //bindData();
+        bindData();
         event();
         return rootView;
     }
@@ -95,19 +105,23 @@ public class JobListFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    sort = ASC;
+                    sort = DESC;
+                    //sort = ASC;
                 } else {
                     sort = DESC;
                 }
                 adapter.clear();
+                list.clear();
                 page = 1;
                 bindData();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                sort = ASC;
+                //sort = ASC;
+                sort = DESC;
                 adapter.clear();
+                list.clear();
                 page = 1;
                 bindData();
             }
@@ -117,7 +131,9 @@ public class JobListFragment extends Fragment {
             @Override
             public void onRefresh() {
                 refresh.setRefreshing(true);
+                jobListRequest = null;
                 adapter.clear();
+                list.clear();
                 page = 1;
                 bindData();
             }
@@ -137,6 +153,42 @@ public class JobListFragment extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+        edSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                changeSearch();
+            }
+        });
+    }
+
+    public void changeSearch() {
+        if (edSearch.getText().toString().equals("")) {
+            adapter.clear();
+            adapter.addAll(list);
+            tvNumberJob.setText(sTotal);
+        } else {
+            List<JobObject> list_employee_tmp = new ArrayList<JobObject>();
+
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).Position.toLowerCase().contains(edSearch.getText().toString().toLowerCase()) ||
+                        list.get(i).CompanyName.toLowerCase().contains(edSearch.getText().toString().toLowerCase()) ||
+                        list.get(i).Title.toLowerCase().contains(edSearch.getText().toString().toLowerCase())) {
+                    list_employee_tmp.add(list.get(i));
+                }
+            }
+            adapter.clear();
+            adapter.addAll(list_employee_tmp);
+            tvNumberJob.setText(getString(R.string.number_job, list_employee_tmp.size()));
+        }
     }
 
     private void bindData() {
@@ -144,14 +196,9 @@ public class JobListFragment extends Fragment {
         final ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "Loading...", "Please wait", true, false);
         isProgessingLoadMore = true;
 
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            jobListRequest = (JobListRequest) bundle.getSerializable(KEY_JOB);
-        }
-        Log.d(TAG, "job list request: " + jobListRequest);
         if (jobListRequest == null)
-            jobListRequest = new JobListRequest(page, sort, null, null, null, null,
-                    null, null, null);
+            jobListRequest = new JobListRequest(page, sort, edSearch.getText().toString(), null, null, null,
+                    null, null, null,0);
 
         APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
         Call<JobListReponse> getJobList = service.getJobListByParam(
@@ -178,6 +225,9 @@ public class JobListFragment extends Fragment {
                         if (response.body().result != null && response.body().result.data != null
                                 && response.body().result.data.size() > 0) {
                             adapter.addAll(response.body().result.data);
+                            list.addAll(response.body().result.data);
+                            sTotal=getString(R.string.number_job, response.body().result.total);
+                            //changeSearch();
                             tvNumberJob.setText(getString(R.string.number_job, response.body().result.total));
                             if (page < response.body().result.last_page) {
                                 page++;
@@ -190,7 +240,7 @@ public class JobListFragment extends Fragment {
                         }
                     }
 
-                    if(adapter.getItemCount() == 0) {
+                    if (adapter.getItemCount() == 0) {
                         lnErrorView.setVisibility(View.VISIBLE);
                         rvListJob.setVisibility(View.GONE);
                     } else {
@@ -219,7 +269,7 @@ public class JobListFragment extends Fragment {
         if (title.equals(""))
             title = null;
         JobListRequest request = new JobListRequest(1, "ASC", title, null, null,
-                null, null, null, null);
+                null, null, null, null,0);
         Bundle bundle = new Bundle();
         bundle.putSerializable(SearchResultActivity.KEY_JOB, request);
         intent.putExtras(bundle);
@@ -235,12 +285,38 @@ public class JobListFragment extends Fragment {
         rvListJob.setAdapter(adapter);
         tvNumberJob = (TextView) view.findViewById(R.id.tvNumberJob);
         lnErrorView = (LinearLayout) view.findViewById(R.id.lnErrorView);
-
+        edSearch = (EditText) getActivity().findViewById(R.id.edSearch);
 
         spnSortBy = (Spinner) view.findViewById(R.id.spnSortBy);
         refresh = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
         Utils.closeKeyboard(getActivity());
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK) {
+                try {
+                    Bundle bundle1 = data.getExtras();
+                    if (bundle1 != null) {
+                        flag = true;
+                        jobListRequest = (JobListRequest) bundle1.getSerializable(KEY_JOB);
+                        if (iRandom != jobListRequest.IntRandom) {
+                            iRandom = jobListRequest.IntRandom;
+                            adapter.clear();
+                            list.clear();
+                            page = 1;
+                            bindData();
+                        }
+                    }
+                }catch (Exception err){
+                    err.printStackTrace();
+                }
+
+            }
+        }
     }
 
 }

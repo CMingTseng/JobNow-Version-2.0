@@ -20,8 +20,12 @@ import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by manhi on 1/6/2016.
@@ -107,8 +111,41 @@ public class JobListAdapter extends BaseRecyclerAdapter<JobObject, JobListAdapte
         public void bindData(JobObject jobObject) {
             tvName.setText(jobObject.Title);
             tvLocation.setText(jobObject.LocationName);
-            tvPrice.setText(jobObject.FromSalary + " - " + jobObject.ToSalary + " (USD)");
-            tvTime.setText(mContext.getString(R.string.posted)+" "+p.format(new Date(Utils.getLongTime(jobObject.created_at))));
+            if(jobObject.IsDisplaySalary==1) {
+                tvPrice.setText(new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.FromSalary)) + " - " + new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.ToSalary)) + "(SGD)");
+            }else {
+                tvPrice.setVisibility(View.GONE);
+            }
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+00"));
+                Date oldDate = dateFormat.parse(jobObject.updated_at);
+                Date cDate = new Date();
+                Long timeDiff = cDate.getTime() - oldDate.getTime();
+                int day = (int) TimeUnit.MILLISECONDS.toDays(timeDiff);
+                int hour = (int) (TimeUnit.MILLISECONDS.toHours(timeDiff) - TimeUnit.DAYS.toHours(day));
+                int mm = (int) (TimeUnit.MILLISECONDS.toMinutes(timeDiff) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeDiff)));
+
+
+                if (day > 0) {
+                    if (day > 1)
+                        tvTime.setText(mContext.getString(R.string.posted)+" " + day + " days ago");
+                    else
+                        tvTime.setText(mContext.getString(R.string.posted)+" " + day + " day ago");
+                } else {
+                    if (hour < 1) {
+                        tvTime.setText(mContext.getString(R.string.posted)+" " + mm + " min ago");
+                    } else {
+                        tvTime.setText(mContext.getString(R.string.posted)+" " + hour + " hour ago");
+
+                    }
+                }
+            } catch (Exception exx) {
+
+            }
+
+
+            //tvTime.setText(mContext.getString(R.string.posted)+" "+p.format(new Date(Utils.getLongTime(jobObject.created_at))));
             tvCompanyName.setText(jobObject.CompanyName);
             try {
                 Picasso.with(mContext).load(jobObject.CompanyLogo).placeholder(R.mipmap.img_logo_company).error(R.mipmap.img_logo_company).into(imgLogo);

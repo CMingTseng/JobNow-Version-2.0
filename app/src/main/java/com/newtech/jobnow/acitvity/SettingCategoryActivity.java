@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +36,7 @@ import com.newtech.jobnow.common.DrawableClickListener;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.controller.CategoryController;
 import com.newtech.jobnow.controller.InviteController;
+import com.newtech.jobnow.eventbus.DeleteJobEvent;
 import com.newtech.jobnow.models.CategoryRequest;
 import com.newtech.jobnow.models.InviteObject;
 import com.newtech.jobnow.models.InviteRequest;
@@ -43,6 +46,8 @@ import com.newtech.jobnow.models.ProfileRequest;
 import com.newtech.jobnow.models.UserModel;
 import com.newtech.jobnow.utils.Utils;
 import com.newtech.jobnow.widget.CRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -120,9 +125,31 @@ public class SettingCategoryActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CategoryRequest categoryRequest= new CategoryRequest(editTitleCategory.getText().toString().trim(),userModel.id,category_id);
-                SetUpdateCategoryAsystask setUpdateCategoryAsystask= new SetUpdateCategoryAsystask(SettingCategoryActivity.this,categoryRequest,1);
-                setUpdateCategoryAsystask.execute();
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(SettingCategoryActivity.this);
+                builder1.setMessage("Confirm to delete this category");
+                builder1.setCancelable(true);
+                builder1.setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                CategoryRequest categoryRequest= new CategoryRequest(editTitleCategory.getText().toString().trim(),userModel.id,category_id);
+                                SetUpdateCategoryAsystask setUpdateCategoryAsystask= new SetUpdateCategoryAsystask(SettingCategoryActivity.this,categoryRequest,1);
+                                setUpdateCategoryAsystask.execute();
+                                dialog.cancel();
+                            }
+                        });
+                builder1.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+
             }
         });
 

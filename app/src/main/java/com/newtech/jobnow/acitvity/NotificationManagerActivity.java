@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.newtech.jobnow.R;
@@ -24,6 +27,8 @@ import com.newtech.jobnow.adapter.ShortlistManagerAdapter;
 import com.newtech.jobnow.common.APICommon;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.controller.CategoryController;
+import com.newtech.jobnow.controller.NotificationController;
+import com.newtech.jobnow.models.NotificationRequest;
 import com.newtech.jobnow.models.NotificationVersion2Object;
 import com.newtech.jobnow.models.NotificationVersion2Response;
 import com.newtech.jobnow.models.ProfileModel;
@@ -48,13 +53,13 @@ public class NotificationManagerActivity extends AppCompatActivity {
     ImageView img_back;
     TextView edTitleCategory;
     private SwipeRefreshLayout refresh;
-    int page=1;
+    int page = 1;
     private boolean isCanNext = false;
     private boolean isProgessingLoadMore = false;
     private LinearLayout lnErrorView;
     private CRecyclerView rvListJob;
     private NotificationVer2Adapter adapter;
-    private RelativeLayout btn_add_manager;
+    private RelativeLayout btnRemove;
     ProfileModel profileModel;
 
     @Override
@@ -62,10 +67,10 @@ public class NotificationManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_manager);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref,MODE_PRIVATE);
-        String profile=sharedPreferences.getString(Config.KEY_COMPANY_PROFILE,"");
-        Gson gson= new Gson();
-        profileModel=gson.fromJson(profile,ProfileModel.class);
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
+        String profile = sharedPreferences.getString(Config.KEY_COMPANY_PROFILE, "");
+        Gson gson = new Gson();
+        profileModel = gson.fromJson(profile, ProfileModel.class);
 
         InitUI();
         InitEvent();
@@ -74,14 +79,14 @@ public class NotificationManagerActivity extends AppCompatActivity {
 
     public void InitUI() {
         rvListJob = (CRecyclerView) findViewById(R.id.rvListNotification);
-        adapter = new NotificationVer2Adapter(NotificationManagerActivity.this, new ArrayList<NotificationVersion2Object>(),1);
+        adapter = new NotificationVer2Adapter(NotificationManagerActivity.this, new ArrayList<NotificationVersion2Object>(), 1);
         lnErrorView = (LinearLayout) findViewById(R.id.lnErrorView);
         rvListJob.setAdapter(adapter);
 
         refresh = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
         Utils.closeKeyboard(NotificationManagerActivity.this);
-        img_back=(ImageView) findViewById(R.id.img_back);
-
+        img_back = (ImageView) findViewById(R.id.img_back);
+        btnRemove = (RelativeLayout) findViewById(R.id.btnRemove);
     }
 
     public void InitEvent() {
@@ -119,7 +124,36 @@ public class NotificationManagerActivity extends AppCompatActivity {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+        btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(NotificationManagerActivity.this);
+                builder1.setMessage("Are you sure to remove all?");
+                builder1.setCancelable(true);
+                builder1.setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                DeleteNotificationAsystask deleteNotificationAsystask = new DeleteNotificationAsystask(NotificationManagerActivity.this, new NotificationRequest(0, profileModel.CompanyID));
+                                deleteNotificationAsystask.execute();
+                                dialog.cancel();
+                            }
+                        });
+                builder1.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+
+
+            }
+        });
     }
 
     private void BindData() {
@@ -131,7 +165,7 @@ public class NotificationManagerActivity extends AppCompatActivity {
                 APICommon.getAppId(),
                 APICommon.getDeviceType(),
                 profileModel.CompanyID,
-                0,page
+                0, page
         );
         getJobList.enqueue(new Callback<NotificationVersion2Response>() {
             @Override
@@ -154,7 +188,7 @@ public class NotificationManagerActivity extends AppCompatActivity {
                         }
                     }
 
-                    if(adapter.getItemCount() == 0) {
+                    if (adapter.getItemCount() == 0) {
                         lnErrorView.setVisibility(View.VISIBLE);
                         rvListJob.setVisibility(View.GONE);
                     } else {
@@ -178,17 +212,18 @@ public class NotificationManagerActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 1) {
-            if(resultCode == Activity.RESULT_OK){
-                int result=data.getIntExtra("result",0);
-                String results=data.getStringExtra("results");
-                if (result==15){
+            if (resultCode == Activity.RESULT_OK) {
+                int result = data.getIntExtra("result", 0);
+                String results = data.getStringExtra("results");
+                if (result == 15) {
                     Intent returnIntent = new Intent();
-                    returnIntent.putExtra("result",result);
-                    setResult(Activity.RESULT_OK,returnIntent);
+                    returnIntent.putExtra("result", result);
+                    setResult(Activity.RESULT_OK, returnIntent);
                     finish();
                 }
                 edTitleCategory.setText(results);
@@ -199,24 +234,26 @@ public class NotificationManagerActivity extends AppCompatActivity {
 
         }
     }
-    class GetShortListDetailAsystask extends AsyncTask<Void,Void,Void> {
+
+    class GetShortListDetailAsystask extends AsyncTask<Void, Void, Void> {
         ProgressDialog dialog;
-        String sessionId="";
-       int category_id;
+        String sessionId = "";
+        int category_id;
         Context ct;
         Dialog dialogs;
-        public GetShortListDetailAsystask(Context ct,int category_id){
-            this.ct=ct;
-            this.category_id=category_id;
+
+        public GetShortListDetailAsystask(Context ct, int category_id) {
+            this.ct = ct;
+            this.category_id = category_id;
 
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                CategoryController controller= new CategoryController();
+                CategoryController controller = new CategoryController();
                 controller.GetShortListDetail(category_id);
-            }catch (Exception ex){
+            } catch (Exception ex) {
             }
             return null;
         }
@@ -225,7 +262,7 @@ public class NotificationManagerActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             dialog = new ProgressDialog(ct);
-            dialog.setMessage("" );
+            dialog.setMessage("");
             dialog.show();
         }
 
@@ -233,7 +270,52 @@ public class NotificationManagerActivity extends AppCompatActivity {
         protected void onPostExecute(Void code) {
             try {
 
-            }catch (Exception e){
+            } catch (Exception e) {
+            }
+            dialog.dismiss();
+        }
+    }
+
+    class DeleteNotificationAsystask extends AsyncTask<Void, Void, String> {
+        ProgressDialog dialog;
+        String sessionId = "";
+        NotificationRequest notificationRequest;
+        Context ct;
+        Dialog dialogs;
+
+        public DeleteNotificationAsystask(Context ct, NotificationRequest notificationRequest) {
+            this.ct = ct;
+            this.notificationRequest = notificationRequest;
+
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                NotificationController controller = new NotificationController();
+                return controller.DeleteNotification(notificationRequest);
+            } catch (Exception ex) {
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(ct);
+            dialog.setMessage("");
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String code) {
+            try {
+                Toast.makeText(ct, code, Toast.LENGTH_LONG).show();
+                refresh.setRefreshing(true);
+                adapter.clear();
+                page = 1;
+                BindData();
+            } catch (Exception e) {
             }
             dialog.dismiss();
         }

@@ -27,7 +27,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/imgRing"
+            android:id="@+id/btnRemove"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentRight="true"
@@ -52,9 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/imgMenu"
-            android:layout_toLeftOf="@+id/imgRing"
+            android:layout_toLeftOf="@+id/btnRemove"
             android:layout_toRightOf="@+id/imgMenu"
-            android:layout_toStartOf="@+id/imgRing"
+            android:layout_toStartOf="@+id/btnRemove"
             android:gravity="center"
             android:padding="3dp">
 
@@ -287,25 +287,28 @@
         android:layout_alignParentStart="true">
 
         <Button
-            android:id="@+id/btnAddShortList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="Add Shortlist"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:layout_weight="1"
-            android:textSize="@dimen/sp16" />
-        <Button
             android:id="@+id/btnSetInterviewTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorBgApplyJob"
-            android:text="SetInterview Time"
+            android:background="@drawable/bg_invite_done"
+            android:text="Set Interview Time"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:layout_weight="1"
-            android:textSize="@dimen/sp16" />
+            android:textSize="@dimen/sp16"
+            android:layout_margin="5dp" />
+
+        <Button
+            android:id="@+id/btnNotSelected"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_invite_reject"
+            android:text="Not Selected"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_weight="1"
+            android:textSize="@dimen/sp16"
+            android:layout_margin="5dp" />
     </LinearLayout>
 </RelativeLayout>
 

@@ -1,0 +1,80 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="4"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        >
+
+
+        <com.newtech.jobnow.common.CustomTextViewLato
+            android:text="Please give us your feedback!"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView15"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:textSize="@dimen/sp16"
+            />
+
+        <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+            android:text="@string/desc_shortlist_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView16"
+            android:padding="10dp" />
+
+        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            android:id="@+id/edtSubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_edittext"
+            android:gravity="left|center_vertical"
+            android:hint="Subject/Title"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/editDescription"
+            android:hint="Feedback"
+            android:textColorHint="@color/colorTextHint"
+            android:layout_margin="10dp"
+            android:gravity="left"
+            android:imeOptions="actionDone"
+            android:background="@drawable/bg_edittext"
+            android:inputType="textMultiLine"
+            android:textSize="14sp" />
+        <Button
+            android:id="@+id/btnSendFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_signup"
+            android:text="Send Feedback"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -18,4 +18,6 @@ public class NotificationVersion2Object implements Serializable {
     public int JobID;
     public String Avatar;
     public String Email;
+    public String FullName;
+    public int InterviewID;
 }

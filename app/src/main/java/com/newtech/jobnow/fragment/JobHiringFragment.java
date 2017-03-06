@@ -99,7 +99,7 @@ public class JobHiringFragment extends Fragment {
         rvListJob.setAdapter(adapter);
         refresh = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefresh);
         Utils.closeKeyboard(getActivity());
-        ChangeStatusTab(1);
+        ChangeStatusTab(2);
     }
     public void InitEvent(){
         tab_hiringInProgress.setOnClickListener(new View.OnClickListener() {

@@ -327,7 +327,7 @@ public class SetInterviewActivity extends AppCompatActivity {
                 Picasso.with(SetInterviewActivity.this).load(R.mipmap.default_avatar).into(img_photo_company);
             }
             txt_name_employee.setText(shortlistDetailObject.FullName);
-            txt_location.setText(shortlistDetailObject.CountryName);
+            txt_location.setText(shortlistDetailObject.email);
         } else if (profile != null) {
             try {
                 Picasso.with(SetInterviewActivity.this).load(profile.avatar).placeholder(R.mipmap.img_logo_company).error(R.mipmap.default_avatar).into(img_photo_company);
@@ -335,7 +335,7 @@ public class SetInterviewActivity extends AppCompatActivity {
                 Picasso.with(SetInterviewActivity.this).load(R.mipmap.default_avatar).into(img_photo_company);
             }
             txt_name_employee.setText(profile.fullName);
-            txt_location.setText(profile.countryName);
+            txt_location.setText(profile.email);
         } else {
             try {
                 Picasso.with(SetInterviewActivity.this).load(interviewObject.Avatar).placeholder(R.mipmap.img_logo_company).error(R.mipmap.default_avatar).into(img_photo_company);
@@ -343,7 +343,7 @@ public class SetInterviewActivity extends AppCompatActivity {
                 Picasso.with(SetInterviewActivity.this).load(R.mipmap.default_avatar).into(img_photo_company);
             }
             txt_name_employee.setText(interviewObject.FullName);
-            txt_location.setText(interviewObject.CountryName);
+            txt_location.setText(interviewObject.Email);
 
             String[] dateInterview = interviewObject.InterviewDate.substring(0, interviewObject.InterviewDate.indexOf(" ")).split("-");
             dateTimeInterview = interviewObject.InterviewDate.substring(0, interviewObject.InterviewDate.indexOf(" "));
@@ -395,7 +395,7 @@ public class SetInterviewActivity extends AppCompatActivity {
         protected void onPostExecute(String code) {
             try {
                 if (!code.equals("")) {
-                    Toast.makeText(SetInterviewActivity.this, code, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SetInterviewActivity.this, "Interview updated successfully", Toast.LENGTH_SHORT).show();
                     dialogs.dismiss();
                     finish();
                 }

@@ -22,7 +22,7 @@
                 android:padding="10dp">
 
                 <ImageView
-                    android:id="@+id/imgRing"
+                    android:id="@+id/btnRemove"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -44,7 +44,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_toLeftOf="@+id/imgFilter"
-                    android:layout_toRightOf="@+id/imgRing"
+                    android:layout_toRightOf="@+id/btnRemove"
                     android:background="@drawable/bg_search"
                     android:drawableLeft="@mipmap/ic_search"
                     android:drawablePadding="5dp"

@@ -140,7 +140,7 @@ public class FeedbackActivity extends AppCompatActivity {
         protected void onPostExecute(String code) {
             try {
                 if (!code.equals("")) {
-                    Toast.makeText(FeedbackActivity.this, code, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FeedbackActivity.this, "Thank you for your valuable feedback", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             } catch (Exception e) {

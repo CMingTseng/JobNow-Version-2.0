@@ -300,7 +300,7 @@ public class ShorListCategoryFragment extends Fragment {
         protected void onPostExecute(String code) {
             try {
                 if (!code.equals("")) {
-                    Toast.makeText(getActivity(), code, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Category updated successfully", Toast.LENGTH_SHORT).show();
                     adapter.clear();
                     bindData();
                     dialogs.dismiss();

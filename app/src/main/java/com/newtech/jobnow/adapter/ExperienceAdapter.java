@@ -14,6 +14,7 @@ import com.ocpsoft.pretty.time.PrettyTime;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -57,7 +58,7 @@ public class ExperienceAdapter extends BaseRecyclerAdapter<ExperienceResponse.Ex
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvCompanyName, tvLocation, tvDescription;
+        private TextView tvCompanyName, tvLocation, tvDescription,txtExperience,txtSalary;
         private ImageView imgEdit;
 
         public ViewHolder(View view) {
@@ -65,6 +66,8 @@ public class ExperienceAdapter extends BaseRecyclerAdapter<ExperienceResponse.Ex
             tvCompanyName = (TextView) view.findViewById(R.id.tvCompanyName);
             tvLocation = (TextView) view.findViewById(R.id.tvLocation);
             tvDescription = (TextView) view.findViewById(R.id.tvDescription);
+            txtExperience = (TextView) view.findViewById(R.id.txtExperience);
+            txtSalary = (TextView) view.findViewById(R.id.txtSalary);
             imgEdit = (ImageView) view.findViewById(R.id.imgEdit);
             if(type==0) {
 
@@ -84,6 +87,10 @@ public class ExperienceAdapter extends BaseRecyclerAdapter<ExperienceResponse.Ex
             tvCompanyName.setText(experience.CompanyName);
             tvLocation.setText(experience.PositionName);
             tvDescription.setText(experience.Description);
+            txtSalary.setText("Salary: "+new DecimalFormat("#,###.#").format(experience.Salary)+" (SGD)");
+            String []startTime=experience.FromDate.substring(0,experience.FromDate.indexOf(" ")).split("-");
+            String []endTime=experience.ToDate.substring(0,experience.ToDate.indexOf(" ")).split("-");
+            txtExperience.setText("Experience: From "+startTime[2]+"/"+startTime[1]+"/"+startTime[0]+" -To "+endTime[2]+"/"+endTime[1]+"/"+endTime[0]);
         }
 
     }

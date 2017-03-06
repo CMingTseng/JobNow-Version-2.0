@@ -69,7 +69,7 @@ public class AddShortlistManagerActivity extends AppCompatActivity {
     int category_id = 0;
     String category_name = "";
     List<EmployeeObject> list = new ArrayList<>();
-
+    int inSet=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,6 +129,7 @@ public class AddShortlistManagerActivity extends AppCompatActivity {
                             SetAddShortlistAsystask setAddShortlistAsystask = new SetAddShortlistAsystask(AddShortlistManagerActivity.this, employeeAddRequest);
                             setAddShortlistAsystask.execute();
                         }
+                        Toast.makeText(AddShortlistManagerActivity.this, list_tmp.size()+" Candidate(s) added successfully", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result",1502);
@@ -199,13 +200,20 @@ public class AddShortlistManagerActivity extends AppCompatActivity {
     private void BindData() {
         final ProgressDialog progressDialog = ProgressDialog.show(AddShortlistManagerActivity.this, "Loading...", "Please wait", true, false);
         isProgessingLoadMore = true;
+
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref,MODE_PRIVATE);
+        String profile=sharedPreferences.getString(Config.KEY_USER_PROFILE,"");
+        Gson gson= new Gson();
+        UserModel userModel=gson.fromJson(profile,UserModel.class);
+
         APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
         Call<EmployeeResponse> getJobList = service.getEmployee(
                 APICommon.getSign(APICommon.getApiKey(), "api/v1/users/getListEmployee"),
                 APICommon.getAppId(),
                 APICommon.getDeviceType(),
                 "",
-                category_id
+                category_id,
+                userModel.id
         );
         getJobList.enqueue(new Callback<EmployeeResponse>() {
             @Override
@@ -287,8 +295,7 @@ public class AddShortlistManagerActivity extends AppCompatActivity {
         protected void onPostExecute(String code) {
             try {
                 if (!code.equals("")) {
-                    Toast.makeText(AddShortlistManagerActivity.this, code, Toast.LENGTH_SHORT).show();
-
+                   inSet++;
                 }
             } catch (Exception e) {
             }

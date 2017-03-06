@@ -31,7 +31,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/imgRing"
+                android:id="@+id/btnRemove"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_alignParentRight="true"
@@ -69,8 +69,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/imgMenu"
                 android:layout_toEndOf="@+id/imgMenu"
-                android:layout_toLeftOf="@+id/imgRing"
-                android:layout_toStartOf="@+id/imgRing"
+                android:layout_toLeftOf="@+id/btnRemove"
+                android:layout_toStartOf="@+id/btnRemove"
                 android:padding="3dp"
                 >
 

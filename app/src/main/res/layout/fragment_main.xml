@@ -17,7 +17,7 @@
             android:background="@color/colorPrimary">
 
             <RelativeLayout
-                android:id="@+id/imgRing"
+                android:id="@+id/btnRemove"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize">
 
@@ -25,8 +25,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/ic_ring" />
+                    android:src="@mipmap/ic_ring"
+                    android:id="@+id/img_notification" />
+
+                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                    android:background="@drawable/bg_circle"
+                    android:gravity="center"
+                    android:textSize="7sp"
+                    android:textColor="@color/white"
+                    android:text="95"
+                    android:id="@+id/txtCount"
+                    android:layout_above="@+id/img_notification"
+                    android:layout_toRightOf="@+id/img_notification"
+                    android:layout_toEndOf="@+id/img_notification"
+                    android:layout_height="13dp"
+                    android:layout_width="13dp"
+                    android:padding="1dp"
+                    android:layout_marginLeft="-5dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -45,14 +60,14 @@
 
             </RelativeLayout>
 
-            <EditText
+            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/edSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/imgFilter"
-                android:layout_toRightOf="@+id/imgRing"
-                android:background="@drawable/bg_search"
+                android:layout_toRightOf="@+id/btnRemove"
+                android:background="@drawable/bg_edittext"
                 android:drawableLeft="@mipmap/ic_search"
                 android:drawablePadding="5dp"
                 android:ellipsize="start"
@@ -60,6 +75,7 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:padding="5dp"
+                android:textColorHint="@color/colorTextHint"
                 android:maxLines="1" />
         </RelativeLayout>
 

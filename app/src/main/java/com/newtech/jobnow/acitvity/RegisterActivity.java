@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void initUI() {
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
-            ab.setTitle(R.string.sign_up);
+            ab.setTitle("Register");
             ab.setDisplayHomeAsUpEnabled(true);
         }
 

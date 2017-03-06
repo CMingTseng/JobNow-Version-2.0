@@ -75,17 +75,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="12dp"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/ic_location_interview" />
-
                 <com.newtech.jobnow.common.CustomTextViewLatoRegular
                     android:id="@+id/txt_location"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
                     android:gravity="center_vertical"
                     android:text="Viet Nam"
                     android:textColor="@color/black" />
@@ -122,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
-                android:text="Datetime"
+                android:text="Date &amp; Time"
                 android:textColor="@color/black" />
 
             <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
@@ -239,7 +232,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Location"
+                android:text="Location (Full address)"
                 android:textColor="@color/black" />
 
             <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
@@ -261,7 +254,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Subjects"
+                android:text="(Position) Job Title"
                 android:textColor="@color/black" />
 
             <com.newtech.jobnow.common.CustomEditextHelveticaneuelight

@@ -1,12 +1,14 @@
 package com.newtech.jobnow.acitvity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -21,6 +23,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.TextAppearanceSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +38,7 @@ import com.google.gson.Gson;
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.common.APICommon;
 import com.newtech.jobnow.config.Config;
+import com.newtech.jobnow.controller.NotificationController;
 import com.newtech.jobnow.fragment.AppliedJobListFragment;
 import com.newtech.jobnow.fragment.InterviewFragment;
 import com.newtech.jobnow.fragment.JobHiringFragment;
@@ -44,6 +48,10 @@ import com.newtech.jobnow.fragment.ProfileManagerFragment;
 import com.newtech.jobnow.fragment.SaveJobListFragment;
 import com.newtech.jobnow.fragment.ShorListCategoryFragment;
 import com.newtech.jobnow.models.BaseResponse;
+import com.newtech.jobnow.models.CreditsNumberResponse;
+import com.newtech.jobnow.models.JobListReponse;
+import com.newtech.jobnow.models.JobListRequest;
+import com.newtech.jobnow.models.NotificationRequest;
 import com.newtech.jobnow.models.UserModel;
 import com.newtech.jobnow.widget.TabEntity;
 import com.squareup.picasso.Picasso;
@@ -73,7 +81,9 @@ public class MenuActivity extends AppCompatActivity {
     RelativeLayout header_layout;
     private ProgressDialog progressDialog;
     ImageView img_avatar;
-    TextView txt_emailUser,txt_numberCredits;
+    TextView txt_emailUser;
+    public static  TextView txtCount;
+    public static TextView txt_numberCredits;
     UserModel userModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +132,7 @@ public class MenuActivity extends AppCompatActivity {
         img_menu=(ImageView) findViewById(R.id.img_menu);
         img_notification=(ImageView) findViewById(R.id.img_notification);
         tabbottom = (CommonTabLayout) findViewById(R.id.tabbottomManager);
+        txtCount=(TextView) findViewById(R.id.txtCount);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         Menu menu = navigationView.getMenu();
@@ -184,6 +195,9 @@ public class MenuActivity extends AppCompatActivity {
                 } else if (id == R.id.nav_getJobCredit) {
                     Intent intent= new Intent(MenuActivity.this, GetMoreJobCreditsActivity.class);
                     startActivity(intent);
+                }else if (id == R.id.nav_privacyPolicy) {
+                    Intent intent= new Intent(MenuActivity.this, PolicyActivity.class);
+                    startActivity(intent);
                 }else if (id == R.id.nav_feedback) {
                     Intent intent= new Intent(MenuActivity.this, FeedbackActivity.class);
                     startActivityForResult(intent,1);
@@ -192,19 +206,12 @@ public class MenuActivity extends AppCompatActivity {
                     startActivityForResult(intent,1);
                 }else if (id == R.id.nav_logOut) {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(MenuActivity.this);
-                    builder1.setMessage("Are you sure you want to log out?");
+                    builder1.setMessage("Are you sure you want to Log Out?");
                     builder1.setCancelable(true);
                     builder1.setPositiveButton(
                             "Yes",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                   /* Intent intent= new Intent(MenuActivity.this,SplashScreen.class);
-                                    startActivity(intent);
-                                    SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putInt(Config.KEY_COMPANYID,0).commit();
-                                    editor.putString(Config.KEY_USER_PROFILE, "").commit();
-                                    editor.putString(Config.KEY_COMPANY_PROFILE, "").commit();*/
                                     logout();
                                     dialog.cancel();
                                 }
@@ -222,10 +229,48 @@ public class MenuActivity extends AppCompatActivity {
 
                 }else if (id == R.id.nav_postJobs) {
                     if(userModel.creditNumber>=1) {
-                        Intent intent = new Intent(MenuActivity.this, PostAJobsActivity.class);
-                        startActivityForResult(intent,1);
+                        final ProgressDialog progressDialog = ProgressDialog.show(MenuActivity.this, "Loading...", "Please wait", true, false);
+                        APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
+                        Call<CreditsNumberResponse> getJobList = service.getCredits(
+                                APICommon.getSign(APICommon.getApiKey(), JobListRequest.PATH_URL),
+                                APICommon.getAppId(),
+                                APICommon.getDeviceType(),
+                                userModel.id
+                        );
+                        getJobList.enqueue(new Callback<CreditsNumberResponse>() {
+                            @Override
+                            public void onResponse(Response<CreditsNumberResponse> response, Retrofit retrofit) {
+                                try {
+                                    progressDialog.dismiss();
+                                    if (response.body() != null && response.body().code == 200) {
+                                        Float result = Float.parseFloat(response.body().result+"");
+                                        txt_numberCredits.setText(result+"");
+                                        Gson gson= new Gson();
+                                        userModel.creditNumber=response.body().result;
+                                        String profile=gson.toJson(userModel);
+                                        SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString(Config.KEY_USER_PROFILE, profile).commit();
+                                        if(response.body().result>=1){
+                                            Intent intent = new Intent(MenuActivity.this, PostAJobsActivity.class);
+                                            startActivityForResult(intent,1);
+                                        }else {
+                                            Toast.makeText(MenuActivity.this,"Sorry, you have insufficient credits. Please purchase in Menu ---> Get More Job Credit",Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            @Override
+                            public void onFailure(Throwable t) {
+                                progressDialog.dismiss();
+                            }
+                        });
+
+
                     }else {
-                        Toast.makeText(MenuActivity.this,"Sorry, you have insufficient credits. Please purchase Job Credits to proceed your job posting",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MenuActivity.this,"Sorry, you have insufficient credits. Please purchase in Menu ---> Get More Job Credit",Toast.LENGTH_LONG).show();
                     }
                 }
                 drawer.closeDrawer(GravityCompat.START);
@@ -236,6 +281,8 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void bindData() {
+        CountNotificationAsystask countNotificationAsystask= new CountNotificationAsystask(MenuActivity.this,new NotificationRequest(0,userModel.id));
+        countNotificationAsystask.execute();
 
         String[] mTitles = {getString(R.string.job), getString(R.string.profile), getString(R.string.shortlist), getString(R.string.interview)};
         for (int i = 0; i < mTitles.length; i++) {
@@ -330,4 +377,50 @@ public class MenuActivity extends AppCompatActivity {
         key_pressed = System.currentTimeMillis();*/
     }
     static long key_pressed;
+
+    class CountNotificationAsystask extends AsyncTask<Void, Void, Integer> {
+        ProgressDialog dialog;
+        String sessionId = "";
+        NotificationRequest notificationRequest;
+        Context ct;
+        Dialog dialogs;
+
+        public CountNotificationAsystask(Context ct, NotificationRequest notificationRequest) {
+            this.ct = ct;
+            this.notificationRequest = notificationRequest;
+
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            try {
+                NotificationController controller = new NotificationController();
+                return controller.CountNotification(notificationRequest);
+            } catch (Exception ex) {
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(ct);
+            dialog.setMessage("");
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Integer code) {
+            try {
+                if(code==0){
+                    txtCount.setVisibility(View.GONE);
+                }else {
+                    txtCount.setText(code + "");
+                }
+
+            } catch (Exception e) {
+            }
+            dialog.dismiss();
+        }
+    }
 }

@@ -1,10 +1,12 @@
 package com.newtech.jobnow.acitvity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -20,6 +22,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -30,10 +33,13 @@ import com.newtech.jobnow.common.CustomTextViewHelveticaneuelight;
 import com.newtech.jobnow.common.DrawableClickListener;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.controller.InterviewController;
+import com.newtech.jobnow.controller.NotificationController;
+import com.newtech.jobnow.models.DeleteNotificationRequest;
 import com.newtech.jobnow.models.InterviewObject;
 import com.newtech.jobnow.models.ProfileModel;
 import com.newtech.jobnow.models.SetInterviewRequest;
 import com.newtech.jobnow.models.ShortlistDetailObject;
+import com.newtech.jobnow.models.StatusInterviewRequest;
 import com.newtech.jobnow.models.UserModel;
 import com.squareup.picasso.Picasso;
 
@@ -52,14 +58,15 @@ public class SetInterviewDetailActivity extends AppCompatActivity {
     TextView editInterviewer, editPhoneNumber, editLocation, editSubjects, editMessage;
     ShortlistDetailObject shortlistDetailObject;
     ImageView img_photo_company;
-
+    Button btnAccept, btnReject;
+    TableRow tb_status;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
     String dateTimeInterview = "";
     String startTime = "";
     String endTime = "";
 
-    UserModel userModel,profile;
+    UserModel userModel, profile;
     ProfileModel profileModel;
     InterviewObject interviewObject;
 
@@ -110,9 +117,9 @@ public class SetInterviewDetailActivity extends AppCompatActivity {
         editLocation = (TextView) findViewById(R.id.editLocation);
         editSubjects = (TextView) findViewById(R.id.editSubjects);
         editMessage = (TextView) findViewById(R.id.editMessage);
-
-
-
+        btnReject = (Button) findViewById(R.id.btnReject);
+        btnAccept = (Button) findViewById(R.id.btnAccept);
+        tb_status = (TableRow) findViewById(R.id.tb_status);
     }
 
     public void InitEvent() {
@@ -124,30 +131,94 @@ public class SetInterviewDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        btnReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SetStatusNotificationAsystask setStatusNotificationAsystask = new SetStatusNotificationAsystask(SetInterviewDetailActivity.this, new StatusInterviewRequest(interviewObject.id, 3));
+                setStatusNotificationAsystask.execute();
+            }
+        });
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SetStatusNotificationAsystask setStatusNotificationAsystask = new SetStatusNotificationAsystask(SetInterviewDetailActivity.this, new StatusInterviewRequest(interviewObject.id, 2));
+                setStatusNotificationAsystask.execute();
+            }
+        });
     }
 
     public void BindData() {
+        try {
+            Picasso.with(SetInterviewDetailActivity.this).load(interviewObject.CompanyAvatar).placeholder(R.mipmap.img_logo_company).error(R.mipmap.default_avatar).into(img_photo_company);
+        } catch (Exception e) {
+            Picasso.with(SetInterviewDetailActivity.this).load(R.mipmap.default_avatar).into(img_photo_company);
+        }
+        txt_name_employee.setText(interviewObject.CompanyName);
+        txt_location.setText(interviewObject.CompanyEmail);
+
+        String[] dateInterview = interviewObject.InterviewDate.substring(0, interviewObject.InterviewDate.indexOf(" ")).split("-");
+        dateTimeInterview = interviewObject.InterviewDate.substring(0, interviewObject.InterviewDate.indexOf(" "));
+        editDatetimeInterview.setText(dateInterview[2] + "-" + dateInterview[1] + "-" + dateInterview[0]);
+        startTime = interviewObject.Start_time;
+        endTime = interviewObject.End_time;
+        btn_start_time.setText(interviewObject.Start_time);
+        btn_end_time.setText(interviewObject.End_time);
+        editInterviewer.setText(interviewObject.ContactName);
+        editPhoneNumber.setText(interviewObject.PhoneNumber);
+        editLocation.setText(interviewObject.Location);
+        editSubjects.setText(interviewObject.Title);
+        editMessage.setText(interviewObject.Content);
+        if(!interviewObject.Status.equals("1")){
+            tb_status.setVisibility(View.GONE);
+        }
+
+    }
+
+    class SetStatusNotificationAsystask extends AsyncTask<Void, Void, String> {
+        ProgressDialog dialog;
+        String sessionId = "";
+        StatusInterviewRequest request;
+        Context ct;
+
+        public SetStatusNotificationAsystask(Context ct, StatusInterviewRequest request) {
+            this.ct = ct;
+            this.request = request;
+
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
             try {
-                Picasso.with(SetInterviewDetailActivity.this).load(interviewObject.Avatar).placeholder(R.mipmap.img_logo_company).error(R.mipmap.default_avatar).into(img_photo_company);
-            } catch (Exception e) {
-                Picasso.with(SetInterviewDetailActivity.this).load(R.mipmap.default_avatar).into(img_photo_company);
+                NotificationController controller = new NotificationController();
+                return controller.updateInterviewStatus(request);
+            } catch (Exception ex) {
+                return null;
             }
-            txt_name_employee.setText(interviewObject.FullName);
-            txt_location.setText(interviewObject.CountryName);
+        }
 
-            String[] dateInterview = interviewObject.InterviewDate.substring(0, interviewObject.InterviewDate.indexOf(" ")).split("-");
-            dateTimeInterview = interviewObject.InterviewDate.substring(0, interviewObject.InterviewDate.indexOf(" "));
-            editDatetimeInterview.setText(dateInterview[2] + "-" + dateInterview[1] + "-" + dateInterview[0]);
-            startTime=interviewObject.Start_time;
-            endTime=interviewObject.End_time;
-            btn_start_time.setText(interviewObject.Start_time);
-            btn_end_time.setText(interviewObject.End_time);
-            editInterviewer.setText(interviewObject.ContactName);
-            editPhoneNumber.setText(interviewObject.PhoneNumber);
-            editLocation.setText(interviewObject.Location);
-            editSubjects.setText(interviewObject.Title);
-            editMessage.setText(interviewObject.Content);
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(ct);
+            dialog.setMessage("");
+            dialog.show();
+        }
 
+        @Override
+        protected void onPostExecute(String code) {
+            try {
+                if (!code.equals("")) {
+                    Toast.makeText(ct, code, Toast.LENGTH_SHORT).show();
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("reload",1);
+                    setResult(Activity.RESULT_OK,returnIntent);
+                    finish();
+                }
+            } catch (Exception e) {
+            }
+            dialog.dismiss();
+        }
     }
 
 }

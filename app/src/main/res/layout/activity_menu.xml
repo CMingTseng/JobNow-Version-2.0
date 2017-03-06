@@ -42,7 +42,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/imgRing"
+                    android:id="@+id/btnRemove"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_alignParentRight="true"
@@ -67,7 +67,6 @@
                         android:layout_toEndOf="@+id/img_notification"
                         android:layout_height="13dp"
                         android:layout_width="13dp"
-                        android:visibility="gone"
                         android:padding="1dp"
                         android:layout_marginLeft="-5dp" />
 
@@ -82,8 +81,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/imgMenu"
                     android:layout_toEndOf="@+id/imgMenu"
-                    android:layout_toLeftOf="@+id/imgRing"
-                    android:layout_toStartOf="@+id/imgRing"
+                    android:layout_toLeftOf="@+id/btnRemove"
+                    android:layout_toStartOf="@+id/btnRemove"
                     android:padding="3dp"
                     android:id="@+id/layout_editSearch">
 

@@ -135,7 +135,7 @@ public class GetMoreJobCreditsActivity extends AppCompatActivity {
         protected void onPostExecute(String code) {
             try {
                 if(code!=null){
-                    Toast.makeText(GetMoreJobCreditsActivity.this,code,Toast.LENGTH_LONG).show();
+                    Toast.makeText(GetMoreJobCreditsActivity.this,"Email sent successully",Toast.LENGTH_LONG).show();
                     edtEmailInviteSend.setText("");
                 }
             }catch (Exception e){

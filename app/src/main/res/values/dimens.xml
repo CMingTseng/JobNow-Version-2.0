@@ -26,4 +26,7 @@
     <dimen name="navigation_drawer_width">240dp</dimen>
 
 
+    <!--Size in app-->
+    <dimen name="size10">10dp</dimen>
+    <dimen name="size20">20dp</dimen>
 </resources>

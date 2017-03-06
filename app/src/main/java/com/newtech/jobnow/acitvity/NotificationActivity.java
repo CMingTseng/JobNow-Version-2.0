@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -22,13 +24,17 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.newtech.jobnow.R;
+import com.newtech.jobnow.adapter.JobManagerAdapter;
 import com.newtech.jobnow.adapter.NotificationAdapter;
 import com.newtech.jobnow.adapter.NotificationVer2Adapter;
 import com.newtech.jobnow.common.APICommon;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.controller.CategoryController;
+import com.newtech.jobnow.controller.NotificationController;
+import com.newtech.jobnow.models.JobRequest;
 import com.newtech.jobnow.models.LoginResponse;
 import com.newtech.jobnow.models.NotificationObject;
+import com.newtech.jobnow.models.NotificationRequest;
 import com.newtech.jobnow.models.NotificationResponse;
 import com.newtech.jobnow.models.NotificationVersion2Object;
 import com.newtech.jobnow.models.NotificationVersion2Response;
@@ -158,7 +164,7 @@ public class NotificationActivity extends AppCompatActivity {
     }*/
 
 
-    private RelativeLayout btnBack;
+    private RelativeLayout btnBack,btnRemove;
     TextView edTitleCategory;
     private SwipeRefreshLayout refresh;
     int page=1;
@@ -187,14 +193,14 @@ public class NotificationActivity extends AppCompatActivity {
 
     public void InitUI() {
         rvListJob = (CRecyclerView) findViewById(R.id.rvNotification);
-        adapter = new NotificationVer2Adapter(NotificationActivity.this, new ArrayList<NotificationVersion2Object>(),2);
+        adapter = new NotificationVer2Adapter(NotificationActivity.this,NotificationActivity.this ,new ArrayList<NotificationVersion2Object>(),2);
         lnErrorView = (LinearLayout) findViewById(R.id.lnErrorView);
         rvListJob.setAdapter(adapter);
 
         refresh = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
         Utils.closeKeyboard(NotificationActivity.this);
         btnBack=(RelativeLayout) findViewById(R.id.btnBack);
-
+        btnRemove=(RelativeLayout) findViewById(R.id.btnRemove);
     }
 
     public void InitEvent() {
@@ -229,7 +235,35 @@ public class NotificationActivity extends AppCompatActivity {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+        btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(NotificationActivity.this);
+                builder1.setMessage("Are you sure to remove all?");
+                builder1.setCancelable(true);
+                builder1.setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                final SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, Context.MODE_PRIVATE);
+                                int userID = sharedPreferences.getInt(Config.KEY_ID, 0);
+                                DeleteNotificationAsystask deleteNotificationAsystask= new DeleteNotificationAsystask(NotificationActivity.this, new NotificationRequest(userID,0));
+                                deleteNotificationAsystask.execute();
+                                dialog.cancel();
+                            }
+                        });
+                builder1.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
 
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+            }
+        });
     }
 
     private void BindData() {
@@ -345,6 +379,50 @@ public class NotificationActivity extends AppCompatActivity {
         protected void onPostExecute(Void code) {
             try {
 
+            }catch (Exception e){
+            }
+            dialog.dismiss();
+        }
+    }
+
+    class DeleteNotificationAsystask extends AsyncTask<Void,Void,String> {
+        ProgressDialog dialog;
+        String sessionId="";
+        NotificationRequest notificationRequest;
+        Context ct;
+        Dialog dialogs;
+        public DeleteNotificationAsystask(Context ct, NotificationRequest notificationRequest){
+            this.ct=ct;
+            this.notificationRequest=notificationRequest;
+
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                NotificationController controller= new NotificationController();
+                return controller.DeleteNotification(notificationRequest);
+            }catch (Exception ex){
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(ct);
+            dialog.setMessage("" );
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String code) {
+            try {
+                Toast.makeText(ct,code,Toast.LENGTH_LONG).show();
+                refresh.setRefreshing(true);
+                adapter.clear();
+                page = 1;
+                BindData();
             }catch (Exception e){
             }
             dialog.dismiss();

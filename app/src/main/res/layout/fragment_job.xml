@@ -1,0 +1,106 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.newtech.jobnow.fragment.MainFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary">
+
+            <RelativeLayout
+                android:id="@+id/btnRemove"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/ic_ring"
+                    android:id="@+id/img_notification" />
+
+                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                    android:background="@drawable/bg_circle"
+                    android:gravity="center"
+                    android:textSize="7sp"
+                    android:textColor="@color/white"
+                    android:text="95"
+                    android:id="@+id/txtCount"
+                    android:layout_above="@+id/img_notification"
+                    android:layout_toRightOf="@+id/img_notification"
+                    android:layout_toEndOf="@+id/img_notification"
+                    android:layout_height="13dp"
+                    android:layout_width="13dp"
+                    android:padding="1dp"
+                    android:layout_marginLeft="-5dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/imgFilter"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/ic_filter" />
+
+            </RelativeLayout>
+
+            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/imgFilter"
+                android:layout_toRightOf="@+id/btnRemove"
+                android:background="@drawable/bg_edittext"
+                android:drawableLeft="@mipmap/ic_search"
+                android:drawablePadding="5dp"
+                android:ellipsize="start"
+                android:hint="@string/search_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textColorHint="@color/colorTextHint"
+                android:maxLines="1"
+                android:id="@+id/edSearchSave" />
+        </RelativeLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextColor="@color/black"
+            android:layout_height="40dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGray" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backgroudTab"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

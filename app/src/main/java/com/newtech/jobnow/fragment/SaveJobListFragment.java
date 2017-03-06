@@ -1,19 +1,22 @@
 package com.newtech.jobnow.fragment;
 
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,16 +32,16 @@ import com.newtech.jobnow.adapter.JobListAdapter;
 import com.newtech.jobnow.adapter.JobListV2Adapter;
 import com.newtech.jobnow.common.APICommon;
 import com.newtech.jobnow.config.Config;
+import com.newtech.jobnow.controller.NotificationController;
 import com.newtech.jobnow.eventbus.DeleteJobEvent;
 import com.newtech.jobnow.eventbus.SaveJobEvent;
 import com.newtech.jobnow.eventbus.SaveJobListEvent;
 import com.newtech.jobnow.models.BaseResponse;
 import com.newtech.jobnow.models.DeleteJobRequest;
-import com.newtech.jobnow.models.JobListReponse;
 import com.newtech.jobnow.models.JobListRequest;
 import com.newtech.jobnow.models.JobListV2Reponse;
-import com.newtech.jobnow.models.JobObject;
 import com.newtech.jobnow.models.JobV2Object;
+import com.newtech.jobnow.models.NotificationRequest;
 import com.newtech.jobnow.utils.Utils;
 import com.newtech.jobnow.widget.CRecyclerView;
 
@@ -46,6 +49,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -59,7 +63,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  */
 public class SaveJobListFragment extends Fragment {
     public static final String TAG = SaveJobListFragment.class.getSimpleName();
-
+    public static String KEY_JOB = "key_job";
     public static int saved_job = 0;
 
     public SaveJobListFragment() {
@@ -80,7 +84,9 @@ public class SaveJobListFragment extends Fragment {
     private RelativeLayout imgFilter, imgBack;
     private int page = 1;
     private LinearLayout lnErrorView;
-
+    EditText edSearch;
+    public static TextView txtCount;
+    List<JobV2Object> list = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,14 +95,55 @@ public class SaveJobListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_job_list, container, false);
         initUI(rootView);
         bindData();
+        event();
         return rootView;
     }
+    public void event(){
+        edSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                changeSearch();
+            }
+        });
+    }
+    public void changeSearch(){
+        if (edSearch.getText().toString().equals("")) {
+            adapter.clear();
+            adapter.addAll(list);
+            tvNumberJob.setText(getString(R.string.number_job, list.size()));
+        } else {
+            List<JobV2Object> list_employee_tmp = new ArrayList<JobV2Object>();
+
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).Position.toLowerCase().contains(edSearch.getText().toString().toLowerCase())||
+                        list.get(i).CompanyName.toLowerCase().contains(edSearch.getText().toString().toLowerCase())||
+                        list.get(i).Title.toLowerCase().contains(edSearch.getText().toString().toLowerCase())) {
+                    list_employee_tmp.add(list.get(i));
+                }
+            }
+            adapter.clear();
+            adapter.addAll(list_employee_tmp);
+            tvNumberJob.setText(getString(R.string.number_job, list_employee_tmp.size()));
+        }
+    }
     private void bindData() {
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.Pref, getActivity().MODE_PRIVATE);
+        int userID = sharedPreferences.getInt(Config.KEY_ID, 0);
+        CountNotificationAsystask countNotificationAsystask= new CountNotificationAsystask(getActivity(),new NotificationRequest(userID,0));
+        countNotificationAsystask.execute();
+
         isProgessingLoadMore = true;
         APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
-                Config.Pref, Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(Config.KEY_TOKEN, "");
         int userId = sharedPreferences.getInt(Config.KEY_ID, 0);
         Call<JobListV2Reponse> request = service.getSaveListJobV2(
@@ -117,7 +164,7 @@ public class SaveJobListFragment extends Fragment {
                         if(result != null) {
                             tvNumberJob.setText(result.total + " saved job");
                             adapter.addAll(result.data);
-
+                            list.addAll(result.data);
                             Log.d(TAG, "save job list total:" + result.total);
                             saved_job = result.total;
 
@@ -167,7 +214,7 @@ public class SaveJobListFragment extends Fragment {
         if (title.equals(""))
             title = null;
         JobListRequest request = new JobListRequest(1, "ASC", title, null, null,
-                null, null, null, null);
+                null, null, null, null,0);
         Bundle bundle = new Bundle();
         bundle.putSerializable(SearchResultActivity.KEY_JOB, request);
         intent.putExtras(bundle);
@@ -175,6 +222,7 @@ public class SaveJobListFragment extends Fragment {
     }
 
     private void initUI(View view) {
+        txtCount=(TextView) view.findViewById(R.id.txtCount);
         rvListJob = (CRecyclerView) view.findViewById(R.id.rvListJob);
         rvListJob.setDivider();
         adapter = new JobListV2Adapter(getActivity(), new ArrayList<JobV2Object>(), JobListAdapter.SAVE_TYPE);
@@ -182,8 +230,8 @@ public class SaveJobListFragment extends Fragment {
         tvNumberJob = (TextView) view.findViewById(R.id.tvNumberJob);
         lnErrorView = (LinearLayout) view.findViewById(R.id.lnErrorView);
         imgFilter = (RelativeLayout) view.findViewById(R.id.imgFilter);
-        imgBack = (RelativeLayout) view.findViewById(R.id.imgRing);
-
+        imgBack = (RelativeLayout) view.findViewById(R.id.btnRemove);
+        edSearch=(EditText) view.findViewById(R.id.edSearch);
         refresh = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
 
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -191,6 +239,7 @@ public class SaveJobListFragment extends Fragment {
             public void onRefresh() {
                 refresh.setRefreshing(true);
                 adapter.clear();
+                list.clear();
                 page = 1;
                 bindData();
             }
@@ -205,7 +254,7 @@ public class SaveJobListFragment extends Fragment {
             }
         });
 
-        EditText edtSearch = (EditText) view.findViewById(R.id.edSearch);
+        /*EditText edtSearch = (EditText) view.findViewById(R.id.edSearchs);
         edtSearch.requestFocus();
         edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -216,7 +265,7 @@ public class SaveJobListFragment extends Fragment {
                 }
                 return false;
             }
-        });
+        });*/
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -296,4 +345,51 @@ public class SaveJobListFragment extends Fragment {
         EventBus.getDefault().unregister(this);
         super.onDetach();
     }
+
+    class CountNotificationAsystask extends AsyncTask<Void, Void, Integer> {
+        ProgressDialog dialog;
+        String sessionId = "";
+        NotificationRequest notificationRequest;
+        Context ct;
+        Dialog dialogs;
+
+        public CountNotificationAsystask(Context ct, NotificationRequest notificationRequest) {
+            this.ct = ct;
+            this.notificationRequest = notificationRequest;
+
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            try {
+                NotificationController controller = new NotificationController();
+                return controller.CountNotification(notificationRequest);
+            } catch (Exception ex) {
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(ct);
+            dialog.setMessage("");
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Integer code) {
+            try {
+                if(code==0){
+                    txtCount.setVisibility(View.GONE);
+                }else {
+                    txtCount.setText(code + "");
+                }
+
+            } catch (Exception e) {
+            }
+            dialog.dismiss();
+        }
+    }
+
 }

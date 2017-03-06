@@ -29,7 +29,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/imgRing"
+            android:id="@+id/btnRemove"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentRight="true"
@@ -52,9 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/imgMenu"
-            android:layout_toLeftOf="@+id/imgRing"
+            android:layout_toLeftOf="@+id/btnRemove"
             android:layout_toRightOf="@+id/imgMenu"
-            android:layout_toStartOf="@+id/imgRing"
+            android:layout_toStartOf="@+id/btnRemove"
             android:gravity="center"
             android:padding="3dp">
 
@@ -71,7 +71,7 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="3dp"
-                android:text="Post a Jobs"
+                android:text="Post a Job"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp18" />
             />
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Job Title"
+                android:text="Position (Job Title)"
                 android:textColor="@color/black" />
 
             </LinearLayout>
@@ -132,29 +132,6 @@
                 />
 
             <com.newtech.jobnow.common.CustomTextViewLatoRegular
-                android:id="@+id/txt_phoneNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Position"
-                android:textColor="@color/black" />
-
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
-                android:id="@+id/edtPosition"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/bg_edittext"
-                android:gravity="left|center_vertical"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:padding="10dp"
-                android:singleLine="true"
-                android:maxLines="1"
-                android:textColorHint="@color/colorTextHint"
-                android:textSize="16sp" />
-
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_JobLevel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,6 +144,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spJobLevel"
+                android:layout_margin="10dp" />
+            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                android:id="@+id/txt_EmploymentType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Employment Type"
+                android:textColor="@color/black" />
+
+            <Spinner
+                android:background="@drawable/bg_spiner2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spEmploymentType"
                 android:layout_margin="10dp" />
             <com.newtech.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_JobCategory"
@@ -186,7 +177,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Job Experience"
+                android:text="Min. Years of Experience"
                 android:textColor="@color/black" />
             <Spinner
                 android:background="@drawable/bg_spiner2"
@@ -208,21 +199,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/spJobLocation"
                 android:layout_margin="10dp" />
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
-                android:id="@+id/txt_Address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Address"
-                android:textColor="@color/black" />
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
-                android:hint="Location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt_titleLocation"
-                android:padding="10dp"
-                android:background="@drawable/bg_edittext"
-                android:layout_margin="10dp" />
+
 
             <fragment
                 android:id="@+id/fragment_map_postjob"
@@ -238,7 +215,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Salary(USD)"
+                android:text="Salary(SGD)"
                 android:textColor="@color/black" />
 
             <LinearLayout
@@ -307,7 +284,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="Start date"
+                        android:text="Start date &amp; End date"
                         android:textColor="@color/black"
                         android:layout_marginBottom="10dp" />
 
@@ -342,7 +319,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="End date"
+
                         android:textColor="@color/black"
                         android:layout_marginBottom="10dp" />
 
@@ -359,7 +336,7 @@
                         android:drawableRight="@mipmap/ic_datetime"
                         android:background="@drawable/bg_edit_interview"
                         android:padding="10dp"
-                        android:text="@string/start_time"
+                        android:text="@string/end_time"
                         android:textColorHint="@color/colorText"
 
                         />
@@ -374,7 +351,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Responsibilities"
+                android:text="Job Description"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp" />
 
@@ -393,7 +370,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Requirements"
+                android:text="Job Requirements"
                 android:textColor="@color/black" />
 
             <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
@@ -405,6 +382,26 @@
                 android:inputType="textMultiLine"
                 android:background="@drawable/bg_edittext"
                 android:textSize="14sp" />
+
+            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                android:id="@+id/txt_JobWorking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Working Hours/Shift"
+                android:textColor="@color/black" />
+
+            <com.newtech.jobnow.common.CustomEditextHelveticaneue
+                android:background="@drawable/bg_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/edtWorkinghour"
+                android:layout_margin="10dp"
+                android:textSize="16sp"
+                android:singleLine="true"
+
+                android:inputType="number" />
+
 
             <com.newtech.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_subject"

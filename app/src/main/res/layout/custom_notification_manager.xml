@@ -44,14 +44,14 @@
 
             <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                 android:text="15/02/1993"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtTimeNotification"
-                android:layout_below="@+id/tb_shortlist_detail"
-                android:gravity="right"
-                android:textSize="@dimen/sp12"
+                android:layout_below="@+id/txtEmail"
+                android:gravity="left"
+                android:textSize="13sp"
                 android:textColor="@color/colorTimer"
-                />
+                android:layout_marginTop="5dp" />
 
             <com.newtech.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/txtTitleNotification"
@@ -67,19 +67,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtTitleNotification"
-                android:id="@+id/tb_shortlist_detail"
-                android:layout_marginTop="5dp">
+                android:id="@+id/tb_shortlist_detail">
 
                 <com.newtech.jobnow.common.CustomTextViewLatoRegular
-                    android:id="@+id/txtEmail"
+                    android:id="@+id/txtFullName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:text="Viet Nam"
                     android:textColor="@color/colorText"
-                    android:maxLines="1" />
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    />
 
             </TableRow>
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                android:id="@+id/txtEmail"
+                android:layout_below="@+id/tb_shortlist_detail"
+                android:textSize="@dimen/sp14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Viet Nam"
+                android:textColor="@color/colorText"
+                android:maxLines="1"
+                />
+
+            <ImageView
+                android:src="@mipmap/ic_delete"
+                android:id="@+id/img_delete_item"
+                android:layout_below="@+id/txtEmail"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="14dp"
+                android:layout_height="22dp" />
 
         </RelativeLayout>
 

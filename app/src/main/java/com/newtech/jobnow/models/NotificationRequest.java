@@ -4,6 +4,7 @@ import com.newtech.jobnow.common.APICommon;
 
 public class NotificationRequest extends BaseRequest {
     public static final String PATH_URL = "/api/v1/notification/setNotification";
+    public static final String PATH_URL_DELETE = "/api/v1/notification/deleteNotification";
     public int CompanyID;
     public int JobSeekerID;
     public int JobID;
@@ -21,5 +22,11 @@ public class NotificationRequest extends BaseRequest {
         Content = content;
         KeyScreen = keyScreen;
         Status = status;
+    }
+
+    public NotificationRequest(int jobSeekerID, int companyID) {
+        super(PATH_URL_DELETE);
+        JobSeekerID = jobSeekerID;
+        CompanyID = companyID;
     }
 }

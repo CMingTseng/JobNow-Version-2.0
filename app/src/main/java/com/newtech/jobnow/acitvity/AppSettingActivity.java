@@ -106,7 +106,7 @@ public class AppSettingActivity extends AppCompatActivity {
                             edtPhone.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_pencil_inactive, 0);
                             edtPhone.setEnabled(false);
                             if(!numberPhone.equals(edtPhone.getText().toString().trim())) {
-                                ProfileRequest profileRequest = new ProfileRequest(userModel.id, userModel.apiToken, edtPhone.getText().toString().trim(), "");
+                                ProfileRequest profileRequest = new ProfileRequest(userModel.id, userModel.apiToken, edtPhone.getText().toString().trim(), "","");
                                 UpdateProfileAsystask updateProfileAsystask = new UpdateProfileAsystask(AppSettingActivity.this, profileRequest);
                                 updateProfileAsystask.execute();
                             }
@@ -195,7 +195,7 @@ public class AppSettingActivity extends AppCompatActivity {
             try {
                 if(!code.equals("")){
                     numberPhone=edtPhone.getText().toString().trim();
-                    Toast.makeText(AppSettingActivity.this, code, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AppSettingActivity.this, "Phone updated successfully!", Toast.LENGTH_SHORT).show();
                     profileModel.setContactNumber(edtPhone.getText().toString().trim());
                     Gson gson= new Gson();
                     String profile=gson.toJson(profileModel);
@@ -241,7 +241,7 @@ public class AppSettingActivity extends AppCompatActivity {
         protected void onPostExecute(String code) {
             try {
                 if(!code.equals("")){
-                    Toast.makeText(AppSettingActivity.this, code, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AppSettingActivity.this, "Password updated successfully!", Toast.LENGTH_SHORT).show();
                     edtOldPassword.setText("");
                     edtNewPassword.setText("");
                     edtReEnterPassword.setText("");

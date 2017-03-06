@@ -22,6 +22,7 @@ import com.newtech.jobnow.R;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.controller.UserController;
 import com.newtech.jobnow.models.LoginRequest;
+import com.newtech.jobnow.models.LoginResponse;
 import com.newtech.jobnow.models.UserModel;
 import com.newtech.jobnow.service.DeleteTokenService;
 
@@ -107,7 +108,7 @@ public class LoginManagerActivity extends AppCompatActivity {
         });
     }
     // AsynTask
-    class LoginAsystask extends AsyncTask<LoginRequest,Void,UserModel> {
+    class LoginAsystask extends AsyncTask<LoginRequest,Void,LoginResponse> {
         ProgressDialog dialog;
         String sessionId="";
         LoginRequest loginRequest;
@@ -118,7 +119,7 @@ public class LoginManagerActivity extends AppCompatActivity {
         }
 
         @Override
-        protected UserModel doInBackground(LoginRequest... params) {
+        protected LoginResponse doInBackground(LoginRequest... params) {
             try {
                 UserController controller= new UserController();
                 return controller.CheckLogin(loginRequest);
@@ -136,18 +137,22 @@ public class LoginManagerActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(UserModel code) {
+        protected void onPostExecute(LoginResponse code) {
             try {
+                Toast.makeText(LoginManagerActivity.this, code.message, Toast.LENGTH_LONG).show();
                 if(code!=null){
-                    Intent intent= new Intent(LoginManagerActivity.this,MenuActivity.class);
+                    if(code.code==200) {
+                        UserModel userModel = code.result;
 
-                    startActivity(intent);
-                    Gson gson= new Gson();
-                    String profile=gson.toJson(code);
-                    SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt(Config.KEY_COMPANYID, code.getId()).commit();
-                    editor.putString(Config.KEY_USER_PROFILE, profile).commit();
+                        Intent intent = new Intent(LoginManagerActivity.this, MenuActivity.class);
+                        startActivity(intent);
+                        Gson gson = new Gson();
+                        String profile = gson.toJson(userModel);
+                        SharedPreferences sharedPreferences = getSharedPreferences(Config.Pref, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt(Config.KEY_COMPANYID, userModel.getId()).commit();
+                        editor.putString(Config.KEY_USER_PROFILE, profile).commit();
+                    }
                 }
             }catch (Exception e){
             }

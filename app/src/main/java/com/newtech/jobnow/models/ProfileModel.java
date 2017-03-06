@@ -29,7 +29,7 @@ public class ProfileModel implements Serializable {
     public String created_at;
     public String updated_at;
     public int IsPremium;
-
+    public float CreditNumber;
     public ProfileModel() {
     }
 
@@ -57,6 +57,14 @@ public class ProfileModel implements Serializable {
         this.created_at = created_at;
         this.updated_at = updated_at;
         IsPremium = isPremium;
+    }
+
+    public float getCreditNumber() {
+        return CreditNumber;
+    }
+
+    public void setCreditNumber(float creditNumber) {
+        CreditNumber = creditNumber;
     }
 
     public int getId() {

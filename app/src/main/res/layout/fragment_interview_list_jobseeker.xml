@@ -6,67 +6,63 @@
     android:layout_centerHorizontal="true"
     android:background="@color/white">
 
+
+
     <RelativeLayout
-        android:id="@+id/tab_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:id="@+id/tab_toolbar"
+        >
 
         <RelativeLayout
-            android:id="@+id/imgMenu"
+            android:id="@+id/btnRemove"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize">
 
             <ImageView
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="15dp"
-                android:src="@mipmap/ic_back"
-                android:id="@+id/img_back"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerInParent="true"
+                android:src="@mipmap/ic_ring"
+                android:id="@+id/img_notification" />
+
+            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                android:background="@drawable/bg_circle"
+                android:gravity="center"
+                android:textSize="7sp"
+                android:textColor="@color/white"
+                android:text="95"
+                android:id="@+id/txtCount"
+                android:layout_above="@+id/img_notification"
+                android:layout_toRightOf="@+id/img_notification"
+                android:layout_toEndOf="@+id/img_notification"
+                android:layout_height="13dp"
+                android:layout_width="13dp"
+                android:padding="1dp"
+                android:layout_marginLeft="-5dp" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/imgRing"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true">
-
-        </RelativeLayout>
-
-        <RelativeLayout
+        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            android:id="@+id/edSearchInterview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/imgMenu"
-            android:layout_toLeftOf="@+id/imgRing"
-            android:layout_toRightOf="@+id/imgMenu"
-            android:layout_toStartOf="@+id/imgRing"
-            android:gravity="center"
-            android:padding="3dp">
-
-            <com.newtech.jobnow.common.CustomTextViewLato
-                android:id="@+id/edTitleCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:background="@null"
-                android:drawablePadding="5dp"
-                android:ellipsize="start"
-                android:gravity="center"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:maxLines="1"
-                android:padding="3dp"
-                android:text="Interview List"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp18" />
-            />
-        </RelativeLayout>
-
+            android:layout_toLeftOf="@+id/imgFilter"
+            android:layout_toRightOf="@+id/btnRemove"
+            android:background="@drawable/bg_edittext"
+            android:drawableLeft="@mipmap/ic_search"
+            android:drawablePadding="5dp"
+            android:ellipsize="start"
+            android:hint="Search Interview"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:padding="5dp"
+            android:textColorHint="@color/colorTextHint"
+            android:maxLines="1"
+            android:layout_marginRight="20dp" />
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/lnErrorView"
         android:layout_width="match_parent"

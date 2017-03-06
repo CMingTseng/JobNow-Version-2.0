@@ -10,26 +10,57 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".acitvity.RegisterActivity">
 
-    <EditText
+    <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        android:background="@drawable/bg_edittext"
+        android:textColorHint="@color/colorTextHint"
+        android:id="@+id/edtFullName"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="left|center_vertical"
+        android:hint="@string/full_name"
+        android:imeOptions="actionNext"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textSize="16sp" />
+
+
+    <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        android:background="@drawable/bg_edittext"
+        android:textColorHint="@color/colorTextHint"
+        android:id="@+id/edtPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="left|center_vertical"
+        android:hint="@string/phone_number"
+        android:imeOptions="actionNext"
+        android:inputType="phone"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textSize="16sp" />
+    <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
         android:id="@+id/edtEmail"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/bg_btn_info"
+        android:background="@drawable/bg_edittext"
         android:gravity="left|center_vertical"
         android:hint="@string/email"
+        android:textColorHint="@color/colorTextHint"
         android:imeOptions="actionNext"
         android:inputType="textEmailAddress"
         android:padding="10dp"
         android:singleLine="true"
         android:textSize="16sp" />
 
-    <EditText
+    <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        android:background="@drawable/bg_edittext"
+        android:textColorHint="@color/colorTextHint"
         android:id="@+id/edtPassword"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/bg_btn_info"
         android:gravity="left|center_vertical"
         android:hint="@string/password"
         android:imeOptions="actionDone"
@@ -39,33 +70,7 @@
         android:singleLine="true"
         android:textSize="16sp" />
 
-    <EditText
-        android:id="@+id/edtFullName"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/bg_btn_info"
-        android:gravity="left|center_vertical"
-        android:hint="@string/full_name"
-        android:imeOptions="actionNext"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textSize="16sp" />
 
-
-    <EditText
-        android:id="@+id/edtPhoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/bg_btn_info"
-        android:gravity="left|center_vertical"
-        android:hint="@string/phone_number"
-        android:imeOptions="actionNext"
-        android:inputType="phone"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textSize="16sp" />
 
 
     <Button
@@ -77,7 +82,7 @@
         android:text="@string/sign_up"
         android:textColor="@android:color/white" />
 
-    <TextView
+    <com.newtech.jobnow.common.CustomTextViewHelveticaneue
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"

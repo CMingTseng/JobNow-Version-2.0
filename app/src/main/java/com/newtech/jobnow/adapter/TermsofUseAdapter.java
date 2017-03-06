@@ -2,6 +2,7 @@ package com.newtech.jobnow.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -25,7 +26,7 @@ public class TermsofUseAdapter extends BaseRecyclerAdapter<TermObject, TermsofUs
     public static final int SAVE_TYPE = 1;
     public static final int APPLY_TYPE = 2;
     private PrettyTime p;
-    private int type;
+    private int type=0;
 
     public TermsofUseAdapter(Context context, List<TermObject> list, int type) {
         super(context, list);
@@ -68,8 +69,13 @@ public class TermsofUseAdapter extends BaseRecyclerAdapter<TermObject, TermsofUs
         }
 
         public void bindData(TermObject object) {
-            txt_title_termuse.setText(object.Title);
-            txt_content.setText(object.Description);
+            if(type==1){
+                txt_title_termuse.setText(Html.fromHtml(object.Title));
+                txt_content.setText(Html.fromHtml(object.Description));
+            }else {
+                txt_title_termuse.setText(object.Title);
+                txt_content.setText(object.Description);
+            }
 
         }
 

@@ -50,7 +50,7 @@
 
 
         <com.newtech.jobnow.common.CustomTextViewLato
-            android:text="We want to hear from you!"
+            android:text="Please give us your feedback!"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView15"

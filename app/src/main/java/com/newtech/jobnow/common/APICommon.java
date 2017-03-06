@@ -2,6 +2,7 @@ package com.newtech.jobnow.common;
 
 import android.util.Log;
 
+import com.newtech.jobnow.models.AnInterviewResponse;
 import com.newtech.jobnow.models.ApplyJobRequest;
 import com.newtech.jobnow.models.BaseResponse;
 import com.newtech.jobnow.models.CategoryIndustryResponse;
@@ -9,8 +10,13 @@ import com.newtech.jobnow.models.CategoryRequest;
 import com.newtech.jobnow.models.CategoryResponse;
 import com.newtech.jobnow.models.ChangePassRequest;
 import com.newtech.jobnow.models.CompanyIDRequest;
+import com.newtech.jobnow.models.CompanyProfileResponse;
 import com.newtech.jobnow.models.CountJobResponse;
+import com.newtech.jobnow.models.CountNotificationResponse;
+import com.newtech.jobnow.models.CreditsNumberResponse;
+import com.newtech.jobnow.models.DeleteInterviewRequest;
 import com.newtech.jobnow.models.DeleteJobRequest;
+import com.newtech.jobnow.models.DeleteNotificationRequest;
 import com.newtech.jobnow.models.DetailJobResponse;
 import com.newtech.jobnow.models.EmployeeAddRequest;
 import com.newtech.jobnow.models.EmployeeResponse;
@@ -27,6 +33,7 @@ import com.newtech.jobnow.models.JobListV2Reponse;
 import com.newtech.jobnow.models.JobLocationResponse;
 import com.newtech.jobnow.models.JobRequest;
 import com.newtech.jobnow.models.LevelResponse;
+import com.newtech.jobnow.models.ListEmploymentResponse;
 import com.newtech.jobnow.models.ListExperienceResponse;
 import com.newtech.jobnow.models.LocationResponse;
 import com.newtech.jobnow.models.LoginRequest;
@@ -34,6 +41,7 @@ import com.newtech.jobnow.models.LoginResponse;
 import com.newtech.jobnow.models.MapJobListReponse;
 import com.newtech.jobnow.models.NotificationRequest;
 import com.newtech.jobnow.models.NotificationResponse;
+import com.newtech.jobnow.models.NotificationUpdateRequest;
 import com.newtech.jobnow.models.NotificationVersion2Response;
 import com.newtech.jobnow.models.PostJobRequest;
 import com.newtech.jobnow.models.PostJobResponse;
@@ -51,6 +59,7 @@ import com.newtech.jobnow.models.ShortlistDetailResponse;
 import com.newtech.jobnow.models.SkillRequest;
 import com.newtech.jobnow.models.SkillResponse;
 import com.newtech.jobnow.models.SendPricingRequest;
+import com.newtech.jobnow.models.StatusInterviewRequest;
 import com.newtech.jobnow.models.TermResponse;
 import com.newtech.jobnow.models.TokenRequest;
 import com.newtech.jobnow.models.UpdateProfileRequest;
@@ -144,27 +153,27 @@ public class APICommon {
 
         @GET("jobs/getAppliedJob/{sign}/{app_id}/{device_type}/{user_id}/{ApiToken}")
         Call<JobListV2Reponse> getAppliedListJob(@Path("sign") String sign,
-                                               @Path("app_id") String app_id,
-                                               @Path("device_type") int device_type,
-                                               @Path("user_id") int user_id,
-                                               @Path("ApiToken") String apiToken,
-                                               @Query("page") Integer page);
+                                                 @Path("app_id") String app_id,
+                                                 @Path("device_type") int device_type,
+                                                 @Path("user_id") int user_id,
+                                                 @Path("ApiToken") String apiToken,
+                                                 @Query("page") Integer page);
 
         @GET("jobs/getSaveJob/{sign}/{app_id}/{device_type}/{user_id}/{ApiToken}")
         Call<JobListReponse> getSaveListJob(@Path("sign") String sign,
-                                              @Path("app_id") String app_id,
-                                              @Path("device_type") int device_type,
-                                              @Path("user_id") int user_id,
-                                              @Path("ApiToken") String apiToken,
-                                              @Query("page") Integer page);
+                                            @Path("app_id") String app_id,
+                                            @Path("device_type") int device_type,
+                                            @Path("user_id") int user_id,
+                                            @Path("ApiToken") String apiToken,
+                                            @Query("page") Integer page);
 
         @GET("jobs/getSaveJob/{sign}/{app_id}/{device_type}/{user_id}/{ApiToken}")
         Call<JobListV2Reponse> getSaveListJobV2(@Path("sign") String sign,
-                                              @Path("app_id") String app_id,
-                                              @Path("device_type") int device_type,
-                                              @Path("user_id") int user_id,
-                                              @Path("ApiToken") String apiToken,
-                                              @Query("page") Integer page);
+                                                @Path("app_id") String app_id,
+                                                @Path("device_type") int device_type,
+                                                @Path("user_id") int user_id,
+                                                @Path("ApiToken") String apiToken,
+                                                @Query("page") Integer page);
 
         @POST("users/postLogin")
         Call<LoginResponse> loginUser(@Body LoginRequest request);
@@ -345,7 +354,8 @@ public class APICommon {
                                            @Path("app_id") String app_id,
                                            @Path("device_type") int device_type,
                                            @Query("Name") String name,
-                                           @Query("CategoryID") int category_id
+                                           @Query("CategoryID") int category_id,
+                                           @Query("CompanyID") int company_id
 
         );
 
@@ -425,11 +435,64 @@ public class APICommon {
                                                 @Query("user_id") int user_id
         );
 
+        @GET("users/getCompanyProfile/{sign}/{app_id}/{device_type}/")
+        Call<CompanyProfileResponse> getCompanyProfile(@Path("sign") String sign,
+                                                       @Path("app_id") String app_id,
+                                                       @Path("device_type") int device_type,
+                                                       @Query("CompanyID") int companyID
+        );
+
+
         @GET("jobseekerexperience/getAllUserExperience/{sign}/{app_id}/{device_type}/")
         Call<ExperienceResponse> getUserExperience(@Path("sign") String sign,
                                                    @Path("app_id") String app_id,
                                                    @Path("device_type") int device_type,
                                                    @Query("user_id") int user_id
         );
+
+        @GET()
+        Call<ListEmploymentResponse> getListEmployment(@Url String url);
+
+        @POST("interview/deleteInterview")
+        Call<BaseResponse> DeleteInterview(@Body DeleteInterviewRequest request);
+
+        @POST("interview/rejectInterview")
+        Call<BaseResponse> RejectInterview(@Body DeleteInterviewRequest request);
+
+
+
+        @POST("notification/updateNotificationStatus")
+        Call<BaseResponse> UpdateNotification(@Body NotificationUpdateRequest request);
+
+
+        @GET("interview/getAnInterviewDetail/{sign}/{app_id}/{device_type}/")
+        Call<AnInterviewResponse> getAnInterview(@Path("sign") String sign,
+                                                 @Path("app_id") String app_id,
+                                                 @Path("device_type") int device_type,
+                                                 @Query("InterviewID") int interviewID
+
+        );
+
+        @GET("users/getCreditNumber/{sign}/{app_id}/{device_type}/")
+        Call<CreditsNumberResponse> getCredits(@Path("sign") String sign,
+                                               @Path("app_id") String app_id,
+                                               @Path("device_type") int device_type,
+                                               @Query("CompanyID") int companyID
+        );
+
+        @POST("notification/deleteNotification")
+        Call<BaseResponse> deleteNotification(@Body NotificationRequest request);
+
+        @POST("notification/countAllNotification")
+        Call<CountNotificationResponse> countNotification(@Body NotificationRequest request);
+
+
+        @POST("notification/deleteNotificationByID")
+        Call<BaseResponse> deleteNotificationByID(@Body DeleteNotificationRequest request);
+
+        @POST("interview/updateInterviewStatus")
+        Call<BaseResponse> updateInterviewStatus(@Body StatusInterviewRequest request);
+
+
     }
 }

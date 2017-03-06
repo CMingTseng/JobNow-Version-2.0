@@ -59,6 +59,7 @@ public class LoginJobSeekerActivity extends AppCompatActivity {
     private Button btnLogin_v2,btnRegister_v2,fbLogin;
     private TextView txtForgotPass;
     private Toolbar toolbar;
+    String session_id;
     private CallbackManager callbackManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,6 +193,12 @@ public class LoginJobSeekerActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        try {
+            Thread.sleep(3000);
+            session_id = FirebaseInstanceId.getInstance().getToken().toString();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -207,7 +214,6 @@ public class LoginJobSeekerActivity extends AppCompatActivity {
                                     String name = object.optString("name");
                                     String fbid = object.optString("id");
                                     String avatar = Utils.addressAvatarFB(fbid);
-                                    String session_id = FirebaseInstanceId.getInstance().getToken().toString();
                                     APICommon.JobNowService service = MyApplication.getInstance().getJobNowService();
                                     Call<RegisterFBReponse> registerFBReponseCall =
                                             service.registerFB(new RegisterFBRequest(name, email, avatar, fbid,session_id));

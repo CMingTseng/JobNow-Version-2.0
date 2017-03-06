@@ -38,7 +38,7 @@ public class UserController {
         service = MyApplication.getInstance().getJobNowService();
     }
 
-    public UserModel CheckLogin(LoginRequest loginRequest) {
+    public LoginResponse CheckLogin(LoginRequest loginRequest) {
         try {
             retrofit.Call<LoginResponse> loginResponseCall = service.loginUserV2(loginRequest);
 
@@ -49,9 +49,7 @@ public class UserController {
                     StrictMode.setThreadPolicy(policy);
                 }
                 LoginResponse result = loginResponseCall.execute().body();
-                if (result.code == 200) {
-                    return result.result;
-                }
+                return result;
             } catch (Exception ex) {
                 String ss = ex.toString();
             }

@@ -20,8 +20,12 @@ public class InterviewObject implements Serializable {
     public String Avatar;
     public String FullName;
     public String CountryName;
-    public String InterviewDate_int;
+    public long InterviewDate_int;
 
+    public String CompanyAvatar;
+    public String CompanyEmail;
+    public String CompanyName;
+    public String Email;
     public InterviewObject() {
     }
 

@@ -78,8 +78,22 @@
                 android:inputType="textPersonName"
                 android:padding="10dp"
                 android:singleLine="true"
+                android:visibility="gone"
                 android:textColorHint="@color/colorTextHint"
                 android:textSize="16sp" />
+
+            <Spinner
+                android:background="@drawable/bg_spiner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spIndustry" />
+            <Spinner
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_spiner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spCompanySize"
+                android:layout_marginBottom="15dp" />
 
             <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/edtEmailManager"
@@ -127,17 +141,7 @@
                 android:textSize="16sp" />
 
 
-            <Spinner
-                android:background="@drawable/bg_spiner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spIndustry" />
-            <Spinner
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_spiner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spCompanySize" />
+
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"

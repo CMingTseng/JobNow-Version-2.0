@@ -26,11 +26,12 @@ public class PostJobRequest extends BaseRequest implements Serializable {
     String Location;
     String SkillList;
     String ExperienceID;
-
+    int EmploymentID;
+    int WorkingHours;
     int UserID;
     String ApiToken;
 
-    public PostJobRequest(String title, String position, int level, String yearOfExperience, int locationID, int industryID, float fromSalary, float toSalary, int currencyID, int isDisplaySalary, int jobLevelID, float latitude, float longitude, String description, String requirement, String start_date, String end_date, int isActive, String location, String skillList, String experienceID, int userID, String apiToken) {
+    public PostJobRequest(String title, String position, int level, String yearOfExperience, int locationID, int industryID, float fromSalary, float toSalary, int currencyID, int isDisplaySalary, int jobLevelID, float latitude, float longitude, String description, String requirement, String start_date, String end_date, int isActive, String location, String skillList, String experienceID, int userID, String apiToken,int employmentID ,int workingHours) {
         super(PATH_URL);
         Title = title;
         Position = position;
@@ -55,9 +56,11 @@ public class PostJobRequest extends BaseRequest implements Serializable {
         ExperienceID = experienceID;
         UserID = userID;
         ApiToken = apiToken;
+        EmploymentID=employmentID;
+        WorkingHours=workingHours;
     }
 
-    public PostJobRequest(int jobID,String title, String position, int level, String yearOfExperience, int locationID, int industryID, float fromSalary, float toSalary, int currencyID, int isDisplaySalary, int jobLevelID, float latitude, float longitude, String description, String requirement, String start_date, String end_date, int isActive, String location, String skillList, String experienceID, int userID, String apiToken) {
+    public PostJobRequest(int jobID,String title, String position, int level, String yearOfExperience, int locationID, int industryID, float fromSalary, float toSalary, int currencyID, int isDisplaySalary, int jobLevelID, float latitude, float longitude, String description, String requirement, String start_date, String end_date, int isActive, String location, String skillList, String experienceID, int userID, String apiToken,int employmentID ,int workingHours) {
         super(PATH_URL);
         JobID=jobID;
         Title = title;
@@ -83,5 +86,7 @@ public class PostJobRequest extends BaseRequest implements Serializable {
         ExperienceID = experienceID;
         UserID = userID;
         ApiToken = apiToken;
+        EmploymentID=employmentID;
+        WorkingHours=workingHours;
     }
 }

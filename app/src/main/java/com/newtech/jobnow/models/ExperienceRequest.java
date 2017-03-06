@@ -22,7 +22,11 @@ public class ExperienceRequest extends BaseRequest {
     public Integer ExperienceID;
     public int id;
 
-    public ExperienceRequest(Integer jobSeekerID, String companyName, String positionName, String description, String apiToken, int userID) {
+    public String FromDate;
+    public String ToDate;
+    public Double Salary;
+
+    public ExperienceRequest(Integer jobSeekerID, String companyName, String positionName, String description, String apiToken, int userID,String fromDate,String toDate, Double salary) {
         super(PATH_URL_ADD);
         JobSeekerID = jobSeekerID;
         CompanyName = companyName;
@@ -30,6 +34,9 @@ public class ExperienceRequest extends BaseRequest {
         Description = description;
         ApiToken = apiToken;
         UserID = userID;
+        FromDate=fromDate;
+        ToDate=toDate;
+        Salary=salary;
     }
 
     public ExperienceRequest(Integer id, Integer jobSeekerID, String apiToken, int userID) {
@@ -46,7 +53,7 @@ public class ExperienceRequest extends BaseRequest {
         ExperienceID = null;
     }
 
-    public ExperienceRequest(Integer jobSeekerID, String companyName, String positionName, String description, String apiToken, int userID, int experienceID, int type) {
+    public ExperienceRequest(Integer jobSeekerID, String companyName, String positionName, String description, String apiToken, int userID, int experienceID, int type,String fromDate, String toDate, Double salary) {
         if (type == UPDATE) {
             sign = APICommon.getSign(APICommon.getApiKey(), PATH_URL_UPDATE);
         } else if (type == DELETE) {
@@ -63,5 +70,8 @@ public class ExperienceRequest extends BaseRequest {
         UserID = userID;
         app_id = APICommon.getAppId();
         device_type = APICommon.getDeviceType();
+        FromDate=fromDate;
+        ToDate=toDate;
+        Salary=salary;
     }
 }

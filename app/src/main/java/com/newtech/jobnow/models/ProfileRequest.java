@@ -15,12 +15,14 @@ public class ProfileRequest extends BaseRequest implements Serializable {
     String ApiToken;
     String Phone;
     String Description;
+    String Name;
 
-    public ProfileRequest(int userID, String apiToken, String phone, String description) {
+    public ProfileRequest(int userID, String apiToken, String phone, String description,String name) {
         super(PATH_URL);
         UserID = userID;
         ApiToken = apiToken;
         Phone = phone;
         Description = description;
+        Name=name;
     }
 }

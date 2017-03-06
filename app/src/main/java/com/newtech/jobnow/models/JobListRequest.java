@@ -18,8 +18,9 @@ public class JobListRequest extends BaseRequest implements Serializable {
     public Integer FromSalary;
     public Integer ToSalary;
     public Integer isEmployee;
-    public  Integer isHiring;
+    public Integer isHiring;
     public Integer CompanyID;
+    public Integer IntRandom;
     @SerializedName("IndustryID")
     public Integer industryID;
 
@@ -38,7 +39,7 @@ public class JobListRequest extends BaseRequest implements Serializable {
 
     public JobListRequest(Integer page, String Order, String Title, String Location, String Skill,
                           Integer MinSalary, Integer FromSalary, Integer ToSalary,
-                          Integer industryID) {
+                          Integer industryID, Integer intRandom) {
         super(PATH_URL);
         this.page = page;
         this.Order = Order;
@@ -49,6 +50,7 @@ public class JobListRequest extends BaseRequest implements Serializable {
         this.FromSalary = FromSalary;
         this.ToSalary = ToSalary;
         this.industryID = industryID;
+        this.IntRandom=intRandom;
     }
 
     public JobListRequest(String path_url, Integer page, String order, String title, String location, String skill, Integer minSalary, Integer fromSalary, Integer toSalary, Integer isEmployee, Integer isHiring, Integer companyID, Integer industryID) {

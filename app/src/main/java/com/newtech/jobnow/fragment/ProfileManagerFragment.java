@@ -1,6 +1,7 @@
 package com.newtech.jobnow.fragment;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,8 +38,13 @@ import com.newtech.jobnow.R;
 import com.newtech.jobnow.acitvity.LoginManagerActivity;
 import com.newtech.jobnow.acitvity.MenuActivity;
 import com.newtech.jobnow.acitvity.MyApplication;
+import com.newtech.jobnow.acitvity.SetInterviewActivity;
 import com.newtech.jobnow.adapter.JobManagerAdapter;
 import com.newtech.jobnow.common.APICommon;
+import com.newtech.jobnow.common.CustomEditextHelveticaneuelight;
+import com.newtech.jobnow.common.CustomTextViewHelveticaneue;
+import com.newtech.jobnow.common.CustomTextViewHelveticaneuelight;
+import com.newtech.jobnow.common.DrawableClickListener;
 import com.newtech.jobnow.config.Config;
 import com.newtech.jobnow.controller.UserController;
 import com.newtech.jobnow.models.JobListReponse;
@@ -60,6 +67,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -72,10 +80,12 @@ import retrofit.Retrofit;
 
 public class ProfileManagerFragment extends Fragment {
     ImageView img_add,img_photo_company;
-    TextView txt_profile__name_company;
+    CustomEditextHelveticaneuelight txt_profile__name_company;
     EditText editDescription;
     Button btnSaveProfileManager;
     UserModel userModel;
+    boolean flag=false;
+    private SwipeRefreshLayout refresh;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,9 +99,10 @@ public class ProfileManagerFragment extends Fragment {
     public void InitUI(View rootView){
         img_photo_company=(ImageView) rootView.findViewById(R.id.img_photo_company);
         img_add=(ImageView) rootView.findViewById(R.id.img_add);
-        txt_profile__name_company=(TextView) rootView.findViewById(R.id.txt_profile__name_company);
+        txt_profile__name_company=(CustomEditextHelveticaneuelight) rootView.findViewById(R.id.txt_profile__name_company);
         editDescription=(EditText) rootView.findViewById(R.id.editDescription);
         btnSaveProfileManager=(Button) rootView.findViewById(R.id.btnSaveProfileManager);
+        refresh = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefresh);
     }
     public void InitEvent(){
         img_add.setOnClickListener(new View.OnClickListener() {
@@ -103,9 +114,52 @@ public class ProfileManagerFragment extends Fragment {
         btnSaveProfileManager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProfileRequest profileRequest= new ProfileRequest(userModel.id,userModel.apiToken,"",editDescription.getText().toString());
+                ProfileRequest profileRequest= new ProfileRequest(userModel.id,userModel.apiToken,"",editDescription.getText().toString(),txt_profile__name_company.getText().toString());
                 UpdateProfileAsystask updateProfileAsystask= new UpdateProfileAsystask(getActivity(),profileRequest);
                 updateProfileAsystask.execute();
+            }
+        });
+
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh.setRefreshing(true);
+                bindData();
+            }
+        });
+
+        txt_profile__name_company.setDrawableClickListener(new DrawableClickListener() {
+            @Override
+            public void onClick(DrawablePosition target) {
+
+                switch (target) {
+                    case LEFT:
+                        //Do something here
+                        break;
+                    case RIGHT:
+                        if(!flag){
+                            txt_profile__name_company.setEnabled(true);
+                            flag=true;
+                            txt_profile__name_company.setSelection(txt_profile__name_company.length());
+                            txt_profile__name_company.setFocusable(true);
+                            txt_profile__name_company.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_pencil, 0);
+                        }else {
+                            txt_profile__name_company.setEnabled(false);
+                            flag=false;
+                            txt_profile__name_company.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_pencil_inactive, 0);
+                        }
+                        break;
+                    case TOP:
+                        //Do something here
+                        break;
+                    case BOTTOM:
+                        //Do something here
+                        break;
+                    default:
+                        break;
+
+                }
+
             }
         });
     }
@@ -252,7 +306,11 @@ public class ProfileManagerFragment extends Fragment {
         @Override
         protected void onPostExecute(ProfileModel code) {
             try {
+                refresh.setRefreshing(false);
                 if(code!=null){
+
+                    MenuActivity.txt_numberCredits.setText(code.CreditNumber+"");
+
                     Gson gson= new Gson();
                     String profile=gson.toJson(code);
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.Pref, getActivity().MODE_PRIVATE);
@@ -305,7 +363,10 @@ public class ProfileManagerFragment extends Fragment {
         protected void onPostExecute(String code) {
             try {
                 if(!code.equals("")){
-                    Toast.makeText(getActivity(), code, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                    txt_profile__name_company.setEnabled(false);
+                    flag=false;
+                    txt_profile__name_company.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_pencil_inactive, 0);
                 }
             }catch (Exception e){
             }

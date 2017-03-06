@@ -176,7 +176,7 @@ public class RegisterManagerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String companyName=edtCompanyName.getText().toString();
-                String fullname = edtFullNameManager.getText().toString();
+                String fullname = " ";
                 String phoneNumber = edtPhoneNumberManager.getText().toString();
                 final String email = edtEmailManager.getText().toString();
                 String password = edtPasswordManager.getText().toString();
@@ -188,9 +188,9 @@ public class RegisterManagerActivity extends AppCompatActivity {
                     Toast.makeText(RegisterManagerActivity.this, getString(R.string.pleaseInputPassword), Toast.LENGTH_SHORT).show();
                 } else if (!Utils.isEmailValid(email)) {
                     Toast.makeText(RegisterManagerActivity.this, getString(R.string.emailNotValid), Toast.LENGTH_SHORT).show();
-                } else if (fullname.isEmpty()) {
+                } /*else if (fullname.isEmpty()) {
                     Toast.makeText(RegisterManagerActivity.this, getString(R.string.pleaseInputFullName), Toast.LENGTH_SHORT).show();
-                } else if (phoneNumber.isEmpty()) {
+                } */else if (phoneNumber.isEmpty()) {
                     Toast.makeText(RegisterManagerActivity.this, getString(R.string.pleaseInputPhoneNumber), Toast.LENGTH_SHORT).show();
                 } else if (companyName.isEmpty()) {
                     Toast.makeText(RegisterManagerActivity.this, getString(R.string.pleaseInputPhoneNumber), Toast.LENGTH_SHORT).show();

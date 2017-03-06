@@ -17,5 +17,9 @@ public class ExperienceResponse extends BaseResponse {
         public String Description;
         public String created_at;
         public String updated_at;
+
+        public String FromDate;
+        public String ToDate;
+        public Double Salary;
     }
 }

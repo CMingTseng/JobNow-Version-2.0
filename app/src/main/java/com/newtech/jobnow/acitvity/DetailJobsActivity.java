@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,8 +46,12 @@ import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -66,6 +71,7 @@ public class DetailJobsActivity extends AppCompatActivity implements View.OnClic
             tvRequirement, tvYearOfExperience, tvPosition, tvCountUserApplyJob;
     private ImageView imgLogo, ivSaveJob;
     private LinearLayout lnSaveJob, lnApplyJob;
+    private RelativeLayout tb_company_detail;
     private ProgressDialog progressDialog;
     private int jobId;
     private JobObject jobObject;
@@ -97,8 +103,35 @@ public class DetailJobsActivity extends AppCompatActivity implements View.OnClic
             tvName.setText(jobObject.Title);
             tvPosition.setText(jobObject.Position);
             tvLocation.setText(getString(R.string.address) + " " + jobObject.LocationName);
-            tvPrice.setText(jobObject.FromSalary + " - " + jobObject.ToSalary + " (USD)");
-            tvTime.setText(getString(R.string.posted) + " " + p.format(new Date(Utils.getLongTime(jobObject.created_at))));
+            tvPrice.setText(new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.FromSalary))+ " - " +new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.ToSalary)) + "(SGD)");
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+00"));
+                Date oldDate = dateFormat.parse(jobObject.updated_at);
+                Date cDate = new Date();
+                Long timeDiff = cDate.getTime() - oldDate.getTime();
+                int day = (int) TimeUnit.MILLISECONDS.toDays(timeDiff);
+                int hour = (int) (TimeUnit.MILLISECONDS.toHours(timeDiff) - TimeUnit.DAYS.toHours(day));
+                int mm = (int) (TimeUnit.MILLISECONDS.toMinutes(timeDiff) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeDiff)));
+
+
+                if (day > 0) {
+                    if (day > 1)
+                        tvTime.setText(getString(R.string.posted)+" " + day + " days ago");
+                    else
+                        tvTime.setText(getString(R.string.posted)+" " + day + " day ago");
+                } else {
+                    if (hour < 1) {
+                        tvTime.setText(getString(R.string.posted)+" " + mm + " min ago");
+                    } else {
+                        tvTime.setText(getString(R.string.posted)+" " + hour + " hour ago");
+
+                    }
+                }
+            } catch (Exception exx) {
+
+            }
+            //tvTime.setText(getString(R.string.posted) + " " + p.format(new Date(Utils.getLongTime(jobObject.created_at))));
             tvCompanyName.setText(jobObject.CompanyName);
             Picasso.with(this).load(jobObject.CompanyLogo).placeholder(R.mipmap.img_logo_company).error(R.mipmap.img_logo_company).into(imgLogo);
             tvDescription.setText(jobObject.Description);
@@ -156,10 +189,46 @@ public class DetailJobsActivity extends AppCompatActivity implements View.OnClic
                         tvName.setText(jobObject.Title);
                         tvPosition.setText(jobObject.Position);
                         tvLocation.setText(getString(R.string.address) + " " + jobObject.LocationName);
-                        tvPrice.setText(jobObject.FromSalary + " - " + jobObject.ToSalary + " (USD)");
-                        tvTime.setText(getString(R.string.posted) + " " + p.format(new Date(Utils.getLongTime(jobObject.created_at))));
+                        if(jobObject.IsDisplaySalary==1) {
+                            tvPrice.setText(new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.FromSalary)) + " - " + new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.ToSalary)) + " (SGD)");
+                        }else {
+                            tvPrice.setVisibility(View.GONE);
+                        }
+                        try {
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+00"));
+                            Date oldDate = dateFormat.parse(jobObject.updated_at);
+                            Date cDate = new Date();
+                            Long timeDiff = cDate.getTime() - oldDate.getTime();
+                            int day = (int) TimeUnit.MILLISECONDS.toDays(timeDiff);
+                            int hour = (int) (TimeUnit.MILLISECONDS.toHours(timeDiff) - TimeUnit.DAYS.toHours(day));
+                            int mm = (int) (TimeUnit.MILLISECONDS.toMinutes(timeDiff) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeDiff)));
+
+
+                            if (day > 0) {
+                                if (day > 1)
+                                    tvTime.setText(getString(R.string.posted)+" " + day + " days ago");
+                                else
+                                    tvTime.setText(getString(R.string.posted)+" " + day + " day ago");
+                            } else {
+                                if (hour < 1) {
+                                    tvTime.setText(getString(R.string.posted)+" " + mm + " min ago");
+                                } else {
+                                    tvTime.setText(getString(R.string.posted)+" " + hour + " hour ago");
+
+                                }
+                            }
+                        } catch (Exception exx) {
+
+                        }
+                        //tvTime.setText(getString(R.string.posted) + " " + p.format(new Date(Utils.getLongTime(jobObject.created_at))));
                         tvCompanyName.setText(jobObject.CompanyName);
-                        Picasso.with(DetailJobsActivity.this).load(jobObject.CompanyLogo).placeholder(R.mipmap.img_logo_company).error(R.mipmap.img_logo_company).into(imgLogo);
+                        try {
+                            Picasso.with(DetailJobsActivity.this).load(jobObject.CompanyLogo).placeholder(R.mipmap.img_logo_company).error(R.mipmap.img_logo_company).into(imgLogo);
+                        }catch (Exception errr){
+                            Picasso.with(DetailJobsActivity.this).load(R.mipmap.img_logo_company).into(imgLogo);
+                            errr.printStackTrace();
+                        }
                         tvDescription.setText(jobObject.Description);
                         tvRequirement.setText(jobObject.Requirement);
                         appliedJob = response.body().result.IsApplyJob;
@@ -170,7 +239,7 @@ public class DetailJobsActivity extends AppCompatActivity implements View.OnClic
                         shareUrl = response.body().result.ShareUrl;
                         latitude = response.body().result.Latitude;
                         longtitude = response.body().result.Longitude;
-                        tvYearOfExperience.setText(jobObject.YearOfExperience);
+                        tvYearOfExperience.setText(jobObject.ExperienceName);
                         tvCountUserApplyJob.setText(jobObject.CountUserApplyJob + " Applications");
                     }catch (Exception err){
 
@@ -232,6 +301,10 @@ public class DetailJobsActivity extends AppCompatActivity implements View.OnClic
         btnSharePinterest.setOnClickListener(this);
         btnShareRSS.setOnClickListener(this);
         tvViewLargerMap.setOnClickListener(this);
+
+        tb_company_detail=(RelativeLayout) findViewById(R.id.tb_company_detail);
+        tb_company_detail=(RelativeLayout) findViewById(R.id.tb_company_detail);
+        tb_company_detail.setOnClickListener(this);
     }
 
     @Override
@@ -581,6 +654,10 @@ public class DetailJobsActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.tvViewLargerMap:
                 goToMap();
+            case R.id.tb_company_detail:
+                Intent intent= new Intent(DetailJobsActivity.this, CompanyProfileActivity.class);
+                intent.putExtra("companyID",jobObject.CompanyID);
+                startActivity(intent);
                 break;
         }
     }

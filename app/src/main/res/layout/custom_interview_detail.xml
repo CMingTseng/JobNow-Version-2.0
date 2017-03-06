@@ -36,7 +36,9 @@
                 android:text="Jessie Nencer"
                 android:textColor="@color/colorBgApplyJob"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_toLeftOf="@+id/img_delete"
+                android:layout_toStartOf="@+id/img_delete" />
 
             <TableRow
                 android:layout_width="match_parent"
@@ -105,6 +107,15 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp12"
                 />
+
+            <ImageView
+                android:src="@mipmap/ic_delete"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/img_delete"
+                android:layout_width="22dp"
+                android:layout_height="22dp" />
 
         </RelativeLayout>
 

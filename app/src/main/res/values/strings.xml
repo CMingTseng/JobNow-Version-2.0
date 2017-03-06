@@ -19,6 +19,10 @@
     <string name="start_time">Start Time</string>
     <string name="end_time">End Time</string>
     <string name="send">Send</string>
+
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+
     <string name="change_pass">Change Password</string>
     <string name="app_settings">App Settings</string>
     <string name="get_more_job_credits">Get More Job Credits</string>
@@ -27,7 +31,7 @@
     <string name="send_email_get_list_price">Receive Pricing Details</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="feedback">Feedback</string>
-    <string name="desc_shortlist_detail">We would love to hear your thoughts, concerns or problems with anything so we can improve!</string>
+    <string name="desc_shortlist_detail">We would love to hear your thoughts, concerns or problems with anything so we can improve our app</string>
 
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -123,7 +127,7 @@
     <string name="home">Home</string>
     <string name="saved">Saved</string>
     <string name="applied">Applied</string>
-
+    <string name="appSetting">Settings</string>
     <string name="job">Job</string>
     <string name="shortlist">Shortlist</string>
     <string name="interview">Interview</string>
@@ -146,9 +150,18 @@
     <string name="editSkill">Edit Skill</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
-    <string name="search_hint">Search by name</string>
-    <string name="jobList">Job List Full time</string>
-    <string name="mapList">Job List Part time</string>
+    <string name="search_hint">Enter job title</string>
+    <string name="jobList">Job in List</string>
+    <string name="mapList">Job in Map</string>
+
+    <string name="jobSave">Saved</string>
+    <string name="jobApplied">Applied</string>
+
+    <string name="jobChangePass">Change Password</string>
+    <string name="jobFeedback">Feedback</string>
+    <string name="jobPolicy">Privacy Policy</string>
+    <string name="jobTermOfUse">Term Of Use</string>
+
     <string name="title_activity_detail_jobs">DetailJobsActivity</string>
     <string name="job_description"><![CDATA[- Perform equipment troubleshooting and implement courter measure - \n Perform equipment program modification (PLC, HMI & Robotics programming) \n - Production equipment maitenance planning \n- Lead, train and manage a team of engineering staff in functional tasks \n- Lead improvement project and activities]]></string>
     <string name="facebook_app_id">383531245347423</string>
@@ -188,6 +201,9 @@
     <string name="pleaseInputCompanyName">Please input company name</string>
     <string name="pleaseInputCategoryName">Please input category name</string>
     <string name="pleaseInputJobOrPosition">Please input job or position</string>
+    <string name="pleaseInputFromDate">Please input from date</string>
+    <string name="pleaseInputEndDate">Please input end date</string>
+    <string name="pleaseInputSalary">Please input salary</string>
     <string name="pleaseInputDescription">Please input description</string>
     <string name="posted">Posted:</string>
     <string name="address">Address:</string>
@@ -200,7 +216,7 @@
     <string name="permission_confirm">Cofirm</string>
     <string name="title_activity_maps">Map</string>
     <string name="number_job">%1$d Jobs in Job Now</string>
-    <string name="notification">Notification</string>
+    <string name="notification">Notifications</string>
     <string name="filter">Filter</string>
     <string name="no_data">No data found!</string>
     <string name="ok">Ok</string>
@@ -214,4 +230,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_example">Example action</string>
+
+    <string name="salary_job">%1$d</string>
 </resources>

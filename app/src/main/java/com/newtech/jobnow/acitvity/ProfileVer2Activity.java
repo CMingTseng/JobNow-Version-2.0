@@ -88,10 +88,10 @@ public class ProfileVer2Activity extends AppCompatActivity {
     public static CircleImageView img_avatar;
     public static TextView tvName, tvLocation;
     public static String emailJobSeeker;
-    public static int idJobSeeker;
+    public static int idJobSeeker,interviewID;
     ImageView img_back;
     private ProgressDialog progressDialog;
-    public static Button btnSetInterviewTime,btnAddShortList;
+    public static Button btnSetInterviewTime,btnNotSelected;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,6 +101,7 @@ public class ProfileVer2Activity extends AppCompatActivity {
         try{
             emailJobSeeker=getIntent().getStringExtra("emailJobSeeker");
             idJobSeeker=getIntent().getIntExtra("idJobSeeker",0);
+            interviewID=getIntent().getIntExtra("interviewID",0);
         }catch (Exception err){
 
         }
@@ -284,8 +285,8 @@ public class ProfileVer2Activity extends AppCompatActivity {
         tvLocation = (TextView) findViewById(R.id.tvLocation);
         img_avatar = (CircleImageView) findViewById(R.id.img_avatar);
 
-        btnAddShortList=(Button) findViewById(R.id.btnAddShortList);
         btnSetInterviewTime=(Button) findViewById(R.id.btnSetInterviewTime);
+        btnNotSelected=(Button) findViewById(R.id.btnNotSelected);
     }
 }
 

@@ -3,8 +3,11 @@ package com.newtech.jobnow.adapter;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 import com.newtech.jobnow.R;
 import com.newtech.jobnow.acitvity.PostAJobsActivity;
 import com.newtech.jobnow.controller.JobController;
+import com.newtech.jobnow.eventbus.DeleteJobEvent;
 import com.newtech.jobnow.models.JobObject;
 import com.newtech.jobnow.models.JobRequest;
 import com.newtech.jobnow.models.UserModel;
@@ -23,8 +27,14 @@ import com.newtech.jobnow.utils.Utils;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by manhi on 1/6/2016.
@@ -91,8 +101,37 @@ public class JobManagerAdapter extends BaseRecyclerAdapter<JobObject, JobManager
         public void bindData(final JobObject jobObject, final int position) {
             txt_title_job_item.setText(jobObject.Title);
             txt_location_item.setText(jobObject.LocationName);
-            txt_price_item.setText(jobObject.FromSalary + " - " + jobObject.ToSalary + " (USD)");
-            txt_time_post.setText(mContext.getString(R.string.posted)+" "+p.format(new Date(Utils.getLongTime(jobObject.created_at))));
+            txt_price_item.setText(new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.FromSalary)) + " - " +new DecimalFormat("#,###.#").format(Double.parseDouble(jobObject.ToSalary )) + " (SGD)");
+
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+00"));
+                Date oldDate = dateFormat.parse(jobObject.updated_at);
+                Date cDate = new Date();
+                Long timeDiff = cDate.getTime() - oldDate.getTime();
+                int day = (int) TimeUnit.MILLISECONDS.toDays(timeDiff);
+                int hour = (int) (TimeUnit.MILLISECONDS.toHours(timeDiff) - TimeUnit.DAYS.toHours(day));
+                int mm = (int) (TimeUnit.MILLISECONDS.toMinutes(timeDiff) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeDiff)));
+
+
+                if (day > 0) {
+                    if (day > 1)
+                        txt_time_post.setText(mContext.getString(R.string.posted)+" " + day + " days ago");
+                    else
+                        txt_time_post.setText(mContext.getString(R.string.posted)+" " + day + " day ago");
+                } else {
+                    if (hour < 1) {
+                        txt_time_post.setText(mContext.getString(R.string.posted)+" " + mm + " min ago");
+                    } else {
+                        txt_time_post.setText(mContext.getString(R.string.posted)+" " + hour + " hour ago");
+
+                    }
+                }
+            } catch (Exception exx) {
+
+            }
+
+            //txt_time_post.setText(mContext.getString(R.string.posted)+" "+p.format(new Date(Utils.getLongTime(jobObject.created_at))));
             txt_name_company.setText(jobObject.CompanyName);
             try {
                 Picasso.with(mContext).load(jobObject.CompanyLogo).placeholder(R.mipmap.img_logo_company).error(R.mipmap.default_avatar).into(img_photo_company);
@@ -103,9 +142,30 @@ public class JobManagerAdapter extends BaseRecyclerAdapter<JobObject, JobManager
             btn_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    JobRequest jobRequest= new JobRequest(userModel.apiToken,jobObject.id,userModel.id);
-                    DeleteJobAsystask deleteJobAsystask= new DeleteJobAsystask(mContext,jobRequest,position);
-                    deleteJobAsystask.execute();
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
+                    builder1.setMessage("Are you sure to delete");
+                    builder1.setCancelable(true);
+                    builder1.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    JobRequest jobRequest= new JobRequest(userModel.apiToken,jobObject.id,userModel.id);
+                                    DeleteJobAsystask deleteJobAsystask= new DeleteJobAsystask(mContext,jobRequest,position);
+                                    deleteJobAsystask.execute();
+                                    dialog.cancel();
+                                }
+                            });
+                    builder1.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+
                 }
             });
 
