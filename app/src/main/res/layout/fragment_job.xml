@@ -87,7 +87,7 @@
             app:tabIndicatorColor="@color/colorPrimary"
             app:tabSelectedTextColor="@color/colorPrimary"
             app:tabTextColor="@color/black"
-            android:layout_height="40dp" />
+            android:layout_height="wrap_content" />
 
         <View
             android:layout_width="match_parent"

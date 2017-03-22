@@ -121,7 +121,7 @@
             <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                 android:id="@+id/editDatetimeInterview"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/bg_edittext"
                 android:drawableRight="@mipmap/ic_datetime"
@@ -135,7 +135,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textView11"
@@ -194,7 +194,7 @@
             <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/editInterviewer"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/bg_edittext"
                 android:gravity="left|center_vertical"
@@ -216,7 +216,7 @@
             <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/editPhoneNumber"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/bg_edittext"
                 android:gravity="left|center_vertical"
@@ -238,7 +238,7 @@
             <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/editLocation"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/bg_edittext"
                 android:gravity="left|center_vertical"
@@ -260,7 +260,7 @@
             <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/editSubjects"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/bg_edittext"
                 android:gravity="left|center_vertical"

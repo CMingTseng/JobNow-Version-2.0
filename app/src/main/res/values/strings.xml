@@ -151,8 +151,8 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="search_hint">Enter job title</string>
-    <string name="jobList">Job in List</string>
-    <string name="mapList">Job in Map</string>
+    <string name="jobList">Full Time</string>
+    <string name="mapList">Part Time</string>
 
     <string name="jobSave">Saved</string>
     <string name="jobApplied">Applied</string>
@@ -180,7 +180,7 @@
     <string name="pleaseInputFullName">Please input fullname</string>
     <string name="pleaseInputFirstName">Please input firstname</string>
     <string name="pleaseInputLastName">Please input lastname</string>
-    <string name="pleaseInputPhoneNumber">Please input phone number</string>
+    <string name="pleaseInputPhoneNumber">Please make sure your phone number is 10 digits together with country code</string>
     <string name="error_connect">please check your network connection</string>
     <string name="AllSpecializations">All Specializations</string>
     <string name="selectIndustry">Please Select a Industry</string>
@@ -219,6 +219,7 @@
     <string name="notification">Notifications</string>
     <string name="filter">Filter</string>
     <string name="no_data">No data found!</string>
+    <string name="no_data2">No Results Found. Your search didn\'t match any results</string>
     <string name="ok">Ok</string>
     <string name="title_activity_menu">MenuActivity</string>
 

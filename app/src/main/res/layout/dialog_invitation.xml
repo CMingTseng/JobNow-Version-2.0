@@ -35,7 +35,7 @@
     <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
         android:id="@+id/edtCompanyNameInvite"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_edittext"
         android:gravity="left|center_vertical"
         android:hint="Company Name"
@@ -52,7 +52,7 @@
     <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
         android:id="@+id/edtFirstnameInvite"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_edittext"
         android:gravity="left|center_vertical"
         android:hint="First Name"
@@ -69,7 +69,7 @@
     <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
         android:id="@+id/edtLasttnameInvite"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_edittext"
         android:gravity="left|center_vertical"
         android:hint="Last Name"
@@ -86,7 +86,7 @@
     <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
         android:id="@+id/edtEmailInvite"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_edittext"
         android:gravity="left|center_vertical"
         android:hint="Email Address"

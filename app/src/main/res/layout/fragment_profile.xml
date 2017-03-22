@@ -5,19 +5,55 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        style="@style/AppTheme.AppBarOverlay"
+    <RelativeLayout
+        android:id="@+id/btn_add_manager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:layout_height="50dp">
 
-        <com.newtech.jobnow.widget.CenteredToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            android:title="@string/profile"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-    </android.support.design.widget.AppBarLayout>
+
+        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/txtCancel"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"
+            android:textSize="@dimen/sp16"
+            android:gravity="center_vertical" />
+
+        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            android:text="Profile"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/txtCancel"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp18"
+            android:id="@+id/textView18"
+            android:gravity="center_vertical" />
+
+        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            android:text="Save"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/textView18"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/txtSave"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            android:textSize="@dimen/sp16"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical" />
+    </RelativeLayout>
 
 
     <View
@@ -81,7 +117,7 @@
                 android:src="@mipmap/ic_edit" />
         </RelativeLayout>
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+        <com.newtech.jobnow.common.CustomEditextHelveticaneue
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,7 +125,11 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
             android:drawablePadding="5dp"
-            android:textColor="@color/colorText"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:enabled="false"
+            android:text="SG"
+            android:background="@null"
             android:textStyle="bold" />
 
         <TextView

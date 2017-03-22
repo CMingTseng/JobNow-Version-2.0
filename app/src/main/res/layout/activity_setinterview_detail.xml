@@ -121,7 +121,7 @@
             <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                 android:id="@+id/editDatetimeInterview"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/bg_edittext"
                 android:gravity="left|center_vertical"
@@ -130,11 +130,11 @@
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textColorHint="@color/colorTextHint"
-                android:textSize="16sp" />
+                />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textView11"
@@ -191,7 +191,7 @@
             <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                 android:id="@+id/editInterviewer"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/bg_edittext"
                 android:gravity="left|center_vertical"
@@ -200,7 +200,7 @@
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textColorHint="@color/colorTextHint"
-                android:textSize="16sp" />
+                />
 
             <com.newtech.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_phoneNumber"
@@ -213,7 +213,7 @@
             <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                 android:id="@+id/editPhoneNumber"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/bg_edittext"
                 android:gravity="left|center_vertical"
@@ -222,7 +222,7 @@
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textColorHint="@color/colorTextHint"
-                android:textSize="16sp" />
+                 />
 
             <com.newtech.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_locations"
@@ -235,7 +235,7 @@
             <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                 android:id="@+id/editLocation"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/bg_edittext"
                 android:gravity="left|center_vertical"
@@ -244,7 +244,7 @@
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textColorHint="@color/colorTextHint"
-                android:textSize="16sp" />
+               />
 
             <com.newtech.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_subject"
@@ -257,7 +257,7 @@
             <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
                 android:id="@+id/editSubjects"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/bg_edittext"
                 android:gravity="left|center_vertical"
@@ -266,7 +266,7 @@
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textColorHint="@color/colorTextHint"
-                android:textSize="16sp" />
+               />
 
             <com.newtech.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_message"

@@ -60,6 +60,7 @@
                             android:layout_gravity="center"
                             android:layout_margin="10dp"
                             android:gravity="center"
+                            android:visibility="gone"
                             android:text="Most Quality Jobs •  Most Quality Employers \n•  Most Trusted"
                             android:textColor="@android:color/white"
                             android:textSize="14sp" />
