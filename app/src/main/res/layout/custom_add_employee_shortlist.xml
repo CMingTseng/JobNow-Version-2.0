@@ -32,7 +32,7 @@
             android:layout_weight="0.3"
             android:paddingRight="10dp">
 
-            <com.newtech.jobnow.common.CustomTextViewLato
+            <com.jobnow.common.CustomTextViewLato
                 android:id="@+id/txtTitleNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                     android:layout_height="match_parent"
                     android:src="@mipmap/ic_location_interview" />
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                <com.jobnow.common.CustomTextViewHelveticaneue
                     android:id="@+id/txt_location"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

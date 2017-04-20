@@ -19,7 +19,7 @@ import com.jobnow.config.Config;
 import com.jobnow.controller.FeedbackController;
 import com.jobnow.models.FeedbackRequest;
 import com.jobnow.utils.Utils;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -21,7 +21,7 @@ import com.jobnow.models.SkillResponse;
 import com.jobnow.models.TokenRequest;
 import com.jobnow.widget.CRecyclerView;
 import com.jobnow.widget.CenteredToolbar;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import java.util.ArrayList;
 

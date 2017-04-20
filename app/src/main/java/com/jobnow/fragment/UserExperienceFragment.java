@@ -22,7 +22,7 @@ import com.jobnow.config.Config;
 import com.jobnow.eventbus.EditExperienceEvent;
 import com.jobnow.models.ExperienceResponse;
 import com.jobnow.widget.CRecyclerView;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

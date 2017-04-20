@@ -36,7 +36,7 @@
             app:border_color="@color/white"
             app:border_width="0dp" />
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+        <com.jobnow.common.CustomTextViewHelveticaneuelight
             android:text="Phamtungptit@gmail.com"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -47,7 +47,7 @@
             android:textSize="@dimen/sp14"/>
     </TableRow>
 
-    <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+    <com.jobnow.common.CustomTextViewHelveticaneuelight
         android:text="Credits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

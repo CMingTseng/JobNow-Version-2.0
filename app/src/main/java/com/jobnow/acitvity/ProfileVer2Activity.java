@@ -21,7 +21,7 @@ import com.jobnow.fragment.SkillsFragment;
 import com.jobnow.fragment.UserExperienceFragment;
 import com.jobnow.fragment.UserProfileFragment;
 import com.jobnow.fragment.UserSkillsFragment;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

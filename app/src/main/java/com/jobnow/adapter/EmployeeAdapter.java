@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.jobnow.common.CustomTextViewHelveticaneuelight;
 import com.jobnow.models.EmployeeObject;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.squareup.picasso.Picasso;
 

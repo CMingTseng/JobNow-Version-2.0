@@ -29,7 +29,7 @@
             android:background="@color/white"
             android:paddingRight="10dp">
 
-            <com.newtech.jobnow.common.CustomTextViewLato
+            <com.jobnow.common.CustomTextViewLato
                 android:id="@+id/txtTitleNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                     android:layout_height="match_parent"
                     android:src="@mipmap/ic_location_interview" />
 
-                <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                <com.jobnow.common.CustomTextViewLatoRegular
                     android:id="@+id/txt_location"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -62,7 +62,7 @@
 
             </TableRow>
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+            <com.jobnow.common.CustomTextViewHelveticaneuelight
                 android:text="@string/desc_shortlist_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                 android:maxLines="4"
                 />
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+            <com.jobnow.common.CustomTextViewHelveticaneuelight
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_set_interview"
@@ -91,7 +91,7 @@
                 android:textSize="@dimen/sp14"
                 />
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+            <com.jobnow.common.CustomTextViewHelveticaneuelight
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_delete_shortlist_detail"

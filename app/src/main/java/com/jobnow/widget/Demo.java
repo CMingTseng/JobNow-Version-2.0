@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 /**

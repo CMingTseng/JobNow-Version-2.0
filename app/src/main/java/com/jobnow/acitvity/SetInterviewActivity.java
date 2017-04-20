@@ -34,7 +34,7 @@ import com.jobnow.models.ProfileModel;
 import com.jobnow.models.SetInterviewRequest;
 import com.jobnow.models.ShortlistDetailObject;
 import com.jobnow.models.UserModel;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;

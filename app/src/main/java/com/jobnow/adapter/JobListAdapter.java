@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.jobnow.acitvity.DetailJobsActivity;
 import com.jobnow.eventbus.DeleteJobEvent;
 import com.jobnow.models.JobObject;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.squareup.picasso.Picasso;
 

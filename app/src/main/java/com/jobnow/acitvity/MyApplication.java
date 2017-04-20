@@ -16,8 +16,8 @@ import com.jobnow.config.Config;
 import com.jobnow.models.LoginResponse;
 import com.jobnow.models.TokenRequest;
 import com.jobnow.utils.TypefaceUtil;
-import com.newtech.jobnow.R;
-import com.newtech.jobnow.common.APICommon.JobNowService;
+import com.jobnow.R;
+import com.jobnow.common.APICommon.JobNowService;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 

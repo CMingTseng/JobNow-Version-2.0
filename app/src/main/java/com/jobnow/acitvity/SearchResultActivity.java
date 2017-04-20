@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 import com.jobnow.fragment.JobListFragment;
 import com.jobnow.models.JobListRequest;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 public class SearchResultActivity extends AppCompatActivity {
 

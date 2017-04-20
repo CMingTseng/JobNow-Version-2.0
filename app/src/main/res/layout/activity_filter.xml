@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
-    <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+    <com.jobnow.common.CustomTextViewHelveticaneue
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorPrimary"

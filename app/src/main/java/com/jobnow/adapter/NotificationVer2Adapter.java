@@ -33,7 +33,7 @@ import com.jobnow.models.JobListRequest;
 import com.jobnow.models.NotificationRequest;
 import com.jobnow.models.NotificationUpdateRequest;
 import com.jobnow.models.NotificationVersion2Object;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.squareup.picasso.Picasso;
 

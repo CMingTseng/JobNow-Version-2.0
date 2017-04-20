@@ -35,7 +35,7 @@
                         android:src="@mipmap/ic_ring"
                         android:id="@+id/img_notification" />
 
-                    <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                    <com.jobnow.common.CustomTextViewHelveticaneue
                         android:background="@drawable/bg_circle"
                         android:gravity="center"
                         android:textSize="7sp"
@@ -69,7 +69,7 @@
 
                 </RelativeLayout>
 
-                <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                <com.jobnow.common.CustomEditextHelveticaneuelight
                     android:id="@+id/edSearch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
                 </LinearLayout>
 
 
-                <com.newtech.jobnow.widget.CRecyclerView
+                <com.jobnow.widget.CRecyclerView
                     android:id="@+id/rvListJob"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

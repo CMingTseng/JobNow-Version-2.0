@@ -34,7 +34,7 @@ import com.jobnow.models.NotificationVersion2Response;
 import com.jobnow.models.ProfileModel;
 import com.jobnow.utils.Utils;
 import com.jobnow.widget.CRecyclerView;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import java.util.ArrayList;
 

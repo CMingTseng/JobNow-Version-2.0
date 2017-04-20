@@ -7,7 +7,7 @@
     android:layout_centerHorizontal="true"
     >
 
-    <com.newtech.jobnow.widget.CRecyclerView
+    <com.jobnow.widget.CRecyclerView
         android:id="@+id/rvListNotification"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

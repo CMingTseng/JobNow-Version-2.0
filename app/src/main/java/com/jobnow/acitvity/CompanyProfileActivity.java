@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.jobnow.common.APICommon;
 import com.jobnow.models.CompanyProfile;
 import com.jobnow.models.CompanyProfileResponse;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.squareup.picasso.Picasso;
 
 import retrofit.Call;

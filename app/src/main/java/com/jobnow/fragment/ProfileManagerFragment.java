@@ -38,7 +38,7 @@ import com.jobnow.models.ProfileModel;
 import com.jobnow.models.ProfileRequest;
 import com.jobnow.models.UploadFileResponse;
 import com.jobnow.models.UserModel;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.picasso.Picasso;

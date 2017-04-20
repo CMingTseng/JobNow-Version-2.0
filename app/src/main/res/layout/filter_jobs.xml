@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.newtech.jobnow.fragment.FilterFragment">
+    tools:context="com.jobnow.fragment.FilterFragment">
 
 
     <RelativeLayout
@@ -35,7 +35,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
-                <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                <com.jobnow.common.CustomEditextHelveticaneuelight
                     android:id="@+id/edtTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                     android:background="@drawable/bg_edittext"
                     android:entries="@array/item_Specializations" />
 
-                <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                <com.jobnow.common.CustomEditextHelveticaneuelight
                     android:id="@+id/edtMinimumSalary"
                     android:textColorHint="@color/colorTextHint"
                     android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
-                <com.newtech.jobnow.widget.DisableScrollRecyclerView
+                <com.jobnow.widget.DisableScrollRecyclerView
                     android:id="@+id/rvJobLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
-                <com.newtech.jobnow.widget.DisableScrollRecyclerView
+                <com.jobnow.widget.DisableScrollRecyclerView
                     android:id="@+id/rvSkill"
                     android:layout_width="match_parent"
                     android:visibility="gone"

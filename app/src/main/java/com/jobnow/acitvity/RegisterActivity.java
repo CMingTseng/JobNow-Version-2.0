@@ -20,7 +20,7 @@ import com.jobnow.models.RegisterRequest;
 import com.jobnow.models.RegisterResponse;
 import com.jobnow.service.DeleteTokenService;
 import com.jobnow.utils.Utils;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import retrofit.Call;
 import retrofit.Callback;

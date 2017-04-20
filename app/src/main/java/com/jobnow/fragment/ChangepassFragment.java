@@ -18,7 +18,7 @@ import com.jobnow.config.Config;
 import com.jobnow.controller.UserController;
 import com.jobnow.models.ChangePassRequest;
 import com.jobnow.utils.Utils;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 /**
  * A simple {@link Fragment} subclass.

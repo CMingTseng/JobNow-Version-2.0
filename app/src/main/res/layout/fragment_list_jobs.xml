@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true"
     android:background="@color/white"
-    tools:context="com.newtech.jobnow.fragment.MainFragment">
+    tools:context="com.jobnow.fragment.MainFragment">
 
 
     <TableRow
@@ -30,7 +30,7 @@
                 android:layout_marginTop="5dp"
                 android:src="@mipmap/ic_hiring_inactive" />
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/txt_tab_hiring_inprogress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:background="@color/colorBgApplyJob"
             android:orientation="vertical">
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/txt_done_hiring"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
         android:layout_below="@+id/tb_tabJobList"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.newtech.jobnow.widget.CRecyclerView
+        <com.jobnow.widget.CRecyclerView
             android:id="@+id/rvListJobManager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -119,7 +119,7 @@
             android:visibility="visible"
             android:layout_alignParentBottom="true">
 
-        </com.newtech.jobnow.widget.CRecyclerView>
+        </com.jobnow.widget.CRecyclerView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.jobnow.eventbus.EditExperienceEvent;
 import com.jobnow.models.ExperienceResponse;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.ocpsoft.pretty.time.PrettyTime;
 
 import org.greenrobot.eventbus.EventBus;

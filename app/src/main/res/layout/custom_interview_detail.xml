@@ -29,7 +29,7 @@
             android:background="@color/white"
             android:paddingRight="10dp">
 
-            <com.newtech.jobnow.common.CustomTextViewLato
+            <com.jobnow.common.CustomTextViewLato
                 android:id="@+id/txtTitleNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                     android:src="@mipmap/ic_location_interview"
                     android:layout_width="wrap_content" />
 
-                <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                <com.jobnow.common.CustomTextViewLatoRegular
                     android:id="@+id/txt_location"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -64,7 +64,7 @@
 
             </TableRow>
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+            <com.jobnow.common.CustomTextViewHelveticaneuelight
                 android:text="Datetime: 12-05-2017"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
                 android:textColor="@color/colorPrimary"
                 />
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+            <com.jobnow.common.CustomTextViewHelveticaneuelight
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_start_time"
@@ -93,7 +93,7 @@
                 android:textColor="@color/black"
                 />
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+            <com.jobnow.common.CustomTextViewHelveticaneuelight
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_end_time"

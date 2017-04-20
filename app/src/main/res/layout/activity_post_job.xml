@@ -36,7 +36,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp">
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="Done"
@@ -58,7 +58,7 @@
             android:gravity="center"
             android:padding="3dp">
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/edTitleCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:orientation="horizontal">
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            <com.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_interviewer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
 
             </LinearLayout>
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/editJobTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -131,7 +131,7 @@
                 android:maxLines="1"
                 />
 
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            <com.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_JobLevel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/spJobLevel"
                 android:layout_margin="10dp" />
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            <com.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_EmploymentType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/spEmploymentType"
                 android:layout_margin="10dp" />
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            <com.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_JobCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/spJobCategory"
                 android:layout_margin="10dp" />
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            <com.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_Experience"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -186,7 +186,7 @@
                 android:id="@+id/spExperience"
                 android:layout_margin="10dp" />
 
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            <com.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_JobLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -210,7 +210,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp" />
 
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            <com.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_Salary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -223,7 +223,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/edtSalaryFrom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -241,7 +241,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp" />
 
-                <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+                <com.jobnow.common.CustomEditextHelveticaneuelight
                     android:id="@+id/edtSalaryTo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -279,7 +279,7 @@
                     android:layout_weight="1"
                     >
 
-                    <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                    <com.jobnow.common.CustomTextViewLatoRegular
                         android:id="@+id/textView10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -314,7 +314,7 @@
                     android:orientation="vertical"
                     android:layout_weight="1">
 
-                    <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                    <com.jobnow.common.CustomTextViewLatoRegular
                         android:id="@+id/textView11"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -346,7 +346,7 @@
             </LinearLayout>
 
 
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            <com.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -355,7 +355,7 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/editResponsibilities"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -365,7 +365,7 @@
                 android:background="@drawable/bg_edittext"
                 android:textSize="14sp" />
 
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            <com.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txtRequirements"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -373,7 +373,7 @@
                 android:text="Job Requirements"
                 android:textColor="@color/black" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/editRequiment"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -383,7 +383,7 @@
                 android:background="@drawable/bg_edittext"
                 android:textSize="14sp" />
 
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            <com.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_JobWorking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -391,7 +391,7 @@
                 android:text="Working Hours/Shift"
                 android:textColor="@color/black" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneue
+            <com.jobnow.common.CustomEditextHelveticaneue
                 android:background="@drawable/bg_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -403,14 +403,14 @@
                 android:inputType="number" />
 
 
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            <com.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txt_subject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="All skill"
                 android:textColor="@color/black" />
-            <com.newtech.jobnow.common.MultiSpinner
+            <com.jobnow.common.MultiSpinner
                 android:background="@drawable/bg_spiner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -418,7 +418,7 @@
                 android:layout_margin="10dp"
                 />
 
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            <com.jobnow.common.CustomTextViewLatoRegular
                 android:id="@+id/txtStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -426,7 +426,7 @@
                 android:text="Status"
                 android:textColor="@color/black"
                 />
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/editStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

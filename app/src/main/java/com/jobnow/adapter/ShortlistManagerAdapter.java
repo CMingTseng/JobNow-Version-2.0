@@ -22,7 +22,7 @@ import com.jobnow.common.DrawableClickListener;
 import com.jobnow.controller.CategoryController;
 import com.jobnow.models.CompanyIDRequest;
 import com.jobnow.models.ShortlistDetailObject;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.squareup.picasso.Picasso;
 

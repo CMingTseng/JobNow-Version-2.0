@@ -24,7 +24,7 @@ import com.jobnow.models.ChangePassRequest;
 import com.jobnow.models.ProfileModel;
 import com.jobnow.models.ProfileRequest;
 import com.jobnow.models.UserModel;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 /**
  * Created by Administrator on 12/02/2017.

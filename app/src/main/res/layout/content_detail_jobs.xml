@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/lnBottom"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -116,21 +117,21 @@
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                <com.jobnow.common.CustomTextViewHelveticaneue
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Job Description"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp18" />
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                <com.jobnow.common.CustomTextViewHelveticaneuelight
                     android:id="@+id/tvDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="left" />
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                <com.jobnow.common.CustomTextViewHelveticaneue
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -138,14 +139,14 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp18" />
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                <com.jobnow.common.CustomTextViewHelveticaneuelight
                     android:id="@+id/tvRequirement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="@dimen/sp14" />
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                <com.jobnow.common.CustomTextViewHelveticaneue
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -154,7 +155,7 @@
                     android:visibility="gone"
                     android:textSize="@dimen/sp18" />
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                <com.jobnow.common.CustomTextViewHelveticaneuelight
                     android:id="@+id/tvLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -164,7 +165,7 @@
                     android:visibility="gone"
                     />
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                <com.jobnow.common.CustomTextViewHelveticaneue
                     android:id="@+id/tvViewLargerMap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

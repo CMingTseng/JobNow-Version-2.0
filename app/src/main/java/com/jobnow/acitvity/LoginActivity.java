@@ -17,7 +17,7 @@ import com.jobnow.config.Config;
 import com.jobnow.models.LoginRequest;
 import com.jobnow.models.LoginResponse;
 import com.jobnow.utils.Utils;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import retrofit.Call;
 import retrofit.Callback;

@@ -21,7 +21,7 @@ import com.jobnow.controller.FeedbackController;
 import com.jobnow.models.FeedbackRequest;
 import com.jobnow.models.UserModel;
 import com.jobnow.utils.Utils;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 /**
  * Created by Administrator on 12/02/2017.

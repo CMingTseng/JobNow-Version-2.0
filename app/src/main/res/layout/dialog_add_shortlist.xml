@@ -19,7 +19,7 @@
         android:background="@color/colorPrimaryDark"
         >
 
-        <com.newtech.jobnow.common.CustomTextViewLatoRegular
+        <com.jobnow.common.CustomTextViewLatoRegular
             android:text="Add Category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             android:textSize="@dimen/sp18"/>
     </TableRow>
 
-    <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+    <com.jobnow.common.CustomEditextHelveticaneuelight
         android:id="@+id/edtCategoryName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

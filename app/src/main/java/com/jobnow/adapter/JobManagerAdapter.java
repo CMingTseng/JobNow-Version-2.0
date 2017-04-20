@@ -21,7 +21,7 @@ import com.jobnow.controller.JobController;
 import com.jobnow.models.JobObject;
 import com.jobnow.models.JobRequest;
 import com.jobnow.models.UserModel;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.squareup.picasso.Picasso;
 

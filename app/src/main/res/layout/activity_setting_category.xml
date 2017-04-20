@@ -21,7 +21,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/bgActionBar"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Setting"
@@ -43,7 +43,7 @@
         android:weightSum="4"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+        <com.jobnow.common.CustomTextViewHelveticaneue
             android:text="Group setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
             android:textSize="@dimen/sp16"
             />
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+        <com.jobnow.common.CustomTextViewHelveticaneuelight
             android:text="Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             android:textSize="@dimen/sp16"
             />
 
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -102,7 +102,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+        <com.jobnow.common.CustomTextViewHelveticaneue
             android:text="Other"
             android:textSize="@dimen/sp16"
             android:layout_width="match_parent"

@@ -30,7 +30,7 @@ import com.jobnow.fragment.JobMainFragment;
 import com.jobnow.fragment.MainFragment;
 import com.jobnow.models.NotificationRequest;
 import com.jobnow.models.UserModel;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 
 public class FireBaseService extends FirebaseMessagingService {

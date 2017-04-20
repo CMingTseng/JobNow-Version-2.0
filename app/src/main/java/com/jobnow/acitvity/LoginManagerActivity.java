@@ -24,7 +24,7 @@ import com.jobnow.models.LoginRequest;
 import com.jobnow.models.LoginResponse;
 import com.jobnow.models.UserModel;
 import com.jobnow.service.DeleteTokenService;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 /**
  * Created by Administrator on 07/02/2017.

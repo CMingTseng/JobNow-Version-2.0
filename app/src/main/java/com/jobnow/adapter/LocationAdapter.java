@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.jobnow.models.LocationObject;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import java.util.List;
 

@@ -24,7 +24,7 @@ import com.jobnow.models.BaseResponse;
 import com.jobnow.models.SkillRequest;
 import com.jobnow.models.SkillResponse;
 import com.jobnow.widget.CRecyclerView;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import java.util.ArrayList;
 

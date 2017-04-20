@@ -26,7 +26,7 @@ import com.jobnow.models.ExperienceResponse;
 import com.jobnow.models.LoginResponse;
 import com.jobnow.models.TokenRequest;
 import com.jobnow.widget.CRecyclerView;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

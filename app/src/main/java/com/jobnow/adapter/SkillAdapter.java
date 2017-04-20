@@ -10,7 +10,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.jobnow.models.SkillResponse;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import java.util.List;
 

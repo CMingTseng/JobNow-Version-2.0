@@ -40,7 +40,7 @@ import com.jobnow.models.UserModel;
 import com.jobnow.utils.Utils;
 import com.jobnow.widget.CRecyclerView;
 import com.jobnow.widget.RecyclerItemClickListener;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import java.util.ArrayList;
 import java.util.List;

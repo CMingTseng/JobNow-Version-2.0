@@ -20,7 +20,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-        <com.newtech.jobnow.common.CustomTextViewLato
+        <com.jobnow.common.CustomTextViewLato
             android:text="ICT Executive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:maxLines="1"
             />
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+        <com.jobnow.common.CustomTextViewHelveticaneue
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView19"
@@ -64,7 +64,7 @@
             android:layout_height="24dp"
             android:layout_width="10dp" />
 
-        <com.newtech.jobnow.common.CustomTextViewLatoRegular
+        <com.jobnow.common.CustomTextViewLatoRegular
             android:id="@+id/txt_location_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -89,7 +89,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp" />
 
-        <com.newtech.jobnow.common.CustomTextViewLatoRegular
+        <com.jobnow.common.CustomTextViewLatoRegular
             android:id="@+id/txt_price_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -127,7 +127,7 @@
             android:background="@color/white"
             android:paddingRight="10dp">
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/txtTitleNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                <com.jobnow.common.CustomTextViewLatoRegular
                     android:id="@+id/txt_time_post"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -152,7 +152,7 @@
                     android:layout_toLeftOf="@+id/btn_delete"
                     android:layout_toStartOf="@+id/btn_delete" />
 
-                <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                <com.jobnow.common.CustomTextViewLatoRegular
                     android:id="@+id/btn_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

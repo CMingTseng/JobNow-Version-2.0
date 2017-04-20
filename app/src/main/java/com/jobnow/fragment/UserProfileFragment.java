@@ -22,7 +22,7 @@ import com.jobnow.controller.InterviewController;
 import com.jobnow.models.DeleteInterviewRequest;
 import com.jobnow.models.UserDetailResponse;
 import com.jobnow.models.UserModel;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.squareup.picasso.Picasso;
 
 import retrofit.Call;

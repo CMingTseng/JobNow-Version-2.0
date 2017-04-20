@@ -20,7 +20,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Log In"
@@ -43,7 +43,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_margin="10dp"
         >
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:id="@+id/edtEmail_ver2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             android:textSize="16sp"
             android:layout_marginTop="20dp" />
 
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:id="@+id/edtPassword_v2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="10dp" />
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+        <com.jobnow.common.CustomTextViewHelveticaneuelight
             android:text="Fogot password?"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

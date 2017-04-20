@@ -22,7 +22,7 @@
                 android:background="@color/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:id="@+id/edtFullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
             android:textSize="16sp" />
 
 
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:id="@+id/edtPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             android:textColorHint="@color/colorTextHint"
             android:textSize="16sp" />
 
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
             android:textColorHint="@color/colorTextHint"
             android:textSize="16sp" />
 
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
             android:text="@string/sign_up"
             android:textColor="@android:color/white" />
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+        <com.jobnow.common.CustomTextViewHelveticaneue
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"

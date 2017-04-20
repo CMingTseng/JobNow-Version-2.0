@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 import com.jobnow.config.Config;
 import com.jobnow.controller.UserController;
 import com.jobnow.models.SendPricingRequest;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 /**
  * Created by Administrator on 12/02/2017.

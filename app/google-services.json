@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:372509228614:android:45d8d0663f6e83b1",
+        "mobilesdk_app_id": "1:372509228614:android:93746cfd1624dabb",
         "android_client_info": {
-          "package_name": "com.newtech.jobnow"
+          "package_name": "com.jobnow"
         }
       },
       "oauth_client": [

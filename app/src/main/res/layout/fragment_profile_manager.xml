@@ -48,7 +48,7 @@
 
                 android:src="@mipmap/ic_add_photo" />
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+            <com.jobnow.common.CustomTextViewHelveticaneuelight
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
             android:gravity="center"
             android:padding="10dp">
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/txt_profile__name_company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:gravity="center" />
         </TableRow>
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+        <com.jobnow.common.CustomTextViewHelveticaneue
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
             android:textSize="@dimen/sp18"
             android:textStyle="bold" />
 
-        <com.newtech.jobnow.common.CustomEditextHelveticaneue
+        <com.jobnow.common.CustomEditextHelveticaneue
             android:id="@+id/editDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

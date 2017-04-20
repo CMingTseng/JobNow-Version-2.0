@@ -63,7 +63,7 @@ import com.jobnow.models.PostJobResponse;
 import com.jobnow.models.RepostJobRequest;
 import com.jobnow.models.SkillObject;
 import com.jobnow.models.UserModel;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

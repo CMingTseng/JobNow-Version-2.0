@@ -21,7 +21,7 @@ import com.jobnow.controller.UserController;
 import com.jobnow.models.CountJobResponse;
 import com.jobnow.models.TokenRequest;
 import com.jobnow.models.UserModel;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -42,7 +42,7 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         /*try {
             PackageInfo info = getPackageManager().getPackageInfo(
-                    BuildConfig.APPLICATION_ID,
+                    BuildConfigBuildConfig.APPLICATION_ID,
                     PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");

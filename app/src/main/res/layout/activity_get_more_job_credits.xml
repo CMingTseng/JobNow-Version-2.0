@@ -23,7 +23,7 @@
                 android:background="@color/bgActionBar"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 android:id="@+id/imageView3"
                 android:layout_weight="1" />
 
-            <com.newtech.jobnow.common.CustomTextViewLatoRegular
+            <com.jobnow.common.CustomTextViewLatoRegular
                 android:text="@string/string_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -94,7 +94,7 @@
             android:id="@+id/textView14"
             android:gravity="center" />
 
-        <com.newtech.jobnow.common.CustomTextViewLato
+        <com.jobnow.common.CustomTextViewLato
             android:text="Buy Credits"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
             android:textColor="@color/black"
             android:layout_marginTop="10dp" />
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+        <com.jobnow.common.CustomTextViewHelveticaneuelight
             android:text="@string/string_desc2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
             android:gravity="center"
             android:padding="10dp" />
 
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:id="@+id/edtEmailInviteSend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

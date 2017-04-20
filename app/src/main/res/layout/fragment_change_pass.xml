@@ -9,7 +9,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/edtOldPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/edtNewPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/edtReEnterPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

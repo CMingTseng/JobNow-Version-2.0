@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jobnow.models.NotificationObject;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import java.util.List;
 

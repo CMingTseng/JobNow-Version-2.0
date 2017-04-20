@@ -41,7 +41,7 @@ import com.jobnow.models.JobListReponse;
 import com.jobnow.models.JobListRequest;
 import com.jobnow.models.JobObject;
 import com.jobnow.models.MapJobListReponse;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

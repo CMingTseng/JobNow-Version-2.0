@@ -42,7 +42,7 @@ import com.jobnow.common.APICommon;
 import com.jobnow.config.Config;
 import com.jobnow.models.BaseResponse;
 import com.jobnow.models.UploadFileResponse;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 

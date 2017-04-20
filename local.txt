@@ -1,2 +1,12 @@
 alias = jobnow
+ 
 password = jobnowaA
+
+
+keyver2:
+alias:jobnow
+pass alias+keystore=jobnowAa@
+
+Account
+ntbs7238
+ntbs.sg@gmail.com

@@ -15,7 +15,7 @@
         android:layout_height="50dp">
 
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+        <com.jobnow.common.CustomTextViewHelveticaneue
             android:text="Cancel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -29,7 +29,7 @@
             android:textSize="@dimen/sp16"
             android:gravity="center_vertical" />
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+        <com.jobnow.common.CustomTextViewHelveticaneue
             android:text="Profile"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -40,7 +40,7 @@
             android:id="@+id/textView18"
             android:gravity="center_vertical" />
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+        <com.jobnow.common.CustomTextViewHelveticaneue
             android:text="Save"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -117,7 +117,7 @@
                 android:src="@mipmap/ic_edit" />
         </RelativeLayout>
 
-        <com.newtech.jobnow.common.CustomEditextHelveticaneue
+        <com.jobnow.common.CustomEditextHelveticaneue
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

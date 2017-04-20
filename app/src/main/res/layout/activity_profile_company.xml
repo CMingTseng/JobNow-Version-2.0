@@ -35,7 +35,7 @@
             android:layout_centerVertical="true"
             android:visibility="invisible">
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/btnSetDone"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
             android:gravity="center"
             android:padding="3dp">
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/edTitleCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
 
             </LinearLayout>
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -152,14 +152,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size10">
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                <com.jobnow.common.CustomTextViewHelveticaneue
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Industry: "
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp18" />
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                <com.jobnow.common.CustomTextViewHelveticaneuelight
                     android:id="@+id/txt_industry"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -172,14 +172,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size10">
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                <com.jobnow.common.CustomTextViewHelveticaneue
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Company Size: "
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp18" />
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                <com.jobnow.common.CustomTextViewHelveticaneuelight
                     android:id="@+id/txt_company_size"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -193,14 +193,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size10">
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                <com.jobnow.common.CustomTextViewHelveticaneue
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Email: "
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp18" />
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                <com.jobnow.common.CustomTextViewHelveticaneuelight
                     android:id="@+id/txt_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -214,14 +214,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size10">
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                <com.jobnow.common.CustomTextViewHelveticaneue
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Phone Number: "
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp18" />
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                <com.jobnow.common.CustomTextViewHelveticaneuelight
                     android:id="@+id/txt_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -229,7 +229,7 @@
                     android:textSize="@dimen/sp16" />
             </TableRow>
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/txt_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -243,7 +243,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp">
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+                <com.jobnow.common.CustomTextViewHelveticaneuelight
                     android:id="@+id/txt_dis"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

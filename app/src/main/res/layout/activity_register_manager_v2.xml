@@ -24,7 +24,7 @@
                 android:background="@color/bgActionBar"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             android:weightSum="4"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/edtCompanyName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                 android:textColorHint="@color/colorTextHint"
                 android:textSize="16sp" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/edtFullNameManager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                 android:id="@+id/spCompanySize"
                 android:layout_marginBottom="15dp" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/edtEmailManager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                 android:textColorHint="@color/colorTextHint"
                 android:textSize="16sp" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/edtPhoneNumberManager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                 android:textColorHint="@color/colorTextHint"
                 android:textSize="16sp" />
 
-            <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+            <com.jobnow.common.CustomEditextHelveticaneuelight
                 android:id="@+id/edtPasswordManager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/sp16" />
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -162,7 +162,7 @@
                 android:textColor="#666666"
                 android:textSize="@dimen/sp12" />
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/txtCondition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

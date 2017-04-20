@@ -30,7 +30,7 @@ import com.jobnow.models.RegisterFBReponse;
 import com.jobnow.models.RegisterFBRequest;
 import com.jobnow.service.DeleteTokenService;
 import com.jobnow.utils.Utils;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import org.json.JSONObject;
 
@@ -223,6 +223,7 @@ public class LoginJobSeekerActivity extends AppCompatActivity {
                                                 editor.putString(Config.KEY_TOKEN, response.body().result.apiToken).commit();
                                                 editor.putInt(Config.KEY_ID, response.body().result.id).commit();
                                                 editor.putString(Config.KEY_EMAIL, response.body().result.email).commit();
+
                                                 Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                                                 startActivity(intent);
                                                 finish();

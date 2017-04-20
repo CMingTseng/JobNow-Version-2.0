@@ -39,7 +39,7 @@ import com.jobnow.models.JobObject;
 import com.jobnow.models.LoginResponse;
 import com.jobnow.models.SaveJobRequest;
 import com.jobnow.models.TokenRequest;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.squareup.picasso.Picasso;
 
@@ -659,6 +659,7 @@ public class DetailJobsActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.tvViewLargerMap:
                 goToMap();
+                break;
             case R.id.tb_company_detail:
                 Intent intent= new Intent(DetailJobsActivity.this, CompanyProfileActivity.class);
                 intent.putExtra("companyID",jobObject.CompanyID);

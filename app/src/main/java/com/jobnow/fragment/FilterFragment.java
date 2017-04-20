@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 /**
  * A simple {@link Fragment} subclass.

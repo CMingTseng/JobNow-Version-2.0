@@ -42,7 +42,7 @@
             android:layout_weight="0.3"
             android:paddingRight="10dp">
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+            <com.jobnow.common.CustomTextViewHelveticaneuelight
                 android:text="15/02/1993"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 android:textColor="@color/colorTimer"
                 android:layout_marginTop="5dp" />
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/txtTitleNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                 android:layout_below="@+id/txtTitleNotification"
                 android:id="@+id/tb_shortlist_detail">
 
-                <com.newtech.jobnow.common.CustomTextViewLatoRegular
+                <com.jobnow.common.CustomTextViewLatoRegular
                     android:id="@+id/txtFullName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -82,7 +82,7 @@
 
             </TableRow>
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+            <com.jobnow.common.CustomTextViewHelveticaneuelight
                 android:id="@+id/txtEmail"
                 android:layout_below="@+id/tb_shortlist_detail"
                 android:textSize="@dimen/sp14"

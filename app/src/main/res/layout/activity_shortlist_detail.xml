@@ -58,7 +58,7 @@
             android:gravity="center"
             android:padding="3dp">
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/edTitleCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/ic_add_employee" />
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                <com.jobnow.common.CustomTextViewHelveticaneue
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.newtech.jobnow.widget.CRecyclerView
+        <com.jobnow.widget.CRecyclerView
             android:id="@+id/rvListShortListDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

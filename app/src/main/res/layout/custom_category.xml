@@ -19,7 +19,7 @@
         android:paddingTop="5dp"
         android:layout_height="45dp">
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+        <com.jobnow.common.CustomTextViewHelveticaneue
             android:id="@+id/txt_title_category"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -45,7 +45,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true" />
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+        <com.jobnow.common.CustomTextViewHelveticaneuelight
             android:id="@+id/txt_count_category"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

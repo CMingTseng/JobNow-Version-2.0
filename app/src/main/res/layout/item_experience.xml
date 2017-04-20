@@ -43,14 +43,14 @@
 
     </RelativeLayout>
 
-    <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+    <com.jobnow.common.CustomTextViewHelveticaneue
         android:text="Experience: "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/colorText"
         android:id="@+id/txtExperience" />
 
-    <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+    <com.jobnow.common.CustomTextViewHelveticaneue
         android:text="Salary: "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

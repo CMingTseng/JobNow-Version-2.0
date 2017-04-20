@@ -24,7 +24,7 @@ import com.jobnow.config.Config;
 import com.jobnow.controller.NotificationController;
 import com.jobnow.models.NotificationRequest;
 import com.jobnow.utils.Utils;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import java.util.ArrayList;
 import java.util.List;

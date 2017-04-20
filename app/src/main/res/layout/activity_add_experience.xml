@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
 
-    <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+    <com.jobnow.common.CustomTextViewHelveticaneue
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorPrimary"
@@ -24,7 +24,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:id="@+id/edCompanyName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             android:textColorHint="@color/colorTextHint"
             android:textSize="16sp" />
 
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:id="@+id/edJobOrPosition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical" />
         </LinearLayout>
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:id="@+id/editSalary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
             android:textColorHint="@color/colorTextHint"
             android:textSize="16sp"
             android:layout_marginTop="10dp" />
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:id="@+id/edDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -31,7 +31,7 @@ import com.jobnow.models.LoginResponse;
 import com.jobnow.models.RegisterManagerRequest;
 import com.jobnow.service.DeleteTokenService;
 import com.jobnow.utils.Utils;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import java.util.ArrayList;
 import java.util.List;

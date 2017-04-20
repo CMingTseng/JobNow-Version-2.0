@@ -20,7 +20,7 @@ import com.jobnow.models.BaseResponse;
 import com.jobnow.models.ExperienceRequest;
 import com.jobnow.models.LoginResponse;
 import com.jobnow.models.TokenRequest;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import java.util.Calendar;
 

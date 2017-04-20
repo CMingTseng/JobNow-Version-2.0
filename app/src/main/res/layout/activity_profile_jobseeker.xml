@@ -35,7 +35,7 @@
             android:visibility="invisible"
             >
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -58,7 +58,7 @@
             android:gravity="center"
             android:padding="3dp">
 
-            <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+            <com.jobnow.common.CustomTextViewHelveticaneue
                 android:id="@+id/edTitleCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
 
                 </RelativeLayout>
 
-                <com.newtech.jobnow.common.CustomTextViewHelveticaneue
+                <com.jobnow.common.CustomTextViewHelveticaneue
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

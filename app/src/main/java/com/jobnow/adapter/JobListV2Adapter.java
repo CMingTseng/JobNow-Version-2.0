@@ -21,7 +21,7 @@ import com.jobnow.config.Config;
 import com.jobnow.models.BaseResponse;
 import com.jobnow.models.DeleteJobRequest;
 import com.jobnow.models.JobV2Object;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 import com.ocpsoft.pretty.time.PrettyTime;
 import com.squareup.picasso.Picasso;
 

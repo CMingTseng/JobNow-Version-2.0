@@ -14,7 +14,7 @@
         >
 
 
-        <com.newtech.jobnow.common.CustomTextViewLato
+        <com.jobnow.common.CustomTextViewLato
             android:text="Please give us your feedback!"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,14 +27,14 @@
             android:textSize="@dimen/sp16"
             />
 
-        <com.newtech.jobnow.common.CustomTextViewHelveticaneuelight
+        <com.jobnow.common.CustomTextViewHelveticaneuelight
             android:text="@string/desc_shortlist_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView16"
             android:padding="10dp" />
 
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:id="@+id/edtSubTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             />
-        <com.newtech.jobnow.common.CustomEditextHelveticaneuelight
+        <com.jobnow.common.CustomEditextHelveticaneuelight
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:id="@+id/editDescription"

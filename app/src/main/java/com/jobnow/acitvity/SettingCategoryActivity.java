@@ -26,7 +26,7 @@ import com.jobnow.controller.CategoryController;
 import com.jobnow.models.CategoryRequest;
 import com.jobnow.models.UserModel;
 import com.jobnow.utils.Utils;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 /**
  * Created by Administrator on 12/02/2017.

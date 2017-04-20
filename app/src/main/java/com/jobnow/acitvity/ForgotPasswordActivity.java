@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.jobnow.controller.UserController;
 import com.jobnow.models.ForgotRequest;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 /**
  * Created by Administrator on 07/02/2017.

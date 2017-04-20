@@ -33,7 +33,7 @@ import com.jobnow.models.JobListRequest;
 import com.jobnow.models.JobObject;
 import com.jobnow.utils.Utils;
 import com.jobnow.widget.CRecyclerView;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import java.util.ArrayList;
 import java.util.List;

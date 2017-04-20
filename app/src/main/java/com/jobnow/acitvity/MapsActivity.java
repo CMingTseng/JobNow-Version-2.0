@@ -23,7 +23,7 @@ import com.jobnow.common.APICommon;
 import com.jobnow.config.Config;
 import com.jobnow.models.DetailJobResponse;
 import com.jobnow.models.JobObject;
-import com.newtech.jobnow.R;
+import com.jobnow.R;
 
 import retrofit.Call;
 import retrofit.Callback;
